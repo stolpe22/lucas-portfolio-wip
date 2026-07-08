@@ -21,7 +21,7 @@ export function Nav({ navItems, brandLabel, onToggleTheme, language, onChangeLan
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b border-transparent py-4 transition-all ${isScrolled ? "glass-nav border-border-subtle py-3" : ""}`}
+      className={`fixed inset-x-0 top-0 z-[110] border-b border-transparent py-4 transition-all ${isScrolled ? "glass-nav border-border-subtle py-3" : ""}`}
       id="nav"
     >
       <div className="container-shell flex items-center justify-between gap-4">
@@ -79,8 +79,8 @@ export function Nav({ navItems, brandLabel, onToggleTheme, language, onChangeLan
         </div>
       </div>
       <div
-        className={`container-shell mt-2 flex flex-col gap-2 overflow-hidden rounded-2xl border border-border-subtle bg-surface p-3 transition-all md:hidden ${
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 border-transparent p-0 opacity-0"
+        className={`container-shell absolute inset-x-0 top-full mt-2 flex flex-col gap-2 overflow-hidden rounded-2xl border border-border-subtle bg-surface p-3 shadow-[0_18px_40px_-24px_rgba(0,0,0,.6)] transition-all md:hidden ${
+          menuOpen ? "max-h-80 opacity-100" : "pointer-events-none max-h-0 border-transparent p-0 opacity-0"
         }`}
         id="mobilePanel"
       >
