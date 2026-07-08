@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "lang": "en-US",
+    "title": "Lucas Stolpe - Data Engineer & BI Analyst",
+    "description": "Portfolio of Lucas Henrique Stolpe: ETL pipeline architecture, dbt, Airflow, Power BI, and data automation.",
+    "favicon": "/favicon.svg"
+  },
+  "theme": {
+    "default": "dark"
+  },
+  "nav": [
+    { "label": "About", "href": "#sobre" },
+    { "label": "Experience", "href": "#experiencia" },
+    { "label": "Skills", "href": "#skills" },
+    { "label": "Projects", "href": "#projetos" },
+    { "label": "Repositories", "href": "#repos" },
+    { "label": "Contact", "href": "#contato" }
+  ],
+  "brand": {
+    "label": "lucas.stolpe",
+    "wordmarkAlt": "Lucas Stolpe"
+  },
+  "hero": {
+    "eyebrow": "$ whoami",
+    "role": "Data Engineer & BI Analyst",
+    "description": "I turn raw data into reliable pipelines and better decisions - from Python extraction and web scraping to dbt modeling, Airflow orchestration, and dashboards people actually use.",
+    "ctas": [
+      { "label": "View repositories", "href": "#repos", "style": "primary" },
+      { "label": "Contact me", "href": "#contato", "style": "ghost" }
+    ]
+  },
+  "about": {
+    "eyebrow": "About",
+    "heading": "Data with context, teams with direction",
+    "paragraphs": [
+      "I am a Data Engineer and BI Analyst, with previous experience in <strong>team leadership and technology project coordination</strong>. I enjoy solving problems end-to-end - from extraction and modeling to dashboards people actually open every morning.",
+      "Today I work with ETL pipeline architecture, <strong>Airflow</strong> orchestration, <strong>dbt</strong> modeling, and automation with <strong>n8n</strong> and <strong>Python</strong> - always focused on trustworthy, documented, and auditable data."
+    ],
+    "stats": [
+      { "value": "8+", "label": "years working in IT" },
+      { "value": "2y 5m", "label": "leading technical teams" },
+      { "value": "10+", "label": "certifications and courses" }
+    ]
+  },
+  "skills": {
+    "sectionHead": {
+      "eyebrow": "Skills",
+      "heading": "Skills",
+      "subheading": "From ingestion to visualization - technologies I use to turn data into decisions."
+    },
+    "groups": [
+      {
+        "category": "Data & BI",
+        "items": ["Power BI", "Python", "Pandas", "SQL", "ETL", "dbt", "Airflow", "Data Storytelling"]
+      },
+      {
+        "category": "Management & Leadership",
+        "items": ["Team Leadership", "IT Project Management", "Strategic Planning", "Cross-functional Communication", "Scrum / Kanban"]
+      },
+      {
+        "category": "Databases",
+        "items": ["PostgreSQL", "PostGIS", "SQL Server", "MySQL"]
+      },
+      {
+        "category": "Cloud & Integration",
+        "items": ["AWS Lambda", "AWS S3", "GCP Cloud Run", "GCP Storage", "Google Drive API"]
+      },
+      {
+        "category": "Automation & Scraping",
+        "items": ["Python", "n8n", "Playwright"]
+      },
+      {
+        "category": "Infrastructure & DevOps",
+        "items": ["Docker", "PM2", "Git", "GitHub", "Bitbucket"]
+      },
+      {
+        "category": "Front-end / Back-end",
+        "items": ["Vue", "React", "TypeScript", "C# .NET"]
+      }
+    ]
+  },
+  "experience": {
+    "sectionHead": {
+      "eyebrow": "Career",
+      "heading": "Professional experience",
+      "subheading": "A timeline - from technical support to project coordination and data engineering."
+    },
+    "previewCount": 4,
+    "items": [
+      {
+        "role": "Data Engineer",
+        "company": "Grupo OTG",
+        "period": "Oct/2025 - Present",
+        "location": "Cuiaba, MT - Remote",
+        "current": true,
+        "bullets": [
+          "Data infrastructure: dbt and Airflow implementation, pipeline development, and API integrations",
+          "Process automation using specialized solutions",
+          "Collaboration with multidisciplinary teams in data, technology, and operations",
+          "Support for dashboard development, user management, and automations"
+        ]
+      },
+      {
+        "role": "BI Analyst - Mid-level",
+        "company": "Linea Alimentos",
+        "period": "May/2025 - Oct/2025",
+        "location": "Anapolis, GO",
+        "current": false,
+        "bullets": [
+          "Requirements gathering and KPI definition with business teams",
+          "Development of interactive dashboards in Power BI",
+          "Data analysis to support strategic decision making",
+          "Ensuring consistency and quality of reported information"
+        ]
+      },
+      {
+        "role": "BI Analyst - Mid-level (Outsourced)",
+        "company": "Grupo OTG",
+        "period": "Mar/2025 - May/2025",
+        "location": "Cuiaba, MT",
+        "current": false,
+        "bullets": [
+          "Planning and building dashboards for decision support",
+          "Cloud function implementations with AWS Lambda and Google Cloud Run Jobs",
+          "Support in creating and maintaining dbt models",
+          "Automated data collection through web scraping"
+        ]
+      },
+      {
+        "role": "Development Project Coordinator (IT)",
+        "company": "WCOGEO Administradora e Servicos",
+        "period": "Oct/2022 - Feb/2025",
+        "location": "Cuiaba, MT",
+        "current": false,
+        "movement": {
+          "promotion": true,
+          "roleChange": true
+        },
+        "bullets": [
+          "Team coordination in software and automation projects",
+          "System development with React, TypeScript, C#, and Python",
+          "Strategic dashboard and report development in Power BI",
+          "Spatial data management with PostgreSQL + PostGIS"
+        ]
+      },
+      {
+        "role": "Software Developer",
+        "company": "WCOGEO Administradora e Servicos",
+        "period": "Apr/2021 - Oct/2022",
+        "location": "Cuiaba, MT",
+        "current": false,
+        "movement": {
+          "promotion": true,
+          "roleChange": true
+        },
+        "bullets": [
+          "Development and maintenance of C# (.NET Core) applications",
+          "Development of interactive dashboards with Power BI and SQL Server",
+          "Team collaboration using SourceTree and Git"
+        ]
+      },
+      {
+        "role": "Software Development Intern",
+        "company": "WCOGEO Administradora e Servicos",
+        "period": "Feb/2021 - Mar/2021",
+        "location": "Cuiaba, MT",
+        "current": false,
+        "movement": {
+          "roleChange": true
+        },
+        "bullets": [
+          "Creation of advanced C# methods and frontend development",
+          "Support in system maintenance and SQL Server usage"
+        ]
+      },
+      {
+        "role": "Technical Support",
+        "company": "Navcom",
+        "period": "Jan/2018 - Feb/2020",
+        "location": "Cuiaba, MT",
+        "current": false,
+        "bullets": [
+          "Technical support and customer service for ERP systems",
+          "Internal process automation with up to 80% execution time reduction"
+        ]
+      },
+      {
+        "role": "Administrative Assistant - Programmer (Apprentice)",
+        "company": "Itamarati Norte S/A Agropecuaria",
+        "period": "Oct/2014 - Oct/2016",
+        "location": "Cuiaba, MT",
+        "current": false,
+        "bullets": [
+          "Maintenance of internal control systems",
+          "Web development with HTML, CSS, JS, and PHP"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "sectionHead": {
+      "eyebrow": "Personal Projects",
+      "heading": "What I built on my own",
+      "subheading": "Personal projects that solve real problems from end to end."
+    },
+    "items": [
+      {
+        "name": "Real Estate Data Pipeline",
+        "subtitle": "Collection, modeling, and analytics",
+        "description": "Pipeline for collecting, cleaning, modeling (SCD2), orchestrating, and documenting Zap Imoveis data - asynchronous scraping integrated directly with dbt and Airflow.",
+        "visibility": "private",
+        "tech": ["Python", "Airflow", "dbt", "Playwright", "Docker", "Google Drive API"],
+        "matchKeywords": ["imob", "zap", "real-estate", "realestate", "scd2"]
+      },
+      {
+        "name": "Power BI AutoDoc",
+        "subtitle": "Automated documentation for Power BI models",
+        "description": "Automatically generates Markdown documentation for Power BI projects - tables, measures, RLS, and relationships - with a Streamlit interface integrated with Obsidian.",
+        "visibility": "public",
+        "tech": ["Python", "Streamlit"],
+        "matchKeywords": ["powerbi", "power-bi", "autodoc"]
+      },
+      {
+        "name": "AI Support Agent",
+        "subtitle": "Intelligent support automation",
+        "description": "WhatsApp support with conversational AI for initial triage. The Streamlit panel is used for audit only: tickets are automatically created in GLPI with AI-generated titles and descriptions based on the conversation.",
+        "visibility": "private",
+        "tech": ["n8n", "OpenAI API", "Streamlit", "Docker", "PostgreSQL", "GLPI"],
+        "matchKeywords": ["atendimento", "whatsapp", "glpi", "agente"]
+      }
+    ]
+  },
+  "github": {
+    "username": "stolpe22",
+    "perPage": 100,
+    "excludeForks": false,
+    "sectionHead": {
+      "eyebrow": "GitHub",
+      "heading": "Public repositories",
+      "subheading": "Directly from the GitHub API - always up to date, no middle layer."
+    }
+  },
+  "education": {
+    "sectionHead": {
+      "eyebrow": "Education",
+      "heading": "Education, certifications, and languages"
+    },
+    "items": [
+      { "title": "Postgraduate Degree in Data Engineering", "place": "PUC Minas", "period": "06/2025 - 11/2026" },
+      { "title": "Bachelor's Degree in Information Systems", "place": "UNIVAG - Varzea Grande, MT", "period": "Completed in 2024" },
+      { "title": "IT - C# Development", "place": "SENAI - Cuiaba, MT", "period": "2014" },
+      { "title": "IT - Java Development", "place": "SENAI - Cuiaba, MT", "period": "2013" }
+    ],
+    "certifications": [
+      { "title": "Databricks Immersion", "issuer": "Jornada de Dados", "date": "Oct/2025" },
+      { "title": "Automated Scheduling Project in n8n", "issuer": "Jornada de Dados", "date": "Aug/2025" },
+      { "title": "AI Agent with n8n - Full Data Pipeline", "issuer": "Jornada de Dados", "date": "Aug/2025" },
+      { "title": "AI Agent Workshop", "issuer": "Jornada de Dados", "date": "Jul/2025" },
+      { "title": "n8n Tutorial: AI Agents for Data", "issuer": "Jornada de Dados", "date": "Mar/2025" },
+      { "title": "ETL Pipeline with Python", "issuer": "Jornada de Dados", "date": "Mar/2025" },
+      { "title": "Data Storytelling and Data Visualization", "issuer": "Udemy", "date": "Mar/2025" },
+      { "title": "Data Analyst and BI Program", "issuer": "Udemy", "date": "Feb/2025" },
+      { "title": "Power BI: Management Dashboards", "issuer": "IPOG", "date": "Apr/2023" },
+      { "title": "Complete C#: OOP + Projects", "issuer": "Udemy", "date": "Apr/2022" }
+    ],
+    "highlights": [
+      { "title": "Knowledge Olympics (SENAI)", "detail": "3rd place at state level in C# Development (2014)" },
+      { "title": "Knowledge Olympics (SENAI)", "detail": "4th place at state level in Java Development (2013)" }
+    ],
+    "languages": [
+      { "name": "English", "level": "Advanced reading and listening comprehension - intermediate speaking" }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "heading": "Let's talk",
+    "message": "Open to opportunities in data engineering, BI, and automation. Send me a message - I reply quickly.",
+    "email": "stolpe02@gmail.com",
+    "whatsapp": "https://wa.me/5565992486638",
+    "linkedin": "https://www.linkedin.com/in/lucas-henrique-s-a498b3a1/",
+    "github": "https://github.com/stolpe22"
+  },
+  "footer": {
+    "copyrightHolder": "Lucas Stolpe",
+    "brandText": "stoits - under construction",
+    "brandLogo": "/stoits-wordmark.svg"
+  },
+  "ui": {
+    "nav": {
+      "navigationAriaLabel": "Main navigation",
+      "themeToggleAriaLabel": "Toggle light/dark theme",
+      "mobileMenuAriaLabel": "Open menu",
+      "languageSwitcherAriaLabel": "Switch language"
+    },
+    "hero": {
+      "scrollHint": "scroll"
+    },
+    "dice": {
+      "eyebrow": "Data dice",
+      "heading": "Roll the dice and let it choose your path",
+      "subheading": "Each number (1-6) jumps to a portfolio section.",
+      "buttonIdle": "Roll dice",
+      "buttonRolling": "Rolling...",
+      "resultPrefix": "Landed on",
+      "ariaLabel": "Roll dice and navigate through sections",
+      "toggleOpen": "Open dice",
+      "toggleClose": "Close dice",
+      "clickHint": "Click the dice to roll",
+      "sectionMessages": {
+        "sobre": "This is me: a quick overview of my journey and how I approach end-to-end data work.",
+        "experiencia": "Here you can see my professional timeline, role progression, and real project impact.",
+        "skills": "Check how I can help in practice, from data stacks to BI delivery.",
+        "projetos": "These are my personal builds solving real-world problems with data and automation.",
+        "repos": "Here are my public repositories, live code pulled directly from GitHub.",
+        "contato": "Looks like destiny wants us to talk and maybe close a great deal."
+      }
+    },
+    "experience": {
+      "liveStatus": "running now",
+      "showFullTimeline": "Show full timeline",
+      "showLessTimeline": "Show only the latest 4 experiences",
+      "promotionLabel": "Promotion"
+    },
+    "projects": {
+      "viewCode": "View code",
+      "publicLabel": "Public",
+      "privateLabel": "Private"
+    },
+    "github": {
+      "searchPlaceholder": "Search by name, description, or language...",
+      "sortUpdated": "Recently updated",
+      "sortStars": "Most stars",
+      "sortName": "Name (A-Z)",
+      "repoCountSingular": "repository",
+      "repoCountPlural": "repositories",
+      "loadingError": "I could not load repositories right now (GitHub API rate limit or no connection).",
+      "directProfileLabel": "See directly at",
+      "emptyResults": "No repositories found for this filter.",
+      "noDescription": "No description."
+    },
+    "education": {
+      "academicTitle": "Academic education",
+      "languagesTitle": "Languages",
+      "certificationsTitle": "Certifications and courses",
+      "highlightsTitle": "Highlights"
+    },
+    "contact": {
+      "emailButton": "Send email",
+      "whatsappButton": "WhatsApp",
+      "linkedinButton": "LinkedIn",
+      "emailAriaLabel": "Email",
+      "whatsappAriaLabel": "WhatsApp"
+    },
+    "footer": {
+      "rightsReserved": "All rights reserved.",
+      "brandAlt": "stoits"
+    }
+  }
+}
