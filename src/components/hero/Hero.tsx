@@ -23,7 +23,11 @@ function resolvePublicSrc(src: string | undefined) {
   return src.startsWith("/") ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src;
 }
 
+const GLOW_SIZE = 420;
+
 export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const glowRef = useRef<HTMLDivElement | null>(null);
   const dagRef = useRef<HTMLDivElement | null>(null);
   const photoWrapRef = useRef<HTMLDivElement | null>(null);
   const headLeftRef = useRef<HTMLImageElement | null>(null);
@@ -54,6 +58,44 @@ export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
       dagRef.current.innerHTML = dagSvg;
     }
   }, [dagSvg]);
+
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    const glowEl = glowRef.current;
+    if (!sectionEl || !glowEl) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let rafId: number | null = null;
+    let lastX = 0;
+    let lastY = 0;
+
+    const applyGlow = () => {
+      rafId = null;
+      glowEl.style.transform = `translate(${lastX - GLOW_SIZE / 2}px, ${lastY - GLOW_SIZE / 2}px)`;
+    };
+
+    const handleMove = (event: PointerEvent) => {
+      const rect = sectionEl.getBoundingClientRect();
+      lastX = event.clientX - rect.left;
+      lastY = event.clientY - rect.top;
+      glowEl.style.opacity = "1";
+      if (rafId === null) {
+        rafId = requestAnimationFrame(applyGlow);
+      }
+    };
+
+    const handleLeave = () => {
+      glowEl.style.opacity = "0";
+    };
+
+    sectionEl.addEventListener("pointermove", handleMove);
+    sectionEl.addEventListener("pointerleave", handleLeave);
+    return () => {
+      sectionEl.removeEventListener("pointermove", handleMove);
+      sectionEl.removeEventListener("pointerleave", handleLeave);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   useEffect(() => {
     const leftEl = headLeftRef.current;
@@ -111,12 +153,16 @@ export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
   }, [headSrc, headRightSrc, bodySrc]);
 
   return (
-    <section className="relative isolate overflow-hidden pt-36 pb-24 md:pt-44 md:pb-28">
+    <section ref={sectionRef} className="relative isolate overflow-hidden pt-36 pb-24 md:pt-44 md:pb-28">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -left-24 -top-36 h-[520px] w-[520px] animate-[drift_18s_ease-in-out_infinite_alternate] rounded-full bg-[#0b4295] opacity-55 blur-[90px] [data-theme=light]:opacity-35"></div>
         <div className="absolute -bottom-44 -right-24 h-[460px] w-[460px] animate-[drift_18s_ease-in-out_infinite_alternate] rounded-full bg-[#6d3495] opacity-55 blur-[90px] [animation-delay:-6s] [data-theme=light]:opacity-35"></div>
         <div className="absolute left-[55%] top-[40%] h-[300px] w-[300px] animate-[drift_18s_ease-in-out_infinite_alternate] rounded-full bg-violet-glow opacity-25 blur-[90px] [animation-delay:-11s]"></div>
         <div className="absolute inset-0 opacity-55 [data-theme=light]:opacity-30" ref={dagRef}></div>
+        <div
+          ref={glowRef}
+          className="absolute left-0 top-0 h-[420px] w-[420px] rounded-full opacity-0 transition-opacity duration-300 [background:radial-gradient(circle,rgba(139,92,246,0.35)_0%,rgba(62,123,250,0.16)_45%,transparent_72%)] [will-change:transform]"
+        ></div>
       </div>
 
       <div className="container-shell relative z-10">

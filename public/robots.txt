@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stolpe22.github.io/lucas-portfolio-wip/sitemap.xml

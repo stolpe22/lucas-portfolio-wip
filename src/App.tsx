@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { localizedContent } from "./config/content";
 import { useTheme } from "./hooks/useTheme";
 import { useGithubRepos } from "./hooks/useGithubRepos";
 import { useLanguage } from "./hooks/useLanguage";
+import { useKonamiCode } from "./hooks/useKonamiCode";
 import { Nav } from "./components/nav/Nav";
 import { Hero } from "./components/hero/Hero";
-import { DiceNavigator } from "./components/dice/DiceNavigator";
+import { DiceNavigator, EASTER_EGG_ROLL_EVENT } from "./components/dice/DiceNavigator";
 import { About } from "./components/about/About";
 import { Skills } from "./components/skills/Skills";
 import { Experience } from "./components/experience/Experience";
@@ -14,6 +15,7 @@ import { GithubRepos } from "./components/github/GithubRepos";
 import { Education } from "./components/education/Education";
 import { Contact } from "./components/contact/Contact";
 import { Footer } from "./components/footer/Footer";
+import { Confetti } from "./components/shared/Confetti";
 
 function App() {
   const { language, setLanguage, toggleLanguage } = useLanguage();
@@ -24,6 +26,13 @@ function App() {
     content.github.perPage,
     content.github.excludeForks,
   );
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  useKonamiCode(() => {
+    setShowConfetti(true);
+    window.dispatchEvent(new CustomEvent(EASTER_EGG_ROLL_EVENT));
+    window.setTimeout(() => setShowConfetti(false), 3500);
+  });
 
   useEffect(() => {
     document.documentElement.lang = content.meta.lang;
@@ -42,6 +51,7 @@ function App() {
 
   return (
     <>
+      {showConfetti ? <Confetti /> : null}
       <Nav
         navItems={content.nav}
         brandLabel={content.brand.label}

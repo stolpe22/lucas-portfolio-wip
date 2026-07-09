@@ -6,6 +6,8 @@ interface DiceNavigatorProps {
   ui: SiteContent["ui"]["dice"];
 }
 
+export const EASTER_EGG_ROLL_EVENT = "easter-egg:roll-dice";
+
 const faceMap: Record<number, number[]> = {
   1: [4],
   2: [0, 8],
@@ -28,6 +30,7 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
   const animationRef = useRef<Animation | null>(null);
   const runIdRef = useRef(0);
   const rafRef = useRef<number | null>(null);
+  const pendingAutoRollRef = useRef(false);
 
   const availableSections = useMemo(() => navItems.slice(0, 6), [navItems]);
   const activePips = faceMap[face] ?? faceMap[1];
@@ -282,6 +285,28 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
     setLandedSectionId(null);
     setBubblePosition(null);
   };
+
+  useEffect(() => {
+    const handleEasterEggRoll = () => {
+      if (rollState !== "idle") return;
+      if (!isOpen) {
+        pendingAutoRollRef.current = true;
+        setIsOpen(true);
+        return;
+      }
+      void handleRoll();
+    };
+
+    window.addEventListener(EASTER_EGG_ROLL_EVENT, handleEasterEggRoll);
+    return () => window.removeEventListener(EASTER_EGG_ROLL_EVENT, handleEasterEggRoll);
+  }, [isOpen, rollState, handleRoll]);
+
+  useEffect(() => {
+    if (isOpen && pendingAutoRollRef.current) {
+      pendingAutoRollRef.current = false;
+      void handleRoll();
+    }
+  }, [isOpen, handleRoll]);
 
   return (
     <div className="pointer-events-none fixed left-3 top-20 z-[90]" aria-label={ui.ariaLabel}>

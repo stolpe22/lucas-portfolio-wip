@@ -1,20 +1,57 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { GithubRepo } from "../types/github";
 
 type GithubStatus = "idle" | "loading" | "success" | "error";
 
-const DEFAULT_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
+const REFRESH_INTERVAL_MS = 24 * 60 * 60 * 1000;
+const CACHE_KEY = "ls-github-repos-cache";
+
+interface CachedRepos {
+  username: string;
+  perPage: number;
+  excludeForks: boolean;
+  fetchedAt: number;
+  repos: GithubRepo[];
+}
+
+function readCache(username: string, perPage: number, excludeForks: boolean): CachedRepos | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as CachedRepos;
+    if (parsed.username !== username || parsed.perPage !== perPage || parsed.excludeForks !== excludeForks) {
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeCache(entry: CachedRepos) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(entry));
+  } catch {
+    // localStorage unavailable (private mode, quota, etc) — cache is best-effort only
+  }
+}
 
 export function useGithubRepos(username: string, perPage: number, excludeForks: boolean) {
-  const [repos, setRepos] = useState<GithubRepo[]>([]);
-  const [status, setStatus] = useState<GithubStatus>("idle");
-  const hasLoadedOnceRef = useRef(false);
+  const [repos, setRepos] = useState<GithubRepo[]>(
+    () => readCache(username, perPage, excludeForks)?.repos ?? [],
+  );
+  const [status, setStatus] = useState<GithubStatus>(() =>
+    readCache(username, perPage, excludeForks) ? "success" : "idle",
+  );
 
   useEffect(() => {
     let isActive = true;
+    const cached = readCache(username, perPage, excludeForks);
+    let lastFetchedAt = cached?.fetchedAt ?? 0;
+    let hasData = Boolean(cached);
 
     async function loadRepos() {
-      if (!hasLoadedOnceRef.current) {
+      if (!hasData) {
         setStatus("loading");
       }
 
@@ -32,48 +69,46 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
           return;
         }
 
-        setRepos(excludeForks ? data.filter((repo) => !repo.fork) : data);
+        const filtered = excludeForks ? data.filter((repo) => !repo.fork) : data;
+        lastFetchedAt = Date.now();
+        hasData = true;
+        setRepos(filtered);
         setStatus("success");
-        hasLoadedOnceRef.current = true;
+        writeCache({ username, perPage, excludeForks, fetchedAt: lastFetchedAt, repos: filtered });
       } catch (error) {
         if (!isActive) {
           return;
         }
 
-        if (!hasLoadedOnceRef.current) {
+        if (!hasData) {
           setStatus("error");
           return;
         }
 
-        console.error("Failed to refresh GitHub repositories", error);
+        console.error("Failed to refresh GitHub repositories, keeping cached data", error);
       }
     }
 
-    void loadRepos();
-
-    const refreshOnFocus = () => {
-      void loadRepos();
+    const refreshIfStale = () => {
+      if (Date.now() - lastFetchedAt >= REFRESH_INTERVAL_MS) {
+        void loadRepos();
+      }
     };
+
+    refreshIfStale();
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        void loadRepos();
+        refreshIfStale();
       }
     };
 
-    window.addEventListener("focus", refreshOnFocus);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    const intervalId = window.setInterval(() => {
-      if (document.visibilityState === "visible") {
-        void loadRepos();
-      }
-    }, DEFAULT_REFRESH_INTERVAL_MS);
+    const intervalId = window.setInterval(refreshIfStale, REFRESH_INTERVAL_MS);
 
     return () => {
       isActive = false;
       window.clearInterval(intervalId);
-      window.removeEventListener("focus", refreshOnFocus);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [username, perPage, excludeForks]);
