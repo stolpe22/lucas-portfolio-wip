@@ -26,6 +26,8 @@ export interface SiteContent {
     eyebrow: string;
     role: string;
     description: string;
+    photo?: string;
+    photoAlt?: string;
     ctas: Array<{
       label: string;
       href: string;

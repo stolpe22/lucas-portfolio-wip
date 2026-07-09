@@ -12,7 +12,6 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
 
   useEffect(() => {
     let isActive = true;
-    let intervalId: number | undefined;
 
     async function loadRepos() {
       if (!hasLoadedOnceRef.current) {
@@ -65,7 +64,7 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
     window.addEventListener("focus", refreshOnFocus);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    intervalId = window.setInterval(() => {
+    const intervalId = window.setInterval(() => {
       if (document.visibilityState === "visible") {
         void loadRepos();
       }
@@ -73,11 +72,7 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
 
     return () => {
       isActive = false;
-
-      if (intervalId !== undefined) {
-        window.clearInterval(intervalId);
-      }
-
+      window.clearInterval(intervalId);
       window.removeEventListener("focus", refreshOnFocus);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };

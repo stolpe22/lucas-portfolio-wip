@@ -24,6 +24,8 @@
     "eyebrow": "$ whoami",
     "role": "Engenheiro de Dados & Analista de BI",
     "description": "Transformo dados brutos em pipelines confiáveis e decisões melhores - da extração com Python e web scraping à modelagem com dbt, orquestração com Airflow e dashboards que times realmente usam.",
+    "photo": "/lucas_stolpe_photo.png",
+    "photoAlt": "Retrato de Lucas Stolpe",
     "ctas": [
       { "label": "Ver repositórios", "href": "#repos", "style": "primary" },
       { "label": "Falar comigo", "href": "#contato", "style": "ghost" }

@@ -20,6 +20,9 @@ const DAG_EDGES: Array<[number, number]> = [
 
 export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
   const dagRef = useRef<HTMLDivElement | null>(null);
+  const photoSrc = hero.photo?.startsWith("/")
+    ? `${import.meta.env.BASE_URL}${hero.photo.slice(1)}`
+    : hero.photo;
 
   const dagSvg = useMemo(() => {
     const lines = DAG_EDGES.map(([a, b]) => {
@@ -53,24 +56,39 @@ export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
       </div>
 
       <div className="container-shell relative z-10">
-        <div className="eyebrow">{hero.eyebrow}</div>
-        <h1 className="gradient-text mb-2 [font-family:var(--font-display)] text-[clamp(2.4rem,8vw,5rem)] font-bold leading-none tracking-[0.02em] opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.25s]">{wordmarkAlt}</h1>
-        <p className="mb-4 [font-family:var(--font-heading)] text-[clamp(1.1rem,2.4vw,1.5rem)] font-semibold text-text-main opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.55s]">{hero.role}</p>
-        <p className="mb-8 max-w-[54ch] text-[clamp(1rem,1.6vw,1.15rem)] text-text-muted opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.7s]">{hero.description}</p>
-        <div className="flex flex-wrap gap-3 opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.85s]">
-          {hero.ctas.map((cta) => (
-            <a
-              key={cta.href}
-              href={cta.href}
-              className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 [font-family:var(--font-heading)] text-[.95rem] font-semibold transition hover:-translate-y-0.5 ${
-                cta.style === "primary"
-                  ? "bg-gradient-to-r from-blue-glow to-violet-glow text-white shadow-[0_10px_30px_-8px_rgba(139,92,246,.55)]"
-                  : "border border-border-strong text-text-main hover:border-violet-glow hover:bg-[var(--grad-soft)]"
-              }`}
-            >
-              {cta.label}
-            </a>
-          ))}
+        <div className="grid items-center gap-10 md:grid-cols-[1.15fr_.85fr] md:gap-6">
+          <div className="order-2 md:order-1">
+            <div className="eyebrow">{hero.eyebrow}</div>
+            <h1 className="gradient-text mb-2 [font-family:var(--font-display)] text-[clamp(2.4rem,8vw,5rem)] font-bold leading-none tracking-[0.02em] opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.25s]">{wordmarkAlt}</h1>
+            <p className="mb-4 [font-family:var(--font-heading)] text-[clamp(1.1rem,2.4vw,1.5rem)] font-semibold text-text-main opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.55s]">{hero.role}</p>
+            <p className="mb-8 max-w-[54ch] text-[clamp(1rem,1.6vw,1.15rem)] text-text-muted opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.7s]">{hero.description}</p>
+            <div className="flex flex-wrap gap-3 opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.85s]">
+              {hero.ctas.map((cta) => (
+                <a
+                  key={cta.href}
+                  href={cta.href}
+                  className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 [font-family:var(--font-heading)] text-[.95rem] font-semibold transition hover:-translate-y-0.5 ${
+                    cta.style === "primary"
+                      ? "bg-gradient-to-r from-blue-glow to-violet-glow text-white shadow-[0_10px_30px_-8px_rgba(139,92,246,.55)]"
+                      : "border border-border-strong text-text-main hover:border-violet-glow hover:bg-[var(--grad-soft)]"
+                  }`}
+                >
+                  {cta.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {photoSrc ? (
+            <div className="relative order-1 mx-auto w-[220px] sm:w-[260px] md:order-2 md:w-full md:justify-self-end">
+              <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-br from-blue-glow to-violet-glow opacity-40 blur-[70px]"></div>
+              <img
+                src={photoSrc}
+                alt={hero.photoAlt || ""}
+                className="relative mx-auto w-full max-w-[320px] object-contain opacity-0 [filter:drop-shadow(0_30px_50px_rgba(10,6,25,0.55))] animate-[rise-in_.9s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.4s] md:max-w-[380px]"
+              />
+            </div>
+          ) : null}
         </div>
       </div>
 
