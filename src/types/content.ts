@@ -192,5 +192,12 @@ export interface SiteContent {
       rightsReserved: string;
       brandAlt: string;
     };
+    easterEgg: {
+      keyword: string;
+      title: string;
+      paragraphs: string[];
+      closeLabel: string;
+      closeAriaLabel: string;
+    };
   };
 }

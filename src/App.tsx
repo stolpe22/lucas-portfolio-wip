@@ -3,10 +3,10 @@ import { localizedContent } from "./config/content";
 import { useTheme } from "./hooks/useTheme";
 import { useGithubRepos } from "./hooks/useGithubRepos";
 import { useLanguage } from "./hooks/useLanguage";
-import { useKonamiCode } from "./hooks/useKonamiCode";
+import { useTypedKeyword } from "./hooks/useTypedKeyword";
 import { Nav } from "./components/nav/Nav";
 import { Hero } from "./components/hero/Hero";
-import { DiceNavigator, EASTER_EGG_ROLL_EVENT } from "./components/dice/DiceNavigator";
+import { DiceNavigator } from "./components/dice/DiceNavigator";
 import { About } from "./components/about/About";
 import { Skills } from "./components/skills/Skills";
 import { Experience } from "./components/experience/Experience";
@@ -15,7 +15,7 @@ import { GithubRepos } from "./components/github/GithubRepos";
 import { Education } from "./components/education/Education";
 import { Contact } from "./components/contact/Contact";
 import { Footer } from "./components/footer/Footer";
-import { Confetti } from "./components/shared/Confetti";
+import { EasterEggModal } from "./components/shared/EasterEggModal";
 
 function App() {
   const { language, setLanguage, toggleLanguage } = useLanguage();
@@ -26,13 +26,9 @@ function App() {
     content.github.perPage,
     content.github.excludeForks,
   );
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
 
-  useKonamiCode(() => {
-    setShowConfetti(true);
-    window.dispatchEvent(new CustomEvent(EASTER_EGG_ROLL_EVENT));
-    window.setTimeout(() => setShowConfetti(false), 3500);
-  });
+  useTypedKeyword(content.ui.easterEgg.keyword, () => setShowEasterEgg(true));
 
   useEffect(() => {
     document.documentElement.lang = content.meta.lang;
@@ -51,7 +47,9 @@ function App() {
 
   return (
     <>
-      {showConfetti ? <Confetti /> : null}
+      {showEasterEgg ? (
+        <EasterEggModal content={content.ui.easterEgg} onClose={() => setShowEasterEgg(false)} />
+      ) : null}
       <Nav
         navItems={content.nav}
         brandLabel={content.brand.label}

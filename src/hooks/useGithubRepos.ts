@@ -3,7 +3,7 @@ import type { GithubRepo } from "../types/github";
 
 type GithubStatus = "idle" | "loading" | "success" | "error";
 
-const REFRESH_INTERVAL_MS = 24 * 60 * 60 * 1000;
+const REFRESH_INTERVAL_MS = 60 * 60 * 1000;
 const CACHE_KEY = "ls-github-repos-cache";
 
 interface CachedRepos {
@@ -56,20 +56,17 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
       }
 
       try {
-        const res = await fetch(
-          `https://api.github.com/users/${username}/repos?sort=updated&per_page=${perPage}`,
-          { cache: "no-store" },
-        );
+        const res = await fetch(`${import.meta.env.BASE_URL}github-repos.json`, { cache: "no-store" });
         if (!res.ok) {
-          throw new Error(`GitHub API error ${res.status}`);
+          throw new Error(`Repos snapshot fetch error ${res.status}`);
         }
-        const data = (await res.json()) as GithubRepo[];
+        const payload = (await res.json()) as { fetchedAt: string; repos: GithubRepo[] };
 
         if (!isActive) {
           return;
         }
 
-        const filtered = excludeForks ? data.filter((repo) => !repo.fork) : data;
+        const filtered = excludeForks ? payload.repos.filter((repo) => !repo.fork) : payload.repos;
         lastFetchedAt = Date.now();
         hasData = true;
         setRepos(filtered);

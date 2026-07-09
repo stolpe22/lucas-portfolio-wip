@@ -242,7 +242,7 @@
     "sectionHead": {
       "eyebrow": "GitHub",
       "heading": "Public repositories",
-      "subheading": "Directly from the GitHub API - always up to date, no middle layer."
+      "subheading": "Synced automatically from GitHub every hour."
     }
   },
   "education": {
@@ -359,6 +359,20 @@
     "footer": {
       "rightsReserved": "All rights reserved.",
       "brandAlt": "stoits"
+    },
+    "easterEgg": {
+      "keyword": "lucas",
+      "title": "You found the easter egg! 🎉",
+      "paragraphs": [
+        "Typed my name out of nowhere? That might be a good sign.",
+        "Since you made it this far, here are a few extra things about me that don't fit on a résumé:",
+        "I'm passionate about music — an amateur musician (borderline professional, if you ask me after a coffee).",
+        "I love training, and <strong>calisthenics</strong> is my sport of choice.",
+        "And here's the surprising part: I used to do cheerleading! I won gold in the co-ed category at the Mato Grosso state championship, made it to nationals in São Bernardo, SP, with my team at the time, <strong>Majesty</strong>, and later won another gold in the same category with <strong>Diamonds All Stars</strong>.",
+        "Thanks for typing my name out of nowhere and finding this easter egg. haha 😄"
+      ],
+      "closeLabel": "Close",
+      "closeAriaLabel": "Close modal"
     }
   }
 }

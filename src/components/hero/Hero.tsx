@@ -8,7 +8,7 @@ interface HeroProps {
 }
 
 const DAG_NODES: Array<[number, number]> = [
-  [120, 140], [340, 90], [560, 200], [180, 380], [420, 340],
+  [120, 140], [340, 90], [860, 200], [180, 380], [420, 340],
   [700, 120], [860, 320], [980, 160], [760, 420], [1060, 420],
   [260, 560], [520, 540], [900, 560],
 ];
@@ -168,8 +168,16 @@ export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
       <div className="container-shell relative z-10">
         <div className="grid items-center gap-10 md:grid-cols-[1.15fr_.85fr] md:gap-6">
           <div className="order-2 md:order-1">
-            <div className="eyebrow">{hero.eyebrow}</div>
-            <h1 className="gradient-text mb-2 [font-family:var(--font-display)] text-[clamp(2.4rem,8vw,5rem)] font-bold leading-none tracking-[0.02em] opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.25s]">{wordmarkAlt}</h1>
+            <div className="eyebrow">
+              {hero.eyebrow}
+              <span
+                className="inline-block h-[0.9em] w-[0.5ch] translate-y-[0.05em] bg-violet-glow [animation:cursor-blink_1s_steps(1)_infinite]"
+                aria-hidden="true"
+              ></span>
+            </div>
+            <div className="opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.25s]">
+              <h1 className="gradient-text mb-2 [font-family:var(--font-display)] text-[clamp(2.4rem,8vw,5rem)] font-bold leading-none pb-[0.22em] tracking-[0.02em]">{wordmarkAlt}</h1>
+            </div>
             <p className="mb-4 [font-family:var(--font-heading)] text-[clamp(1.1rem,2.4vw,1.5rem)] font-semibold text-text-main opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.55s]">{hero.role}</p>
             <p className="mb-8 max-w-[54ch] text-[clamp(1rem,1.6vw,1.15rem)] text-text-muted opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.7s]">{hero.description}</p>
             <div className="flex flex-wrap gap-3 opacity-0 animate-[rise-in_.8s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.85s]">

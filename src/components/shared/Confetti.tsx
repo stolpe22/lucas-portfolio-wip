@@ -25,7 +25,7 @@ export function Confetti() {
   const [particles] = useState<Particle[]>(generateParticles);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[200] overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-[310] overflow-hidden">
       {particles.map((particle, index) => (
         <span
           key={index}

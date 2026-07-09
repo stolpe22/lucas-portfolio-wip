@@ -6,6 +6,8 @@ on:
       - main
       - master
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
 
 permissions:
   contents: read
@@ -31,6 +33,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Fetch latest GitHub repos snapshot
+        run: node scripts/fetch-github-repos.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build site
         run: npm run build
