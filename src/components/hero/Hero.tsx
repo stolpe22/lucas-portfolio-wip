@@ -18,11 +18,20 @@ const DAG_EDGES: Array<[number, number]> = [
   [6, 7], [6, 8], [8, 9], [3, 10], [10, 11], [4, 11], [8, 12],
 ];
 
+function resolvePublicSrc(src: string | undefined) {
+  if (!src) return src;
+  return src.startsWith("/") ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src;
+}
+
 export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
   const dagRef = useRef<HTMLDivElement | null>(null);
-  const photoSrc = hero.photo?.startsWith("/")
-    ? `${import.meta.env.BASE_URL}${hero.photo.slice(1)}`
-    : hero.photo;
+  const photoWrapRef = useRef<HTMLDivElement | null>(null);
+  const headLeftRef = useRef<HTMLImageElement | null>(null);
+  const headRightRef = useRef<HTMLImageElement | null>(null);
+  const photoSrc = resolvePublicSrc(hero.photo);
+  const headSrc = resolvePublicSrc(hero.photoHead);
+  const headRightSrc = resolvePublicSrc(hero.photoHeadRight);
+  const bodySrc = resolvePublicSrc(hero.photoBody);
 
   const dagSvg = useMemo(() => {
     const lines = DAG_EDGES.map(([a, b]) => {
@@ -45,6 +54,61 @@ export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
       dagRef.current.innerHTML = dagSvg;
     }
   }, [dagSvg]);
+
+  useEffect(() => {
+    const leftEl = headLeftRef.current;
+    const rightEl = headRightRef.current;
+    const wrapEl = photoWrapRef.current;
+    if (!leftEl || !wrapEl || !headSrc || !bodySrc) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const HYSTERESIS = 0.08;
+    let rafId: number | null = null;
+    let lastX = 0;
+    let lastY = 0;
+    let facingRight = false;
+
+    const applyTilt = () => {
+      rafId = null;
+      const rect = wrapEl.getBoundingClientRect();
+      const pivotX = rect.left + rect.width / 2;
+      const pivotY = rect.top + rect.height * 0.42;
+      const range = 700;
+      const nx = Math.max(-1, Math.min(1, (lastX - pivotX) / range));
+      const ny = Math.max(-1, Math.min(1, (lastY - pivotY) / range));
+
+      if (rightEl) {
+        if (!facingRight && nx > HYSTERESIS) facingRight = true;
+        else if (facingRight && nx < -HYSTERESIS) facingRight = false;
+        // headSrc (leftEl) gazes toward screen-right in the source photo;
+        // headRightSrc (rightEl) is its mirror and gazes toward screen-left.
+        leftEl.style.opacity = facingRight ? "1" : "0";
+        rightEl.style.opacity = facingRight ? "0" : "1";
+      }
+
+      const rotateY = nx * (rightEl ? 10 : 16);
+      const rotateX = ny * -11;
+      const translateX = nx * 7;
+      const translateY = ny * 4;
+      const transform = `translate(${translateX}px, ${translateY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      leftEl.style.transform = transform;
+      if (rightEl) rightEl.style.transform = transform;
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      lastX = event.clientX;
+      lastY = event.clientY;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(applyTilt);
+      }
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, [headSrc, headRightSrc, bodySrc]);
 
   return (
     <section className="relative isolate overflow-hidden pt-36 pb-24 md:pt-44 md:pb-28">
@@ -79,8 +143,44 @@ export function Hero({ hero, wordmarkAlt, scrollHint }: HeroProps) {
             </div>
           </div>
 
-          {photoSrc ? (
-            <div className="relative order-1 mx-auto w-[220px] sm:w-[260px] md:order-2 md:w-full md:justify-self-end">
+          {headSrc && bodySrc ? (
+            <div
+              ref={photoWrapRef}
+              role="img"
+              aria-label={hero.photoAlt || ""}
+              className="relative order-1 mx-auto w-[220px] self-center [perspective:900px] sm:w-[260px] md:order-2 md:w-full md:-mb-28 md:self-end md:justify-self-end"
+            >
+              <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-br from-blue-glow to-violet-glow opacity-40 blur-[70px]"></div>
+              <img
+                src={bodySrc}
+                alt=""
+                aria-hidden="true"
+                className="relative mx-auto w-full max-w-[320px] object-contain opacity-0 [filter:drop-shadow(0_30px_50px_rgba(10,6,25,0.55))] animate-[rise-in_.9s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.4s] md:max-w-[380px]"
+              />
+              <img
+                ref={headLeftRef}
+                src={headSrc}
+                alt=""
+                aria-hidden="true"
+                onAnimationEnd={(event) => {
+                  const el = event.currentTarget;
+                  el.style.animation = "none";
+                  el.style.opacity = "1";
+                }}
+                className="absolute inset-0 mx-auto w-full max-w-[320px] object-contain opacity-0 [filter:drop-shadow(0_30px_50px_rgba(10,6,25,0.55))] [transform-origin:50%_46%] [will-change:transform] transition-opacity duration-150 animate-[rise-in_.9s_cubic-bezier(.22,.68,.35,1)_forwards] [animation-delay:.4s] md:max-w-[380px]"
+              />
+              {headRightSrc ? (
+                <img
+                  ref={headRightRef}
+                  src={headRightSrc}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 mx-auto w-full max-w-[320px] object-contain opacity-0 [filter:drop-shadow(0_30px_50px_rgba(10,6,25,0.55))] [transform-origin:50%_46%] [will-change:transform] transition-opacity duration-150 md:max-w-[380px]"
+                />
+              ) : null}
+            </div>
+          ) : photoSrc ? (
+            <div className="relative order-1 mx-auto w-[220px] self-center sm:w-[260px] md:order-2 md:w-full md:-mb-28 md:self-end md:justify-self-end">
               <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-gradient-to-br from-blue-glow to-violet-glow opacity-40 blur-[70px]"></div>
               <img
                 src={photoSrc}

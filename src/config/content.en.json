@@ -25,6 +25,9 @@
     "role": "Data Engineer & BI Analyst",
     "description": "I turn raw data into reliable pipelines and better decisions - from Python extraction and web scraping to dbt modeling, Airflow orchestration, and dashboards people actually use.",
     "photo": "/lucas_stolpe_photo.png",
+    "photoHead": "/lucas_stolpe_head.png",
+    "photoHeadRight": "/lucas_stolpe_head_right.png",
+    "photoBody": "/lucas_stolpe_body.png",
     "photoAlt": "Portrait of Lucas Stolpe",
     "ctas": [
       { "label": "View repositories", "href": "#repos", "style": "primary" },

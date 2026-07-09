@@ -27,6 +27,9 @@ export interface SiteContent {
     role: string;
     description: string;
     photo?: string;
+    photoHead?: string;
+    photoHeadRight?: string;
+    photoBody?: string;
     photoAlt?: string;
     ctas: Array<{
       label: string;
