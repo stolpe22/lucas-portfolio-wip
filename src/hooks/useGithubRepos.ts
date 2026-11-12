@@ -11,6 +11,8 @@ interface CachedRepos {
   perPage: number;
   excludeForks: boolean;
   fetchedAt: number;
+  /** When the snapshot itself was taken from the GitHub API (ISO). */
+  snapshotAt?: string;
   repos: GithubRepo[];
 }
 
@@ -39,6 +41,9 @@ function writeCache(entry: CachedRepos) {
 export function useGithubRepos(username: string, perPage: number, excludeForks: boolean) {
   const [repos, setRepos] = useState<GithubRepo[]>(
     () => readCache(username, perPage, excludeForks)?.repos ?? [],
+  );
+  const [syncedAt, setSyncedAt] = useState<string | null>(
+    () => readCache(username, perPage, excludeForks)?.snapshotAt ?? null,
   );
   const [status, setStatus] = useState<GithubStatus>(() =>
     readCache(username, perPage, excludeForks) ? "success" : "idle",
@@ -70,8 +75,9 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
         lastFetchedAt = Date.now();
         hasData = true;
         setRepos(filtered);
+        setSyncedAt(payload.fetchedAt ?? null);
         setStatus("success");
-        writeCache({ username, perPage, excludeForks, fetchedAt: lastFetchedAt, repos: filtered });
+        writeCache({ username, perPage, excludeForks, fetchedAt: lastFetchedAt, snapshotAt: payload.fetchedAt, repos: filtered });
       } catch (error) {
         if (!isActive) {
           return;
@@ -92,7 +98,10 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
       }
     };
 
-    refreshIfStale();
+    // Stale-while-revalidate: the cached list paints instantly, but every page load re-reads the
+    // snapshot (a small static file), so a newer deploy shows up right away instead of after the
+    // cache expires. Afterwards it only refreshes when the tab comes back after an hour.
+    void loadRepos();
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -110,5 +119,5 @@ export function useGithubRepos(username: string, perPage: number, excludeForks: 
     };
   }, [username, perPage, excludeForks]);
 
-  return { repos, status };
+  return { repos, status, syncedAt };
 }

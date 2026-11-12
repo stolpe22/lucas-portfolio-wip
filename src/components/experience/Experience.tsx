@@ -1,14 +1,17 @@
 import { useState } from "react";
-import type { SiteContent } from "../../types/content";
+import { CareerTimeline } from "./CareerTimeline";
+import { MilestonesIcon } from "../shared/icons";
+import type { ExperienceItem, SiteContent } from "../../types/content";
 import { useReveal } from "../../hooks/useReveal";
-import { SectionHead } from "../shared/SectionHead";
+import { Section } from "../shared/SectionHead";
+import { formatDuration, formatPeriod, monthsBetween } from "../../lib/format";
 
 interface ExperienceProps {
   experience: SiteContent["experience"];
   ui: SiteContent["ui"]["experience"];
+  dates: SiteContent["ui"]["dates"];
+  onOpenMilestones: () => void;
 }
-
-type ExperienceItem = SiteContent["experience"]["items"][number];
 
 interface CompanyExperienceGroup {
   company: string;
@@ -17,143 +20,129 @@ interface CompanyExperienceGroup {
   items: ExperienceItem[];
 }
 
-interface TimelineItemProps {
-  group: CompanyExperienceGroup;
-  index: number;
-  ui: SiteContent["ui"]["experience"];
-}
-
-function PromotionIcon({ label }: { label: string }) {
-  return (
-    <span
-      className="inline-flex h-[18px] w-[18px] items-center justify-center animate-[promo-glow_2s_ease-in-out_infinite]"
-      style={{ filter: "drop-shadow(0 0 6px rgba(94, 200, 255, 0.8)) drop-shadow(0 0 10px rgba(159, 123, 255, 0.55))" }}
-      aria-label={label}
-      title={label}
-      role="img"
-    >
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-full w-full">
-        <defs>
-          <linearGradient id="promotionUp" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#5ec8ff" />
-            <stop offset="100%" stopColor="#9f7bff" />
-          </linearGradient>
-        </defs>
-        <path d="M12 4l6 7h-3v9h-6v-9H6l6-7Z" fill="url(#promotionUp)" />
-      </svg>
-    </span>
-  );
-}
-
 function groupConsecutiveByCompany(items: ExperienceItem[]): CompanyExperienceGroup[] {
   return items.reduce<CompanyExperienceGroup[]>((groups, item) => {
     const lastGroup = groups[groups.length - 1];
-
     if (lastGroup && lastGroup.company === item.company && lastGroup.location === item.location) {
       lastGroup.items.push(item);
-      if (item.current) {
-        lastGroup.current = true;
-      }
+      if (item.end === null) lastGroup.current = true;
       return groups;
     }
-
-    groups.push({
-      company: item.company,
-      location: item.location,
-      current: item.current,
-      items: [item],
-    });
-
+    groups.push({ company: item.company, location: item.location, current: item.end === null, items: [item] });
     return groups;
   }, []);
 }
 
-function TimelineItem({ group, index, ui }: TimelineItemProps) {
-  const itemRevealRef = useReveal<HTMLDivElement>(index + 1);
+interface CompanyBlockProps {
+  group: CompanyExperienceGroup;
+  index: number;
+  ui: SiteContent["ui"]["experience"];
+  dates: SiteContent["ui"]["dates"];
+}
+
+function CompanyBlock({ group, index, ui, dates }: CompanyBlockProps) {
+  const ref = useReveal<HTMLDivElement>(index + 1);
+  const first = group.items[group.items.length - 1];
+  const last = group.items[0];
+  const totalMonths = monthsBetween(first.start, last.end);
 
   return (
-    <div className="reveal relative pb-10 last:pb-0" ref={itemRevealRef}>
-      <div
-        className="absolute -left-[34px] top-1 h-3.5 w-3.5 rounded-full bg-gradient-to-br from-blue-glow to-violet-glow"
-        style={{ boxShadow: group.current ? "0 0 0 4px var(--bg), 0 0 0 5px var(--status-live)" : "0 0 0 4px var(--bg), 0 0 0 5px var(--border)" }}
-      >
-        {group.current ? (
-          <span className="absolute inset-[-6px] rounded-full border-2 border-status-live animate-[pulse-ring_1.8s_ease-out_infinite]"></span>
+    <div
+      className="reveal spotlight grid scroll-mt-24 gap-3 rounded-md border-t border-border-subtle py-8 first:border-t-0 lg:grid-cols-[200px_1fr] lg:gap-8"
+      data-company={group.company}
+      ref={ref}
+    >
+      <div>
+        <div className="[font-family:var(--font-heading)] text-[1.1rem] font-semibold leading-snug">{group.company}</div>
+        <div className="mt-1 text-sm text-text-faint">{group.location}</div>
+        {group.items.length > 1 ? (
+          <div className="mt-1 [font-family:var(--font-mono)] text-xs text-text-faint">{formatDuration(totalMonths, dates)}</div>
         ) : null}
       </div>
 
-      <div className="rounded-2xl border border-border-subtle bg-surface p-5 transition hover:-translate-y-0.5 hover:border-border-strong">
-        <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
-          <div className="[font-family:var(--font-heading)] text-[1.1rem] font-bold">{group.company}</div>
-          {group.current ? (
-            <div className="inline-flex items-center gap-1.5 [font-family:var(--font-mono)] text-[.72rem] text-status-live">
-              <span className="h-1.5 w-1.5 rounded-full bg-status-live animate-[blink_1.6s_ease-in-out_infinite]"></span>
-              {ui.liveStatus}
+      <div className="flex flex-col gap-6">
+        {group.items.map((item) => (
+          <div key={`${item.role}-${item.start}`}>
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="text-[1.02rem] font-semibold text-text-main">{item.role}</h3>
+              {item.end === null ? (
+                <span className="inline-flex items-center gap-1.5 [font-family:var(--font-mono)] text-[.7rem] uppercase tracking-wider text-status-live">
+                  <span className="h-1.5 w-1.5 rounded-full bg-status-live"></span>
+                  {ui.liveStatus}
+                </span>
+              ) : null}
+              {item.movement?.promotion ? (
+                <span className="rounded-sm bg-accent-soft px-1.5 py-0.5 [font-family:var(--font-mono)] text-[.68rem] uppercase tracking-wider text-accent">
+                  ↑ {ui.promotionLabel}
+                </span>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <div className="mb-3 [font-family:var(--font-mono)] text-[.82rem] text-text-faint">{group.location}</div>
-
-        <div className="flex flex-col gap-3">
-          {group.items.map((item) => (
-            <div className="border-t border-dashed border-border-subtle pt-3 first:border-t-0 first:pt-0" key={`${item.company}-${item.role}-${item.period}`}>
-              <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  {item.movement?.promotion ? <PromotionIcon label={ui.promotionLabel} /> : null}
-                  <div className="[font-family:var(--font-heading)] text-[1.02rem] font-semibold">{item.role}</div>
-                </div>
-                <div className="[font-family:var(--font-mono)] text-[.79rem] text-text-faint">{item.period}</div>
-              </div>
-              <ul className="flex flex-col gap-2">
-                {item.bullets.map((bullet) => (
-                  <li key={`${item.role}-${bullet}`} className="relative pl-4 text-[.95rem] text-text-muted before:absolute before:left-0 before:top-0 before:content-['›'] before:text-violet-glow before:[font-family:var(--font-mono)]">
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-1 [font-family:var(--font-mono)] text-[.8rem] text-text-faint">
+              {formatPeriod(item.start, item.end, dates)} · {formatDuration(monthsBetween(item.start, item.end), dates)}
             </div>
-          ))}
-        </div>
+            <ul className="mt-3 flex flex-col gap-1.5">
+              {item.bullets.map((bullet) => (
+                <li
+                  key={bullet}
+                  className="relative pl-4 text-[.96rem] leading-relaxed text-text-muted before:absolute before:left-0 before:top-[0.7em] before:h-px before:w-2 before:bg-text-faint"
+                >
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-export function Experience({ experience, ui }: ExperienceProps) {
+export function Experience({ experience, ui, dates, onOpenMilestones }: ExperienceProps) {
   const [showAll, setShowAll] = useState(false);
-  const headRevealRef = useReveal<HTMLDivElement>(0);
-  const groupedItems = groupConsecutiveByCompany(experience.items);
-  const visibleGroups = showAll
-    ? groupedItems
-    : groupedItems.slice(0, experience.previewCount);
+  const groups = groupConsecutiveByCompany(experience.items);
+  const visible = showAll ? groups : groups.slice(0, experience.previewCount);
+
+  // Clicking a company in the chart jumps to its details (Nielsen #7), expanding the list if needed.
+  const goToCompany = (company: string) => {
+    const index = groups.findIndex((group) => group.company === company);
+    if (index >= experience.previewCount) setShowAll(true);
+    requestAnimationFrame(() => {
+      document.querySelector(`[data-company="${CSS.escape(company)}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
 
   return (
-    <section className="relative py-20 md:py-28" id="experiencia">
-      <div className="container-shell">
-        <SectionHead config={experience.sectionHead} revealRef={headRevealRef} />
-        <div>
-          <div className="relative ml-1 pl-8 before:absolute before:bottom-2 before:left-0 before:top-2 before:w-0.5 before:bg-[repeating-linear-gradient(to_bottom,var(--blue-glow)_0_6px,transparent_6px_14px)] before:[background-size:2px_28px]">
-            {visibleGroups.map((group) => {
-              const originalIndex = groupedItems.indexOf(group);
-              return (
-                <TimelineItem
-                  key={`${group.company}-${group.location}-${originalIndex}`}
-                  group={group}
-                  index={originalIndex}
-                  ui={ui}
-                />
-              );
-            })}
-          </div>
-          {groupedItems.length > experience.previewCount ? (
-            <div className="mt-3">
-              <button className="inline-flex items-center rounded-full border border-border-strong px-4 py-2 [font-family:var(--font-heading)] text-[.82rem] font-semibold transition hover:-translate-y-0.5 hover:border-violet-glow hover:bg-[var(--grad-soft)]" onClick={() => setShowAll((value) => !value)}>
-                {showAll ? ui.showLessTimeline : ui.showFullTimeline}
-              </button>
-            </div>
-          ) : null}
-        </div>
+    <Section id="experiencia" config={experience.sectionHead}>
+      <CareerTimeline
+        items={experience.items}
+        dates={dates}
+        caption={ui.timelineCaption}
+        ariaLabel={ui.timelineAria}
+        onSelect={goToCompany}
+      />
+      <button
+        type="button"
+        onClick={onOpenMilestones}
+        className="group mb-14 mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-accent px-5 text-[.92rem] font-medium text-accent transition-colors hover:bg-accent hover:text-on-accent"
+      >
+        <MilestonesIcon />
+        {ui.openMilestones}
+        <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+      </button>
+      <div>
+        {visible.map((group, index) => (
+          <CompanyBlock key={`${group.company}-${index}`} group={group} index={index} ui={ui} dates={dates} />
+        ))}
       </div>
-    </section>
+      {groups.length > experience.previewCount ? (
+        <button
+          className="mt-4 inline-flex items-center gap-2 border-b border-border-strong pb-0.5 text-sm font-medium text-text-main transition-colors hover:border-accent hover:text-accent"
+          onClick={() => setShowAll((value) => !value)}
+        >
+          {showAll ? ui.showLessTimeline : ui.showFullTimeline}
+          <span aria-hidden="true">{showAll ? "↑" : "↓"}</span>
+        </button>
+      ) : null}
+    </Section>
   );
 }

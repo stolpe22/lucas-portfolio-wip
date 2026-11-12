@@ -40,21 +40,21 @@ export function EasterEggModal({ content, onClose }: EasterEggModalProps) {
         onClick={onClose}
       >
         <div
-          className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-border-strong bg-surface p-8 shadow-[0_30px_80px_-24px_rgba(0,0,0,.6)]"
+          className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-lg border border-border-strong bg-surface p-8 shadow-[0_30px_80px_-24px_rgba(0,0,0,.6)]"
           onClick={(event) => event.stopPropagation()}
         >
           <button
             type="button"
             onClick={onClose}
             aria-label={content.closeAriaLabel}
-            className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-2 text-text-muted transition hover:border-violet-glow hover:text-text-main"
+            className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-border-subtle bg-surface-2 text-text-muted transition hover:border-border-strong hover:text-text-main"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
               <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
 
-          <h2 className="gradient-text mb-4 pr-8 [font-family:var(--font-display)] text-[clamp(1.5rem,3.4vw,2rem)] font-bold">
+          <h2 className="mb-4 pr-8 [font-family:var(--font-display)] text-accent text-[clamp(1.5rem,3.4vw,2rem)] font-bold">
             {content.title}
           </h2>
 
@@ -67,7 +67,7 @@ export function EasterEggModal({ content, onClose }: EasterEggModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="mt-6 inline-flex items-center rounded-full bg-gradient-to-r from-blue-glow to-violet-glow px-6 py-3 [font-family:var(--font-heading)] text-[.95rem] font-semibold text-white shadow-[0_10px_30px_-8px_rgba(139,92,246,.55)] transition hover:-translate-y-0.5"
+            className="mt-6 inline-flex items-center rounded-md bg-accent px-5 py-2.5 text-[.95rem] font-medium text-on-accent transition-colors hover:bg-text-main hover:text-bg"
           >
             {content.closeLabel}
           </button>

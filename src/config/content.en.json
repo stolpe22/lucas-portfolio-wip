@@ -2,236 +2,500 @@
   "meta": {
     "lang": "en-US",
     "title": "Lucas Stolpe - Data Engineer & BI Analyst",
-    "description": "Portfolio of Lucas Henrique Stolpe: ETL pipeline architecture, dbt, Airflow, Power BI, and data automation.",
+    "description": "Portfolio of Lucas Henrique Stolpe, a data engineer in Cuiabá, Brazil: Airflow and dbt pipelines, Power BI, automation, and the DATAHack Univag hackathon.",
     "favicon": "/favicon.svg"
   },
   "theme": {
-    "default": "dark"
+    "default": "light"
   },
   "nav": [
-    { "label": "About", "href": "#sobre" },
-    { "label": "Experience", "href": "#experiencia" },
-    { "label": "Skills", "href": "#skills" },
-    { "label": "Projects", "href": "#projetos" },
-    { "label": "Repositories", "href": "#repos" },
-    { "label": "Contact", "href": "#contato" }
+    {
+      "label": "About",
+      "href": "#sobre"
+    },
+    {
+      "label": "Experience",
+      "href": "#experiencia"
+    },
+    {
+      "label": "Initiatives",
+      "href": "#iniciativas"
+    },
+    {
+      "label": "Skills",
+      "href": "#skills"
+    },
+    {
+      "label": "Projects",
+      "href": "#projetos"
+    },
+    {
+      "label": "Repositories",
+      "href": "#repos"
+    },
+    {
+      "label": "Education",
+      "href": "#formacao"
+    },
+    {
+      "label": "Contact",
+      "href": "#contato"
+    }
   ],
   "brand": {
     "label": "lucas.stolpe",
     "wordmarkAlt": "Lucas Stolpe"
   },
   "hero": {
-    "eyebrow": "$ whoami",
+    "eyebrow": "Cuiabá, Brazil",
     "role": "Data Engineer & BI Analyst",
-    "description": "I turn raw data into reliable pipelines and better decisions - from Python extraction and web scraping to dbt modeling, Airflow orchestration, and dashboards people actually use.",
+    "description": "Today I'm a Data Engineer at Grupo OTG, where I build web dashboards, data pipelines, and APIs for data products, and in parallel I consult on data engineering for OUD Tecnologia. Before that I coordinated a software team for two and a half years and built a lot of Power BI dashboards. In 2026 I founded DATAHack Univag.",
     "photo": "/lucas_stolpe_photo.png",
-    "photoHead": "/lucas_stolpe_head.png",
-    "photoHeadRight": "/lucas_stolpe_head_right.png",
-    "photoBody": "/lucas_stolpe_body.png",
     "photoAlt": "Portrait of Lucas Stolpe",
     "ctas": [
-      { "label": "View repositories", "href": "#repos", "style": "primary" },
-      { "label": "Contact me", "href": "#contato", "style": "ghost" }
+      {
+        "label": "Download résumé",
+        "action": "resume",
+        "style": "primary"
+      },
+      {
+        "label": "See milestones",
+        "action": "milestones",
+        "style": "ghost"
+      },
+      {
+        "label": "Contact me",
+        "href": "#contato",
+        "style": "ghost"
+      }
     ]
   },
   "about": {
     "eyebrow": "About",
-    "heading": "Data with context, teams with direction",
+    "heading": "I started in tech support. Now I build data infrastructure.",
     "paragraphs": [
-      "I am a Data Engineer and BI Analyst, with previous experience in <strong>team leadership and technology project coordination</strong>. I enjoy solving problems end-to-end - from extraction and modeling to dashboards people actually open every morning.",
-      "Today I work with ETL pipeline architecture, <strong>Airflow</strong> orchestration, <strong>dbt</strong> modeling, and automation with <strong>n8n</strong> and <strong>Python</strong> - always focused on trustworthy, documented, and auditable data."
+      "My first job writing code was at 16, maintaining an internal PHP system as an apprentice. Then came ERP support at Navcom and WCOGEO, where I joined as a C# intern and was coordinating the projects team less than two years later. As coordinator I also designed business processes (BPMN) and built the Power BI dashboards, with SQL Server and spatial data in PostGIS.",
+      "Since 2025 my focus has been data. I build web dashboards on data visualization best practices, robust data pipelines, and APIs that deliver data products. I brought in web dashboards for more design freedom and to avoid the cost of larger tools such as Microsoft Fabric when they aren't needed. At OUD Tecnologia I rolled out dbt and Airflow. I also automate processes with Python and n8n, and I finished a postgraduate degree in Data Engineering at PUC Minas.",
+      "I use AI efficiently in development: I've built a RAG project, developed MCP servers, and work with Spec-Driven Development, where the spec comes before the code."
     ],
     "stats": [
-      { "value": "8+", "label": "years working in IT" },
-      { "value": "2y 5m", "label": "leading technical teams" },
-      { "value": "10+", "label": "certifications and courses" }
+      {
+        "compute": "experience",
+        "label": "of combined experience",
+        "help": "Sum of every work period, from my apprenticeship (2014) until today, not counting gaps between jobs. Computed from the timeline dates."
+      },
+      {
+        "compute": "leadership",
+        "label": "leading a technical team",
+        "help": "Time as Development Project Coordinator at WCOGEO (Oct/2022 to Feb/2025)."
+      },
+      {
+        "value": "8",
+        "label": "teams at the first DATAHack",
+        "help": "Teams that competed at DATAHack Univag in Oct/2026, each building a full pipeline in one day."
+      }
     ]
   },
   "skills": {
     "sectionHead": {
       "eyebrow": "Skills",
-      "heading": "Skills",
-      "subheading": "From ingestion to visualization - technologies I use to turn data into decisions."
+      "heading": "Tools I use",
+      "subheading": "Grouped by the kind of problem they solve."
     },
     "groups": [
       {
         "category": "Data & BI",
-        "items": ["Power BI", "Python", "Pandas", "SQL", "ETL", "dbt", "Airflow", "Data Storytelling"]
+        "items": [
+          "Power BI",
+          "Data product APIs",
+          "Web dashboards",
+          "Python (Pandas, Asyncio)",
+          "SQL",
+          "ETL/ELT",
+          "dbt",
+          "Airflow",
+          "Data Storytelling"
+        ]
       },
       {
-        "category": "Management & Leadership",
-        "items": ["Team Leadership", "IT Project Management", "Strategic Planning", "Cross-functional Communication", "Scrum / Kanban"]
+        "category": "AI-assisted development",
+        "items": [
+          "RAG (Retrieval-Augmented Generation)",
+          "MCP servers",
+          "Spec-Driven Development (SDD)",
+          "Claude Code",
+          "AI agents with n8n",
+          "OpenAI API"
+        ]
       },
       {
         "category": "Databases",
-        "items": ["PostgreSQL", "PostGIS", "SQL Server", "MySQL"]
+        "items": [
+          "PostgreSQL (PostGIS)",
+          "SQL Server",
+          "MySQL"
+        ]
       },
       {
         "category": "Cloud & Integration",
-        "items": ["AWS Lambda", "AWS S3", "GCP Cloud Run", "GCP Storage", "Google Drive API"]
+        "items": [
+          "AWS (Lambda, S3)",
+          "GCP (Cloud Run, Storage)",
+          "Google Drive API"
+        ]
       },
       {
         "category": "Automation & Scraping",
-        "items": ["Python", "n8n", "Playwright"]
+        "items": [
+          "Python",
+          "n8n",
+          "Playwright"
+        ]
       },
       {
         "category": "Infrastructure & DevOps",
-        "items": ["Docker", "PM2", "Git", "GitHub", "Bitbucket"]
+        "items": [
+          "Docker",
+          "PM2",
+          "Git",
+          "GitHub",
+          "Bitbucket"
+        ]
       },
       {
-        "category": "Front-end / Back-end",
-        "items": ["Vue", "React", "TypeScript", "C# .NET"]
+        "category": "Documentation",
+        "items": [
+          "BPMN",
+          "dbt docs",
+          "Markdown",
+          "Obsidian"
+        ]
+      },
+      {
+        "category": "Front-end/Back-end",
+        "items": [
+          "Vue",
+          "React",
+          "TypeScript",
+          "C# (.NET)"
+        ]
+      },
+      {
+        "category": "Management & Leadership",
+        "items": [
+          "Technical team leadership",
+          "IT project management",
+          "Business process design (BPMN)",
+          "Strategic planning",
+          "Technical event organization",
+          "Cross-functional communication",
+          "Agile (Scrum/Kanban)"
+        ]
       }
     ]
   },
   "experience": {
     "sectionHead": {
-      "eyebrow": "Career",
-      "heading": "Professional experience",
-      "subheading": "A timeline - from technical support to project coordination and data engineering."
+      "eyebrow": "Experience",
+      "heading": "Where I've worked",
+      "subheading": "Most recent first."
     },
     "previewCount": 4,
     "items": [
       {
         "role": "Data Engineer",
         "company": "Grupo OTG",
-        "period": "Oct/2025 - Present",
-        "location": "Cuiaba, MT - Remote",
-        "current": true,
+        "start": "2025-10",
+        "end": null,
+        "location": "Cuiabá, MT · Remote",
         "bullets": [
-          "Data infrastructure: dbt and Airflow implementation, pipeline development, and API integrations",
-          "Process automation using specialized solutions",
-          "Collaboration with multidisciplinary teams in data, technology, and operations",
-          "Support for dashboard development, user management, and automations"
+          "Web dashboards built on data visualization (Tufte, Few) and usability (Nielsen) best practices",
+          "Proposed web dashboards instead of larger tools such as Microsoft Fabric when they aren't needed: more design freedom and lower cost",
+          "Robust data pipelines and API integrations",
+          "APIs that deliver data products",
+          "Process automation with Python and n8n",
+          "Collaboration with multidisciplinary data, technology, and operations teams"
+        ]
+      },
+      {
+        "role": "Data Engineering Consultant",
+        "company": "OUD Tecnologia",
+        "start": "2026-04",
+        "end": null,
+        "location": "Cuiabá, MT",
+        "bullets": [
+          "Data engineering consulting alongside Grupo OTG: fixed-term contract from April to October 2026, and since then as a freelancer, on demand and per project",
+          "Rolled out dbt and Airflow in the data infrastructure"
         ]
       },
       {
         "role": "BI Analyst - Mid-level",
-        "company": "Linea Alimentos",
-        "period": "May/2025 - Oct/2025",
-        "location": "Anapolis, GO",
-        "current": false,
+        "company": "Línea Alimentos",
+        "start": "2025-05",
+        "end": "2025-10",
+        "location": "Anápolis, GO",
         "bullets": [
-          "Requirements gathering and KPI definition with business teams",
-          "Development of interactive dashboards in Power BI",
-          "Data analysis to support strategic decision making",
-          "Ensuring consistency and quality of reported information"
+          "Requirements gathering and definition of KPIs and strategic indicators with business teams",
+          "Interactive dashboards and reports in Power BI",
+          "Data analysis to support decisions, identifying trends, opportunities, and risks",
+          "Ensuring consistency and quality of reported information",
+          "Working with product, technology, and other teams on data-driven solutions"
         ]
       },
       {
-        "role": "BI Analyst - Mid-level (Outsourced)",
+        "role": "BI Analyst - Mid-level (Contractor)",
         "company": "Grupo OTG",
-        "period": "Mar/2025 - May/2025",
-        "location": "Cuiaba, MT",
-        "current": false,
+        "start": "2025-03",
+        "end": "2025-05",
+        "location": "Cuiabá, MT",
         "bullets": [
           "Planning and building dashboards for decision support",
-          "Cloud function implementations with AWS Lambda and Google Cloud Run Jobs",
-          "Support in creating and maintaining dbt models",
+          "Maintenance and optimization of data pipelines",
+          "Data analysis and cleaning together with the data engineering team",
+          "Cloud Functions with AWS Lambda and Google Cloud Run Jobs",
+          "Support in creating and maintaining dbt models for data transformation",
           "Automated data collection through web scraping"
         ]
       },
       {
         "role": "Development Project Coordinator (IT)",
-        "company": "WCOGEO Administradora e Servicos",
-        "period": "Oct/2022 - Feb/2025",
-        "location": "Cuiaba, MT",
-        "current": false,
+        "company": "WCOGEO Administradora e Serviços",
+        "start": "2022-10",
+        "end": "2025-02",
+        "location": "Cuiabá, MT",
         "movement": {
           "promotion": true,
           "roleChange": true
         },
         "bullets": [
-          "Team coordination in software and automation projects",
-          "System development with React, TypeScript, C#, and Python",
-          "Strategic dashboard and report development in Power BI",
-          "Spatial data management with PostgreSQL + PostGIS"
-        ]
+          "Coordinating teams on software and automation projects",
+          "Building systems with React, TypeScript, C#, and Python",
+          "Strategic dashboards and reports in Power BI",
+          "PM2, Docker, and Python scripts for automation and infrastructure",
+          "Spatial data management with PostgreSQL + PostGIS",
+          "Process design with BPMN and technical documentation on GitHub"
+        ],
+        "leadership": true
       },
       {
         "role": "Software Developer",
-        "company": "WCOGEO Administradora e Servicos",
-        "period": "Apr/2021 - Oct/2022",
-        "location": "Cuiaba, MT",
-        "current": false,
+        "company": "WCOGEO Administradora e Serviços",
+        "start": "2021-04",
+        "end": "2022-10",
+        "location": "Cuiabá, MT",
         "movement": {
           "promotion": true,
           "roleChange": true
         },
         "bullets": [
           "Development and maintenance of C# (.NET Core) applications",
-          "Development of interactive dashboards with Power BI and SQL Server",
-          "Team collaboration using SourceTree and Git"
+          "Maintenance of property valuation/IPTU tax software and data collection software",
+          "Interactive dashboards with Power BI and SQL Server, synced through the Power BI Gateway",
+          "Relational databases: SQL Server and PostgreSQL",
+          "Team collaboration with SourceTree and Git"
         ]
       },
       {
         "role": "Software Development Intern",
-        "company": "WCOGEO Administradora e Servicos",
-        "period": "Feb/2021 - Mar/2021",
-        "location": "Cuiaba, MT",
-        "current": false,
+        "company": "WCOGEO Administradora e Serviços",
+        "start": "2021-02",
+        "end": "2021-03",
+        "location": "Cuiabá, MT",
         "movement": {
           "roleChange": true
         },
         "bullets": [
-          "Creation of advanced C# methods and frontend development",
+          "Advanced C# methods and frontend development",
           "Support in system maintenance and SQL Server usage"
         ]
       },
       {
         "role": "Technical Support",
         "company": "Navcom",
-        "period": "Jan/2018 - Feb/2020",
-        "location": "Cuiaba, MT",
-        "current": false,
+        "start": "2018-01",
+        "end": "2020-02",
+        "location": "Cuiabá, MT",
         "bullets": [
           "Technical support and customer service for ERP systems",
-          "Internal process automation with up to 80% execution time reduction"
+          "Internal process automation, cutting execution time by up to 80%",
+          "Internal tools with HTML, CSS, and JavaScript; Firebird database (IBExpert)"
         ]
       },
       {
         "role": "Administrative Assistant - Programmer (Apprentice)",
-        "company": "Itamarati Norte S/A Agropecuaria",
-        "period": "Oct/2014 - Oct/2016",
-        "location": "Cuiaba, MT",
-        "current": false,
+        "company": "Itamarati Norte S/A Agropecuária",
+        "start": "2014-10",
+        "end": "2016-10",
+        "location": "Cuiabá, MT",
         "bullets": [
-          "Maintenance of internal control systems",
-          "Web development with HTML, CSS, JS, and PHP"
+          "Maintenance of an internal control system",
+          "Web development with HTML, CSS, JS, and PHP; migration from XAMPP to IIS",
+          "MySQL database"
+        ]
+      }
+    ]
+  },
+  "milestones": {
+    "heading": "From apprentice to data engineer",
+    "subheading": "The milestones of my career. The time between them is written on the line.",
+    "items": [
+      {
+        "date": "2014-10",
+        "kind": "job",
+        "title": "First job writing code",
+        "description": "Apprentice at Itamarati Norte, maintaining an internal control system in PHP, HTML, CSS, and JavaScript, with a MySQL database."
+      },
+      {
+        "date": "2021-04",
+        "kind": "promotion",
+        "title": "From intern to developer",
+        "description": "At WCOGEO, two months after joining as a C# intern: .NET applications, Power BI dashboards, and SQL Server and PostgreSQL databases."
+      },
+      {
+        "date": "2022-10",
+        "kind": "promotion",
+        "title": "Promoted to coordinator",
+        "description": "Development Project Coordinator at WCOGEO: leading the team, business process design (BPMN), Power BI dashboards, and spatial data with PostGIS."
+      },
+      {
+        "date": "2024",
+        "kind": "education",
+        "title": "Bachelor's in Information Systems",
+        "description": "Degree completed at UNIVAG, in Várzea Grande (MT)."
+      },
+      {
+        "date": "2025-03",
+        "kind": "shift",
+        "title": "Focus on data: BI Analyst",
+        "description": "Mid-level BI Analyst at Grupo OTG: dashboards, pipelines, Cloud Functions on AWS and GCP, and dbt models."
+      },
+      {
+        "date": "2025-10",
+        "kind": "shift",
+        "title": "Data Engineer at Grupo OTG",
+        "description": "Back at Grupo OTG as a Data Engineer: web dashboards built on visualization best practices, data pipelines, and APIs that deliver data products."
+      },
+      {
+        "date": "2026-04",
+        "kind": "job",
+        "title": "Data Engineering Consultant at OUD",
+        "description": "Alongside Grupo OTG, data engineering consulting for OUD Tecnologia in Cuiabá: rolled out dbt and Airflow. Fixed-term contract until Oct/2026, then on demand and per project."
+      },
+      {
+        "date": "2026-10",
+        "kind": "event",
+        "title": "First DATAHack Univag",
+        "description": "The data engineering hackathon I founded with Alessandra Paz and Germano Manente Netto: 8 teams building a full pipeline in one day."
+      },
+      {
+        "date": "2026-11",
+        "kind": "education",
+        "title": "Postgraduate degree in Data Engineering",
+        "description": "Specialization completed at PUC Minas."
+      }
+    ]
+  },
+  "initiatives": {
+    "sectionHead": {
+      "eyebrow": "Initiatives",
+      "heading": "DATAHack Univag",
+      "subheading": "A data engineering hackathon I took from idea to reality."
+    },
+    "items": [
+      {
+        "role": "Founder and Coordinator",
+        "name": "DATAHack Univag",
+        "org": "UNIVAG",
+        "start": "2026-10",
+        "end": "2026-10",
+        "location": "Várzea Grande, MT",
+        "kind": "Volunteer",
+        "bullets": [
+          "Conceived and founded, with Alessandra Paz and Germano Manente Netto, a hackathon focused on data engineering, approved by the university's coordination and board",
+          "8 teams building a full pipeline in one day, from ingestion to visualization, on dropout rates in higher education in Mato Grosso (\"Rota do Diploma\" challenge, public INEP and IBGE data)",
+          "Defined the judging criteria: exploratory analysis, pipeline architecture, analytical layers, code quality, and strategic use of technology",
+          "Built the event platform: team draw balanced by semester and GPA, team swaps, judge access with rubric scorecards and averages by phase, criterion, and judge, and a ranking with podium and \"reveal mode\"",
+          "Coordinated volunteer mentors and judging panels; final ranking ready right after the pitches"
+        ],
+        "facts": [
+          {
+            "value": "8",
+            "label": "teams"
+          },
+          {
+            "value": "12h",
+            "label": "of hands-on work"
+          },
+          {
+            "value": "5",
+            "label": "judging criteria"
+          }
         ]
       }
     ]
   },
   "projects": {
     "sectionHead": {
-      "eyebrow": "Personal Projects",
-      "heading": "What I built on my own",
-      "subheading": "Personal projects that solve real problems from end to end."
+      "eyebrow": "Projects",
+      "heading": "Personal projects",
+      "subheading": "Things I built outside work, usually because I needed them myself."
     },
     "items": [
       {
         "name": "Real Estate Data Pipeline",
         "subtitle": "Collection, modeling, and analytics",
-        "description": "Pipeline for collecting, cleaning, modeling (SCD2), orchestrating, and documenting Zap Imoveis data - asynchronous scraping integrated directly with dbt and Airflow.",
+        "description": "Collects, cleans, models (SCD2), orchestrates, and documents Zap Imóveis listings. Scraping is asynchronous with Playwright, data lands in PostgreSQL, and history is kept with incremental dbt models orchestrated by Airflow.",
         "visibility": "private",
-        "tech": ["Python", "Airflow", "dbt", "Playwright", "Docker", "Google Drive API"],
-        "matchKeywords": ["imob", "zap", "real-estate", "realestate", "scd2"]
+        "tech": [
+          "Python",
+          "Airflow",
+          "dbt",
+          "Playwright",
+          "Docker",
+          "Google Drive API"
+        ],
+        "matchKeywords": [
+          "imob",
+          "zap",
+          "real-estate",
+          "realestate",
+          "scd2"
+        ]
       },
       {
         "name": "Power BI AutoDoc",
-        "subtitle": "Automated documentation for Power BI models",
-        "description": "Automatically generates Markdown documentation for Power BI projects - tables, measures, RLS, and relationships - with a Streamlit interface integrated with Obsidian.",
+        "subtitle": "Automatic documentation for Power BI models",
+        "description": "Reads a Power BI project and writes Markdown documentation: tables, measures, RLS, and relationships. It has a Streamlit interface, and the files come out ready for Obsidian, cross-linked.",
         "visibility": "public",
-        "tech": ["Python", "Streamlit"],
-        "matchKeywords": ["powerbi", "power-bi", "autodoc"]
+        "tech": [
+          "Python",
+          "Streamlit"
+        ],
+        "matchKeywords": [
+          "powerbi",
+          "power-bi",
+          "autodoc"
+        ]
       },
       {
         "name": "AI Support Agent",
-        "subtitle": "Intelligent support automation",
-        "description": "WhatsApp support with conversational AI for initial triage. The Streamlit panel is used for audit only: tickets are automatically created in GLPI with AI-generated titles and descriptions based on the conversation.",
+        "subtitle": "WhatsApp support triage",
+        "description": "An AI talks to the customer on WhatsApp and does the first triage. The ticket is created in GLPI automatically, with a title and description written from the conversation. The Streamlit panel is for auditing only.",
         "visibility": "private",
-        "tech": ["n8n", "OpenAI API", "Streamlit", "Docker", "PostgreSQL", "GLPI"],
-        "matchKeywords": ["atendimento", "whatsapp", "glpi", "agente"]
+        "tech": [
+          "n8n",
+          "OpenAI API",
+          "Streamlit",
+          "Docker",
+          "PostgreSQL",
+          "GLPI"
+        ],
+        "matchKeywords": [
+          "atendimento",
+          "whatsapp",
+          "glpi",
+          "agente"
+        ]
       }
     ]
   },
@@ -240,50 +504,131 @@
     "perPage": 100,
     "excludeForks": false,
     "sectionHead": {
-      "eyebrow": "GitHub",
+      "eyebrow": "Repositories",
       "heading": "Public repositories",
-      "subheading": "Synced automatically from GitHub every hour."
+      "subheading": "Pulled from GitHub on every deploy (hourly). Filter by language or search by name."
     }
   },
   "education": {
     "sectionHead": {
       "eyebrow": "Education",
-      "heading": "Education, certifications, and languages"
+      "heading": "Education, courses, and languages"
     },
     "items": [
-      { "title": "Postgraduate Degree in Data Engineering", "place": "PUC Minas", "period": "06/2025 - 11/2026" },
-      { "title": "Bachelor's Degree in Information Systems", "place": "UNIVAG - Varzea Grande, MT", "period": "Completed in 2024" },
-      { "title": "IT - C# Development", "place": "SENAI - Cuiaba, MT", "period": "2014" },
-      { "title": "IT - Java Development", "place": "SENAI - Cuiaba, MT", "period": "2013" }
+      {
+        "title": "Postgraduate Degree in Data Engineering",
+        "place": "PUC Minas",
+        "period": "06/2025 – 11/2026 · Completed"
+      },
+      {
+        "title": "Bachelor's Degree in Information Systems",
+        "place": "UNIVAG · Várzea Grande, MT",
+        "period": "Completed in 2024"
+      },
+      {
+        "title": "IT · C# Development",
+        "place": "SENAI · Cuiabá, MT",
+        "period": "2014"
+      },
+      {
+        "title": "IT · Java Development",
+        "place": "SENAI · Cuiabá, MT",
+        "period": "2013"
+      }
     ],
     "certifications": [
-      { "title": "Databricks Immersion", "issuer": "Jornada de Dados", "date": "Oct/2025" },
-      { "title": "Automated Scheduling Project in n8n", "issuer": "Jornada de Dados", "date": "Aug/2025" },
-      { "title": "AI Agent with n8n - Full Data Pipeline", "issuer": "Jornada de Dados", "date": "Aug/2025" },
-      { "title": "AI Agent Workshop", "issuer": "Jornada de Dados", "date": "Jul/2025" },
-      { "title": "n8n Tutorial: AI Agents for Data", "issuer": "Jornada de Dados", "date": "Mar/2025" },
-      { "title": "ETL Pipeline with Python", "issuer": "Jornada de Dados", "date": "Mar/2025" },
-      { "title": "Data Storytelling and Data Visualization", "issuer": "Udemy", "date": "Mar/2025" },
-      { "title": "Data Analyst and BI Program", "issuer": "Udemy", "date": "Feb/2025" },
-      { "title": "Power BI: Management Dashboards", "issuer": "IPOG", "date": "Apr/2023" },
-      { "title": "Complete C#: OOP + Projects", "issuer": "Udemy", "date": "Apr/2022" }
+      {
+        "title": "Databricks Immersion",
+        "issuer": "Jornada de Dados",
+        "date": "Oct/2025"
+      },
+      {
+        "title": "Automated Scheduling Project in n8n",
+        "issuer": "Jornada de Dados",
+        "date": "Aug/2025"
+      },
+      {
+        "title": "AI Agent with n8n: Full Data Pipeline",
+        "issuer": "Jornada de Dados",
+        "date": "Aug/2025"
+      },
+      {
+        "title": "AI Agent Workshop",
+        "issuer": "Jornada de Dados",
+        "date": "Jul/2025"
+      },
+      {
+        "title": "n8n Tutorial: AI Agents for Data",
+        "issuer": "Jornada de Dados",
+        "date": "Mar/2025"
+      },
+      {
+        "title": "ETL Pipeline with Python: Validating Data and Excel Spreadsheets",
+        "issuer": "Jornada de Dados",
+        "date": "Mar/2025"
+      },
+      {
+        "title": "Data Storytelling and Data Visualization",
+        "issuer": "Udemy",
+        "date": "Mar/2025"
+      },
+      {
+        "title": "Data Analyst and Business Intelligence Program",
+        "issuer": "Udemy",
+        "date": "Feb/2025"
+      },
+      {
+        "title": "Power BI: Corporate Data Analysis and Management Dashboards",
+        "issuer": "IPOG",
+        "date": "Apr/2023"
+      },
+      {
+        "title": "Complete C#: Object-Oriented Programming + Projects",
+        "issuer": "Udemy",
+        "date": "Apr/2022"
+      }
     ],
     "highlights": [
-      { "title": "Knowledge Olympics (SENAI)", "detail": "3rd place at state level in C# Development (2014)" },
-      { "title": "Knowledge Olympics (SENAI)", "detail": "4th place at state level in Java Development (2013)" }
+      {
+        "title": "DATAHack Univag",
+        "detail": "Founder and coordinator (Oct/2026)"
+      },
+      {
+        "title": "Knowledge Olympics (SENAI)",
+        "detail": "3rd place at state level in C# Development (2014)"
+      },
+      {
+        "title": "Knowledge Olympics (SENAI)",
+        "detail": "4th place at state level in Java Development (2013)"
+      }
     ],
     "languages": [
-      { "name": "English", "level": "Advanced reading and listening comprehension - intermediate speaking" }
+      {
+        "name": "English",
+        "level": "Advanced reading and listening; intermediate speaking"
+      },
+      {
+        "name": "Portuguese",
+        "level": "Native"
+      }
     ]
   },
   "contact": {
     "eyebrow": "Contact",
     "heading": "Let's talk",
-    "message": "Open to opportunities in data engineering, BI, and automation. Send me a message - I reply quickly.",
+    "message": "I'm open to opportunities in data engineering, BI, and automation. Email or WhatsApp is the fastest way to reach me.",
     "email": "stolpe02@gmail.com",
+    "phone": "+55 (65) 99248-6638",
+    "location": "Cuiabá, MT, Brazil",
     "whatsapp": "https://wa.me/5565992486638",
     "linkedin": "https://www.linkedin.com/in/lucas-henrique-s-a498b3a1/",
     "github": "https://github.com/stolpe22"
+  },
+  "resume": {
+    "fileName": "Lucas_Henrique_Stolpe_Resume",
+    "fullName": "Lucas Henrique Stolpe",
+    "headline": "Data Engineer & BI Analyst",
+    "summary": "Data Engineer and BI Analyst with a postgraduate degree in Data Engineering (PUC Minas), combining technical depth with management experience: more than 2 years coordinating technology teams and projects, plus hands-on work in ETL/ELT pipeline architecture, data modeling, automation, and information governance. Founder of DATAHack Univag, a data engineering hackathon. Works end to end, from extraction to visualization, with Power BI, dbt, Airflow, Python, SQL, Docker, n8n, Streamlit, and cloud integrations (AWS, GCP). Efficient use of AI in development, with RAG, MCP servers, and Spec-Driven Development."
   },
   "footer": {
     "copyrightHolder": "Lucas Stolpe",
@@ -291,40 +636,68 @@
     "brandLogo": "/stoits-wordmark.svg"
   },
   "ui": {
+    "dates": {
+      "months": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ],
+      "present": "Present",
+      "year": "yr",
+      "years": "yrs",
+      "month": "mo",
+      "monthsLabel": "mos",
+      "and": ""
+    },
     "nav": {
       "navigationAriaLabel": "Main navigation",
       "themeToggleAriaLabel": "Toggle light/dark theme",
       "mobileMenuAriaLabel": "Open menu",
-      "languageSwitcherAriaLabel": "Switch language"
+      "languageSwitcherAriaLabel": "Switch language",
+      "resumeButton": "Résumé"
     },
     "hero": {
       "scrollHint": "scroll"
     },
     "dice": {
-      "eyebrow": "Data dice",
-      "heading": "Roll the dice and let it choose your path",
-      "subheading": "Each number (1-6) jumps to a portfolio section.",
-      "buttonIdle": "Roll dice",
+      "eyebrow": "Data die",
+      "heading": "Roll the die and let it choose your path",
+      "subheading": "An eight-sided die: each number takes you to a menu item, from About to Contact.",
+      "buttonIdle": "Roll die",
       "buttonRolling": "Rolling...",
       "resultPrefix": "Landed on",
-      "ariaLabel": "Roll dice and navigate through sections",
-      "toggleOpen": "Open dice",
-      "toggleClose": "Close dice",
-      "clickHint": "Click the dice to roll",
+      "ariaLabel": "Roll the die to jump to a section",
+      "toggleOpen": "Open die",
+      "toggleClose": "Close die",
+      "clickHint": "Click the die to roll",
       "sectionMessages": {
-        "sobre": "This is me: a quick overview of my journey and how I approach end-to-end data work.",
-        "experiencia": "Here you can see my professional timeline, role progression, and real project impact.",
-        "skills": "Check how I can help in practice, from data stacks to BI delivery.",
-        "projetos": "These are my personal builds solving real-world problems with data and automation.",
-        "repos": "Here are my public repositories, live code pulled directly from GitHub.",
-        "contato": "Looks like destiny wants us to talk and maybe close a great deal."
+        "sobre": "This is me: a quick overview of my path so far.",
+        "experiencia": "My work timeline, promotions included.",
+        "iniciativas": "The data engineering hackathon I founded at UNIVAG.",
+        "skills": "The tools I use day to day.",
+        "projetos": "Things I built on my own.",
+        "repos": "Public code, pulled straight from GitHub.",
+        "formacao": "Education, courses, and languages.",
+        "contato": "Looks like destiny wants us to talk."
       }
     },
     "experience": {
-      "liveStatus": "running now",
+      "liveStatus": "current",
       "showFullTimeline": "Show full timeline",
-      "showLessTimeline": "Show only the latest 4 experiences",
-      "promotionLabel": "Promotion"
+      "showLessTimeline": "Show only the most recent",
+      "promotionLabel": "promotion",
+      "timelineCaption": "True scale: each bar runs from the start month to the end month, and gaps between jobs stay blank. Click a company to see the details.",
+      "timelineAria": "Career timeline by company",
+      "openMilestones": "See career milestones"
     },
     "projects": {
       "viewCode": "View code",
@@ -332,7 +705,7 @@
       "privateLabel": "Private"
     },
     "github": {
-      "searchPlaceholder": "Search by name, description, or language...",
+      "searchPlaceholder": "Search by name, description, or language",
       "sortUpdated": "Recently updated",
       "sortStars": "Most stars",
       "sortName": "Name (A-Z)",
@@ -340,8 +713,22 @@
       "repoCountPlural": "repositories",
       "loadingError": "I could not load repositories right now (GitHub API rate limit or no connection).",
       "directProfileLabel": "See directly at",
-      "emptyResults": "No repositories found for this filter.",
-      "noDescription": "No description."
+      "emptyResults": "No repositories match these filters.",
+      "noDescription": "No description.",
+      "sortLabel": "Sort",
+      "languagesLabel": "Filter by language",
+      "noLanguage": "No language",
+      "showing": "Showing",
+      "of": "of",
+      "searchChip": "Search",
+      "removeFilter": "Remove filter",
+      "clearAll": "Clear all",
+      "clearFilters": "Clear filters",
+      "syncedLabel": "GitHub data from",
+      "moreBelow": "below",
+      "colName": "Repository",
+      "colLanguage": "Language",
+      "colUpdated": "Updated"
     },
     "education": {
       "academicTitle": "Academic education",
@@ -353,8 +740,21 @@
       "emailButton": "Send email",
       "whatsappButton": "WhatsApp",
       "linkedinButton": "LinkedIn",
+      "resumeButton": "Download résumé (PDF)",
       "emailAriaLabel": "Email",
       "whatsappAriaLabel": "WhatsApp"
+    },
+    "resume": {
+      "skills": "Skills",
+      "education": "Education",
+      "certifications": "Certifications and courses",
+      "languages": "Languages",
+      "highlights": "Highlights",
+      "experience": "Professional experience",
+      "initiatives": "Leadership and initiatives",
+      "projects": "Personal projects",
+      "technologies": "Technologies",
+      "linkedinQr": "My LinkedIn"
     },
     "footer": {
       "rightsReserved": "All rights reserved.",
@@ -373,6 +773,30 @@
       ],
       "closeLabel": "Close",
       "closeAriaLabel": "Close modal"
+    },
+    "help": {
+      "label": "What this number means"
+    },
+    "milestones": {
+      "eyebrow": "Career milestones",
+      "back": "Back to profile",
+      "play": "Play",
+      "pause": "Pause",
+      "replay": "Watch again",
+      "previous": "Previous milestone",
+      "next": "Next milestone",
+      "roleAtTime": "At the time",
+      "sinceLast": "after the previous milestone",
+      "firstOne": "From here to today",
+      "hint": "Click a milestone for details · drag or use ← → · Esc to go back",
+      "kinds": {
+        "job": "Job",
+        "promotion": "Promotion",
+        "shift": "Career shift",
+        "education": "Education",
+        "event": "Event"
+      },
+      "swipeHint": "Swipe sideways and tap a milestone"
     }
   }
 }

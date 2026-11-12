@@ -4,6 +4,12 @@ import type { SupportedLanguage } from "../config/content";
 const LANGUAGE_STORAGE_KEY = "ls-lang";
 
 function detectInitialLanguage(): SupportedLanguage {
+  // ?lang=pt|en wins (used by scripts/build-resume.mjs to print each language).
+  const fromUrl = new URLSearchParams(window.location.search).get("lang");
+  if (fromUrl === "pt" || fromUrl === "en") {
+    return fromUrl;
+  }
+
   const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
   if (saved === "pt" || saved === "en") {
     return saved;

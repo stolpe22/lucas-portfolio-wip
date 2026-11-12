@@ -48,3 +48,24 @@ export function WhatsappIcon() {
     </svg>
   );
 }
+
+export function DownloadIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4 shrink-0">
+      <path d="M12 4v11" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M5 20h14" />
+    </svg>
+  );
+}
+
+export function MilestonesIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4 shrink-0">
+      <path d="M3 12h18" />
+      <circle cx="6" cy="12" r="2" fill="currentColor" />
+      <circle cx="13" cy="12" r="2" fill="currentColor" />
+      <path d="m19 10 2 2-2 2-2-2z" fill="currentColor" />
+    </svg>
+  );
+}

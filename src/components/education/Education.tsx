@@ -1,66 +1,71 @@
+import type { ReactNode } from "react";
 import type { SiteContent } from "../../types/content";
 import { useReveal } from "../../hooks/useReveal";
-import { SectionHead } from "../shared/SectionHead";
+import { Section } from "../shared/SectionHead";
 
 interface EducationProps {
   education: SiteContent["education"];
   ui: SiteContent["ui"]["education"];
 }
 
+function Group({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div>
+      <h3 className="label-mono mb-3">{title}</h3>
+      <ul className="border-t border-border-subtle">{children}</ul>
+    </div>
+  );
+}
+
+function Row({ primary, secondary, aside }: { primary: string; secondary?: string; aside?: string }) {
+  return (
+    <li className="flex items-baseline justify-between gap-4 border-b border-border-subtle py-3">
+      <div className="min-w-0">
+        <div className="text-[.95rem] font-medium text-text-main">{primary}</div>
+        {secondary ? <div className="text-sm text-text-muted">{secondary}</div> : null}
+      </div>
+      {aside ? <div className="shrink-0 [font-family:var(--font-mono)] text-xs text-text-faint">{aside}</div> : null}
+    </li>
+  );
+}
+
 export function Education({ education, ui }: EducationProps) {
-  const headRevealRef = useReveal<HTMLDivElement>(0);
-  const leftRevealRef = useReveal<HTMLDivElement>(1);
-  const rightRevealRef = useReveal<HTMLDivElement>(2);
+  const leftRef = useReveal<HTMLDivElement>(1);
+  const rightRef = useReveal<HTMLDivElement>(2);
 
   return (
-    <section className="relative py-20 md:py-28" id="formacao">
-      <div className="container-shell">
-        <SectionHead config={education.sectionHead} revealRef={headRevealRef} />
-        <div className="grid gap-5 lg:grid-cols-2">
-          <div className="reveal rounded-2xl border border-border-subtle bg-surface p-6" ref={leftRevealRef}>
-            <h3 className="mb-4 [font-family:var(--font-heading)] text-lg font-semibold">{ui.academicTitle}</h3>
-            <div>
-              {education.items.map((item) => (
-                <div className="border-t border-border-subtle py-3 first:border-t-0 first:pt-0" key={item.title}>
-                  <div className="text-sm font-semibold text-text-main">{item.title}</div>
-                  <div className="text-sm text-text-muted">{item.place} - {item.period}</div>
-                </div>
-              ))}
-            </div>
-            <div className="h-7"></div>
-            <h3 className="mb-4 [font-family:var(--font-heading)] text-lg font-semibold">{ui.languagesTitle}</h3>
-            <div>
-              {education.languages.map((language) => (
-                <div className="border-t border-border-subtle py-3 first:border-t-0 first:pt-0" key={language.name}>
-                  <div className="text-sm font-semibold text-text-main">{language.name}</div>
-                  <div className="text-sm text-text-muted">{language.level}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="reveal rounded-2xl border border-border-subtle bg-surface p-6" ref={rightRevealRef}>
-            <h3 className="mb-4 [font-family:var(--font-heading)] text-lg font-semibold">{ui.certificationsTitle}</h3>
-            <div>
-              {education.certifications.map((certification) => (
-                <div className="flex flex-col gap-1 border-t border-border-subtle py-3 first:border-t-0 first:pt-0 sm:flex-row sm:items-baseline sm:justify-between" key={`${certification.title}-${certification.date}`}>
-                  <span className="text-sm font-medium text-text-main">{certification.title} - {certification.issuer}</span>
-                  <span className="[font-family:var(--font-mono)] text-xs text-text-faint">{certification.date}</span>
-                </div>
-              ))}
-            </div>
-            <div className="h-7"></div>
-            <h3 className="mb-4 [font-family:var(--font-heading)] text-lg font-semibold">{ui.highlightsTitle}</h3>
-            <div>
-              {education.highlights.map((highlight) => (
-                <div className="border-t border-border-subtle py-3 first:border-t-0 first:pt-0" key={`${highlight.title}-${highlight.detail}`}>
-                  <div className="text-sm font-semibold text-text-main">{highlight.title}</div>
-                  <div className="text-sm text-text-muted">{highlight.detail}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+    <Section id="formacao" config={education.sectionHead}>
+      <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
+        <div className="reveal flex flex-col gap-10" ref={leftRef}>
+          <Group title={ui.academicTitle}>
+            {education.items.map((item) => (
+              <Row key={item.title} primary={item.title} secondary={`${item.place} · ${item.period}`} />
+            ))}
+          </Group>
+          <Group title={ui.highlightsTitle}>
+            {education.highlights.map((highlight) => (
+              <Row key={highlight.detail} primary={highlight.title} secondary={highlight.detail} />
+            ))}
+          </Group>
+          <Group title={ui.languagesTitle}>
+            {education.languages.map((language) => (
+              <Row key={language.name} primary={language.name} secondary={language.level} />
+            ))}
+          </Group>
+        </div>
+        <div className="reveal" ref={rightRef}>
+          <Group title={ui.certificationsTitle}>
+            {education.certifications.map((certification) => (
+              <Row
+                key={`${certification.title}-${certification.date}`}
+                primary={certification.title}
+                secondary={certification.issuer}
+                aside={certification.date}
+              />
+            ))}
+          </Group>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

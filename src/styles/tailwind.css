@@ -1,42 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --blue: #0b4295;
-  --purple: #6d3495;
-  --violet-glow: #8b5cf6;
-  --blue-glow: #3e7bfa;
-  --status-live: #34d399;
   --font-display: "Fredoka", sans-serif;
-  --font-heading: "Poppins", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-heading: "IBM Plex Sans", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --status-live: #2f9e44;
 }
 
+/* Light (default): warm paper, ink, one accent. */
 :root,
-[data-theme="dark"] {
-  --bg: #090c16;
-  --bg-alt: #0c1020;
-  --surface: #12172a;
-  --surface-2: #171d34;
-  --border: rgba(255, 255, 255, 0.09);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --text: #f3f3f8;
-  --text-muted: #a6abc2;
-  --text-faint: #6f7590;
-  --grad-soft: rgba(139, 92, 246, 0.14);
+[data-theme="light"] {
+  --bg: #f5f2eb;
+  --bg-alt: #ede9df;
+  --surface: #fbfaf6;
+  --surface-2: #f0ece3;
+  --border: rgba(31, 27, 22, 0.12);
+  --border-strong: rgba(31, 27, 22, 0.28);
+  --text: #1f1b16;
+  --text-muted: #57514a;
+  --text-faint: #8a8379;
+  --accent: #c2410c;
+  --accent-soft: rgba(194, 65, 12, 0.1);
+  --on-accent: #fffaf5;
+  --glow: rgba(194, 65, 12, 0.1);
+  --dot: rgba(31, 27, 22, 0.13);
 }
 
-[data-theme="light"] {
-  --bg: #f6f5fb;
-  --bg-alt: #efedf9;
-  --surface: #ffffff;
-  --surface-2: #fbfaff;
-  --border: rgba(15, 17, 35, 0.09);
-  --border-strong: rgba(15, 17, 35, 0.16);
-  --text: #14162a;
-  --text-muted: #565c78;
-  --text-faint: #8a8fa8;
-  --grad-soft: rgba(109, 52, 149, 0.08);
+[data-theme="dark"] {
+  --bg: #141311;
+  --bg-alt: #1a1916;
+  --surface: #1c1b18;
+  --surface-2: #24221e;
+  --border: rgba(237, 232, 223, 0.11);
+  --border-strong: rgba(237, 232, 223, 0.26);
+  --text: #ede8df;
+  --text-muted: #aba497;
+  --text-faint: #7b766c;
+  --accent: #f0743a;
+  --accent-soft: rgba(240, 116, 58, 0.14);
+  --on-accent: #1a0d05;
+  --glow: rgba(240, 116, 58, 0.09);
+  --dot: rgba(237, 232, 223, 0.1);
 }
 
 @theme inline {
@@ -49,10 +54,9 @@
   --color-text-main: var(--text);
   --color-text-muted: var(--text-muted);
   --color-text-faint: var(--text-faint);
-  --color-violet-glow: var(--violet-glow);
-  --color-blue-glow: var(--blue-glow);
-  --color-blue: var(--blue);
-  --color-purple: var(--purple);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
   --color-status-live: var(--status-live);
 }
 
@@ -109,14 +113,14 @@
   }
 
   ::selection {
-    background: var(--violet-glow);
-    color: #fff;
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
   :focus-visible {
-    outline: 2px solid var(--violet-glow);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 2px;
   }
 }
 
@@ -125,41 +129,33 @@
     width: 100%;
     max-width: 1120px;
     margin-inline: auto;
-    padding-inline: clamp(20px, 5vw, 56px);
+    padding-inline: clamp(16px, 5vw, 56px);
   }
 
-  .gradient-text {
-    background: linear-gradient(100deg, var(--blue-glow), var(--violet-glow));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
+  .label-mono {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.04em;
-    color: var(--violet-glow);
-    margin-bottom: 0.9em;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
 
-  .eyebrow::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--blue-glow), var(--violet-glow));
-    box-shadow: 0 0 0 3px var(--grad-soft);
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.15s;
+  }
+
+  .link-underline:hover {
+    text-decoration-color: var(--accent);
   }
 
   .reveal {
     opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.9s cubic-bezier(0.22, 0.68, 0.35, 1),
-      transform 0.9s cubic-bezier(0.22, 0.68, 0.35, 1);
+    transform: translateY(12px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
   .reveal.in-view {
@@ -167,38 +163,90 @@
     transform: none;
   }
 
-  .glass-nav {
-    background: color-mix(in srgb, var(--bg) 78%, transparent);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-  }
-}
+  /* ---- Frame-layer light effects (decoration lives behind content, never on data) ---- */
 
-@keyframes drift {
-  from {
-    transform: translate(0, 0) scale(1);
+  /* Page-wide soft glow that follows the cursor. */
+  .page-glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      560px circle at var(--mx, 50%) var(--my, 30%),
+      var(--glow),
+      transparent 70%
+    );
   }
-  to {
-    transform: translate(40px, -30px) scale(1.12);
-  }
-}
 
-@keyframes node-pulse {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
+  :root[data-pointer="on"] .page-glow {
     opacity: 1;
-    transform: scale(1.35);
+  }
+
+  /* Dot grid: faint everywhere, lit up around the cursor. */
+  .dot-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+    background-size: 22px 22px;
+    mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  }
+
+  .dot-grid-lit {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(var(--accent) 1.2px, transparent 1.5px);
+    background-size: 22px 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    -webkit-mask-image: radial-gradient(220px circle at var(--hx, -999px) var(--hy, -999px), #000, transparent 75%);
+    mask-image: radial-gradient(220px circle at var(--hx, -999px) var(--hy, -999px), #000, transparent 75%);
+  }
+
+  :root[data-pointer="on"] .dot-grid-lit {
+    opacity: 0.55;
+  }
+
+  /* Hover light inside a block (projects, experience, contact links). */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background: radial-gradient(
+      380px circle at var(--sx, 50%) var(--sy, 50%),
+      var(--accent-soft),
+      transparent 70%
+    );
+  }
+
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  .nav-solid {
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -206,21 +254,83 @@
   }
 }
 
-@keyframes scrollline {
+/* Milestones view */
+@keyframes draw-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pop-in {
   0% {
-    transform: scaleY(0);
-    transform-origin: top;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
   }
-  50% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  50.01% {
-    transform-origin: bottom;
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.25);
   }
   100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes year-in {
+  from {
+    opacity: 0;
+    transform: translateY(30%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fill-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ring-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -231,42 +341,6 @@
   }
   50% {
     opacity: 0.35;
-  }
-}
-
-@keyframes cursor-blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.6);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1.9);
-    opacity: 0;
-  }
-}
-
-@keyframes promo-glow {
-  0%,
-  100% {
-    transform: translateY(0);
-    filter: drop-shadow(0 0 6px rgba(94, 200, 255, 0.8))
-      drop-shadow(0 0 10px rgba(159, 123, 255, 0.55));
-  }
-  50% {
-    transform: translateY(-1px);
-    filter: drop-shadow(0 0 10px rgba(94, 200, 255, 0.95))
-      drop-shadow(0 0 16px rgba(159, 123, 255, 0.75));
   }
 }
 
@@ -297,5 +371,27 @@
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ---------- Printable résumé ---------- */
+
+/* Margin 0 leaves the browser no room for its own header/footer (title, URL, page numbers).
+   The résumé draws its own margins as padding, cloned on every page. */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #1a1a1a !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

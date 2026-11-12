@@ -1,50 +1,34 @@
 import type { SiteContent } from "../../types/content";
 import { useReveal } from "../../hooks/useReveal";
-import { SectionHead } from "../shared/SectionHead";
+import { Section } from "../shared/SectionHead";
 
 interface SkillsProps {
   skills: SiteContent["skills"];
 }
 
-interface SkillCardProps {
-  category: string;
-  items: string[];
-  index: number;
-}
-
-function SkillCard({ category, items, index }: SkillCardProps) {
-  const cardRevealRef = useReveal<HTMLDivElement>(index + 1);
-
-  return (
-    <div className="reveal rounded-2xl border border-border-subtle bg-surface p-5" ref={cardRevealRef}>
-      <h3 className="mb-3 [font-family:var(--font-heading)] text-lg font-semibold">{category}</h3>
-      <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
-          <span className="rounded-full border border-border-subtle bg-surface-2 px-3 py-1.5 text-xs text-text-muted" key={`${category}-${item}`}>{item}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function Skills({ skills }: SkillsProps) {
-  const headRevealRef = useReveal<HTMLDivElement>(0);
+  const listRef = useReveal<HTMLDListElement>(1);
 
   return (
-    <section className="relative py-20 md:py-28" id="skills">
-      <div className="container-shell">
-        <SectionHead config={skills.sectionHead} revealRef={headRevealRef} />
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {skills.groups.map((group, index) => (
-            <SkillCard
-              key={group.category}
-              category={group.category}
-              items={group.items}
-              index={index}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+    <Section id="skills" config={skills.sectionHead}>
+      <dl className="reveal border-t border-border-subtle" ref={listRef}>
+        {skills.groups.map((group) => (
+          <div
+            key={group.category}
+            className="grid gap-1 border-b border-border-subtle py-4 sm:grid-cols-[220px_1fr] sm:gap-6"
+          >
+            <dt className="text-[.95rem] font-semibold text-text-main">{group.category}</dt>
+            <dd className="text-[.95rem] leading-relaxed text-text-muted">
+              {group.items.map((item, index) => (
+                <span key={item}>
+                  {item}
+                  {index < group.items.length - 1 ? <span className="mx-2 text-text-faint">/</span> : null}
+                </span>
+              ))}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </Section>
   );
 }
