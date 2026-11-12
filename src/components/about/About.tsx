@@ -1,6 +1,18 @@
 import type { SiteContent } from "../../types/content";
 import { useReveal } from "../../hooks/useReveal";
 import { HelpTip } from "../shared/HelpTip";
+import { useRef } from "react";
+import { useCountUp, useSplitReveal } from "../../hooks/useFx";
+import { gsap, MOTION_OK, SplitText, useGSAP } from "../../lib/gsap";
+
+function CountUp({ text }: { text: string }) {
+  const ref = useCountUp<HTMLSpanElement>(text);
+  return (
+    <span ref={ref} className="[font-family:var(--font-mono)] text-[1.7rem] font-medium leading-none text-accent tabular-nums">
+      {text}
+    </span>
+  );
+}
 import { workedMonths } from "../../lib/format";
 
 interface AboutProps {
@@ -26,7 +38,32 @@ export function About({ about, experience, helpLabel, lang }: AboutProps) {
     return stat.value ?? "";
   };
 
-  const textRef = useReveal<HTMLDivElement>(0);
+  const textRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useSplitReveal<HTMLHeadingElement>(about.heading);
+
+  // Reading spotlight: the story lights up word by word as you scroll through it.
+  useGSAP(
+    () => {
+      const el = textRef.current;
+      if (!el) return;
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const split = SplitText.create(el.querySelectorAll("p"), {
+          type: "words",
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.fromTo(
+              self.words,
+              { opacity: 0.14 },
+              { opacity: 1, ease: "none", stagger: 0.05, scrollTrigger: { trigger: el, start: "top 75%", end: "bottom 45%", scrub: true } },
+            ),
+        });
+        return () => split.revert();
+      });
+      return () => mm.revert();
+    },
+    { dependencies: [about.paragraphs.join("|")], revertOnUpdate: true },
+  );
   const statsRef = useReveal<HTMLDListElement>(1);
 
   return (
@@ -35,11 +72,11 @@ export function About({ about, experience, helpLabel, lang }: AboutProps) {
         <div className="grid gap-6 pt-6 md:grid-cols-[180px_1fr] md:gap-10">
           <div className="label-mono md:sticky md:top-24 md:self-start">{about.eyebrow}</div>
           <div className="min-w-0">
-            <div className="reveal max-w-[680px]" ref={textRef}>
-              <h2 className="mb-6 [font-family:var(--font-heading)] text-[clamp(1.6rem,3.2vw,2.3rem)] font-semibold leading-tight tracking-[-0.015em]">
+            <div className="max-w-[760px]">
+              <h2 ref={titleRef} className="mb-6 [font-family:var(--font-heading)] text-[clamp(1.6rem,3.2vw,2.3rem)] font-semibold leading-tight tracking-[-0.015em]">
                 {about.heading}
               </h2>
-              <div className="space-y-4 text-[1.05rem] leading-relaxed text-text-muted [&_strong]:font-semibold [&_strong]:text-text-main">
+              <div ref={textRef} className="space-y-5 text-[clamp(1.15rem,1.9vw,1.45rem)] leading-[1.55] text-text-main [&_strong]:font-semibold [&_strong]:text-accent">
                 {about.paragraphs.map((paragraph) => (
                   <p key={paragraph} dangerouslySetInnerHTML={{ __html: paragraph }}></p>
                 ))}
@@ -52,7 +89,7 @@ export function About({ about, experience, helpLabel, lang }: AboutProps) {
               {about.stats.map((stat) => (
                 <div className="py-4 sm:px-5 sm:first:pl-0" key={stat.label}>
                   <dt className="flex items-center gap-2">
-                    <span className="[font-family:var(--font-mono)] text-[1.7rem] font-medium leading-none text-accent">{valueOf(stat)}</span>
+                    <CountUp text={valueOf(stat)} />
                     <HelpTip text={stat.help} label={`${helpLabel}: ${stat.label}`} />
                   </dt>
                   <dd className="mt-2 text-sm text-text-muted">{stat.label}</dd>

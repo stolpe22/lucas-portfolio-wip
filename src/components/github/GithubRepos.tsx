@@ -28,13 +28,13 @@ function monthYear(iso: string, dates: SiteContent["ui"]["dates"]) {
 
 function Chip({ label, onRemove, removeLabel }: { label: string; onRemove: () => void; removeLabel: string }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-border-strong bg-surface py-0.5 pl-2.5 pr-1 text-[.8rem] text-text-main">
+    <span className="inline-flex items-center gap-1 border border-text-main bg-surface py-0.5 pl-2.5 pr-1 text-[.8rem] text-text-main">
       {label}
       <button
         type="button"
         onClick={onRemove}
         aria-label={`${removeLabel}: ${label}`}
-        className="inline-flex h-6 w-6 items-center justify-center rounded-full text-text-faint hover:bg-surface-2 hover:text-text-main"
+        className="inline-flex h-6 w-6 items-center justify-center text-text-faint hover:bg-text-main hover:text-bg"
       >
         ×
       </button>
@@ -103,7 +103,7 @@ export function GithubRepos({ github, repos, status, syncedAt, ui, dates, locale
       <div className="reveal" ref={controlsRef}>
         {/* Controls */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <label className="flex min-h-11 flex-1 items-center gap-2 rounded-md border border-border-subtle bg-surface px-3 focus-within:border-border-strong">
+          <label className="flex min-h-11 flex-1 items-center gap-2 border-[1.5px] border-text-main bg-surface px-3 shadow-[3px_3px_0_var(--text)] focus-within:shadow-[5px_5px_0_var(--accent)]">
             <SearchIcon />
             <input
               type="search"
@@ -116,7 +116,7 @@ export function GithubRepos({ github, repos, status, syncedAt, ui, dates, locale
             />
           </label>
           <select
-            className="min-h-11 rounded-md border border-border-subtle bg-surface px-3 text-[.9rem]"
+            className="min-h-11 border-[1.5px] border-text-main bg-surface px-3 text-[.9rem] shadow-[3px_3px_0_var(--text)]"
             value={sort}
             onChange={(event) => setSort(event.target.value as SortKey)}
             aria-label={ui.sortLabel}
@@ -139,10 +139,10 @@ export function GithubRepos({ github, repos, status, syncedAt, ui, dates, locale
                   aria-pressed={active}
                   disabled={count === 0 && !active}
                   onClick={() => setLanguage(active ? null : key)}
-                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3 text-[.8rem] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                  className={`inline-flex min-h-9 items-center gap-1.5 border px-3 text-[.8rem] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
                     active
-                      ? "border-accent bg-accent text-on-accent"
-                      : "border-border-subtle bg-surface text-text-muted hover:border-border-strong hover:text-text-main"
+                      ? "border-text-main bg-text-main text-bg"
+                      : "border-text-main/40 bg-surface text-text-muted hover:border-text-main hover:text-text-main"
                   }`}
                 >
                   {langLabel(key)}
@@ -213,7 +213,7 @@ export function GithubRepos({ github, repos, status, syncedAt, ui, dates, locale
               <button
                 type="button"
                 onClick={clearAll}
-                className="mt-3 inline-flex min-h-10 items-center rounded-md border border-border-strong px-4 text-sm text-text-main hover:border-text-main"
+                className="btn btn-ghost btn-sm mt-3"
               >
                 {ui.clearFilters}
               </button>
@@ -263,7 +263,7 @@ export function GithubRepos({ github, repos, status, syncedAt, ui, dates, locale
             className="pointer-events-none absolute inset-x-0 bottom-0 flex h-16 items-end justify-center bg-gradient-to-t from-bg to-transparent pb-2"
             aria-live="polite"
           >
-            <span className="rounded-full border border-border-subtle bg-bg px-3 py-0.5 [font-family:var(--font-mono)] text-[.72rem] text-text-muted">
+            <span className="border border-text-main bg-bg px-3 py-0.5 [font-family:var(--font-mono)] text-[.72rem] text-text-main">
               +{moreBelow} {ui.moreBelow}
             </span>
           </div>

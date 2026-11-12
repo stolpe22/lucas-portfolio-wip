@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SiteContent } from "../../types/content";
+import { scrollToTarget } from "../../lib/gsap";
 
 interface DiceNavigatorProps {
   navItems: SiteContent["nav"];
@@ -289,7 +290,7 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
     const elementId = targetSection.href.replace("#", "");
     const targetElement = document.getElementById(elementId);
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollToTarget(targetElement);
     }
 
     setRollState("idle");
@@ -308,7 +309,7 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
     <div className="pointer-events-none fixed bottom-4 left-3 z-[90] hidden md:block print:hidden" aria-label={ui.ariaLabel}>
       {isOpen && landedSectionId && bubblePosition ? (
         <div
-          className="fixed max-w-[320px] rounded-md border border-border-strong bg-surface px-3 py-2 text-xs text-text-main shadow-[0_8px_24px_-12px_rgba(0,0,0,0.35)]"
+          className="fixed max-w-[320px] border-[1.5px] border-text-main bg-surface px-3 py-2 text-xs text-text-main shadow-[4px_4px_0_var(--text)]"
           style={{ left: `${bubblePosition.x}px`, top: `${bubblePosition.y}px` }}
         >
           <span className="block [font-family:var(--font-mono)] text-[10px] uppercase tracking-wide text-accent">{landedSection}</span>
@@ -320,13 +321,13 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
         <button
           type="button"
           onClick={() => setIsOpen((previous) => !previous)}
-          className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface px-3 py-1.5 [font-family:var(--font-mono)] text-xs text-text-main transition-colors hover:border-text-main"
+          className="btn btn-ghost btn-sm [font-family:var(--font-mono)]"
         >
           {isOpen ? ui.toggleClose : ui.toggleOpen}
         </button>
 
         {isOpen ? (
-          <div className="rounded-md border border-border-subtle bg-surface p-3">
+          <div className="card-hard p-3">
             <div className="text-[11px] [font-family:var(--font-mono)] text-accent">{ui.eyebrow}</div>
             <div className="mt-1 [font-family:var(--font-heading)] text-sm font-semibold text-text-main">{ui.heading}</div>
             <p className="mt-1 max-w-[34ch] text-xs text-text-muted">{ui.subheading}</p>

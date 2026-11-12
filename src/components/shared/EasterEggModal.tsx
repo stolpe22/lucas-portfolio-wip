@@ -40,14 +40,14 @@ export function EasterEggModal({ content, onClose }: EasterEggModalProps) {
         onClick={onClose}
       >
         <div
-          className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-lg border border-border-strong bg-surface p-8 shadow-[0_30px_80px_-24px_rgba(0,0,0,.6)]"
+          className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto card-hard p-8"
           onClick={(event) => event.stopPropagation()}
         >
           <button
             type="button"
             onClick={onClose}
             aria-label={content.closeAriaLabel}
-            className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-border-subtle bg-surface-2 text-text-muted transition hover:border-border-strong hover:text-text-main"
+            className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center border-[1.5px] border-text-main bg-surface text-text-muted transition hover:border-border-strong hover:text-text-main"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
               <path d="M18 6 6 18M6 6l12 12" />
@@ -67,7 +67,7 @@ export function EasterEggModal({ content, onClose }: EasterEggModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="mt-6 inline-flex items-center rounded-md bg-accent px-5 py-2.5 text-[.95rem] font-medium text-on-accent transition-colors hover:bg-text-main hover:text-bg"
+            className="btn btn-primary mt-6"
           >
             {content.closeLabel}
           </button>

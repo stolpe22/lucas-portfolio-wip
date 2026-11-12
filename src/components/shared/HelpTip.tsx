@@ -43,7 +43,7 @@ export function HelpTip({ text, label }: HelpTipProps) {
         onClick={() => setOpen((value) => !value)}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
-        className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border-subtle [font-family:var(--font-mono)] text-[.7rem] text-text-faint transition-colors hover:border-border-strong hover:text-text-main"
+        className="inline-flex h-6 w-6 items-center justify-center border border-text-main/50 [font-family:var(--font-mono)] text-[.7rem] text-text-muted transition-colors hover:border-text-main hover:bg-text-main hover:text-bg"
       >
         ?
       </button>
@@ -51,7 +51,7 @@ export function HelpTip({ text, label }: HelpTipProps) {
         <span
           id={id}
           role="tooltip"
-          className="absolute left-1/2 top-full z-20 mt-2 w-64 max-w-[calc(100vw-32px)] -translate-x-1/2 rounded-md border border-border-strong bg-surface p-3 text-left text-[.82rem] leading-snug text-text-muted shadow-[0_10px_30px_-14px_rgba(0,0,0,.35)]"
+          className="absolute left-1/2 top-full z-20 mt-2 w-64 max-w-[calc(100vw-32px)] -translate-x-1/2 border-[1.5px] border-text-main bg-surface p-3 text-left text-[.82rem] leading-snug text-text-muted shadow-[4px_4px_0_var(--text)]"
         >
           {text}
         </span>

@@ -70,3 +70,12 @@ export function workedMonths(periods: Array<{ start: YearMonth; end: YearMonth |
 export function monthIndex(value: YearMonth | null): number {
   return toIndex(value ?? currentYearMonth());
 }
+
+/** Compact duration for a headline number: "10 anos" when long or exact, "2a 5m" otherwise. */
+export function compactDuration(months: number, lang: string): string {
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const pt = lang.startsWith("pt");
+  if (rest === 0 || years >= 5) return pt ? `${years} anos` : `${years} yrs`;
+  return pt ? `${years}a ${rest}m` : `${years}y ${rest}m`;
+}

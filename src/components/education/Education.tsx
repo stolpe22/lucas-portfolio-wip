@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { SiteContent } from "../../types/content";
-import { useReveal } from "../../hooks/useReveal";
+import { useCascade } from "../../hooks/useFx";
 import { Section } from "../shared/SectionHead";
 
 interface EducationProps {
@@ -30,13 +30,14 @@ function Row({ primary, secondary, aside }: { primary: string; secondary?: strin
 }
 
 export function Education({ education, ui }: EducationProps) {
-  const leftRef = useReveal<HTMLDivElement>(1);
-  const rightRef = useReveal<HTMLDivElement>(2);
+  const key = education.items.map((i) => i.title).join("|");
+  const leftRef = useCascade<HTMLDivElement>("h3, li", key, { stagger: 0.05 });
+  const rightRef = useCascade<HTMLDivElement>("h3, li", key, { stagger: 0.04 });
 
   return (
     <Section id="formacao" config={education.sectionHead}>
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
-        <div className="reveal flex flex-col gap-10" ref={leftRef}>
+        <div className="flex flex-col gap-10" ref={leftRef}>
           <Group title={ui.academicTitle}>
             {education.items.map((item) => (
               <Row key={item.title} primary={item.title} secondary={`${item.place} · ${item.period}`} />
@@ -53,7 +54,7 @@ export function Education({ education, ui }: EducationProps) {
             ))}
           </Group>
         </div>
-        <div className="reveal" ref={rightRef}>
+        <div ref={rightRef}>
           <Group title={ui.certificationsTitle}>
             {education.certifications.map((certification) => (
               <Row

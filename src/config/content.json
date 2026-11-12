@@ -10,6 +10,10 @@
   },
   "nav": [
     {
+      "label": "Serviços",
+      "href": "#servicos"
+    },
+    {
       "label": "Sobre",
       "href": "#sobre"
     },
@@ -18,20 +22,16 @@
       "href": "#experiencia"
     },
     {
+      "label": "Projetos",
+      "href": "#projetos"
+    },
+    {
       "label": "Iniciativas",
       "href": "#iniciativas"
     },
     {
       "label": "Skills",
       "href": "#skills"
-    },
-    {
-      "label": "Projetos",
-      "href": "#projetos"
-    },
-    {
-      "label": "Repositórios",
-      "href": "#repos"
     },
     {
       "label": "Formação",
@@ -93,6 +93,80 @@
         "value": "8",
         "label": "equipes na 1ª edição do DATAHack",
         "help": "Equipes que competiram no DATAHack Univag em out/2026, cada uma construindo uma pipeline completa em um dia."
+      }
+    ]
+  },
+  "services": {
+    "sectionHead": {
+      "eyebrow": "Serviços",
+      "heading": "O que eu entrego",
+      "subheading": "Quatro frentes, do dado bruto à decisão. No seu time ou como consultor, por demanda ou por projeto."
+    },
+    "items": [
+      {
+        "title": "Dashboards web",
+        "problem": "Relatórios presos em ferramentas caras, difíceis de ler e que pouca gente abre.",
+        "deliver": [
+          "Painéis web sob medida, com a identidade da sua empresa",
+          "Boas práticas de visualização (Tufte, Few) e usabilidade (Nielsen)",
+          "Sem licença de ferramentas grandes, como o Microsoft Fabric, quando elas não são necessárias"
+        ],
+        "tools": [
+          "React",
+          "TypeScript",
+          "SQL",
+          "Python",
+          "Power BI"
+        ]
+      },
+      {
+        "title": "Pipelines de dados",
+        "problem": "Dados espalhados em planilhas, sistemas e APIs, sem uma fonte em que dê para confiar.",
+        "deliver": [
+          "Extração de APIs, bancos, planilhas e web scraping",
+          "Modelagem e transformação com dbt",
+          "Orquestração com Airflow e ambientes em Docker"
+        ],
+        "tools": [
+          "Python",
+          "dbt",
+          "Airflow",
+          "PostgreSQL",
+          "Docker",
+          "AWS",
+          "GCP"
+        ]
+      },
+      {
+        "title": "APIs para produtos de dados",
+        "problem": "O dado existe, mas não chega a quem precisa: sistemas, parceiros e clientes.",
+        "deliver": [
+          "APIs que entregam dados prontos para consumo",
+          "Cloud Functions em AWS Lambda e Google Cloud Run",
+          "Integração entre sistemas via API"
+        ],
+        "tools": [
+          "Python",
+          "AWS Lambda",
+          "GCP Cloud Run",
+          "PostgreSQL"
+        ]
+      },
+      {
+        "title": "Automação e IA",
+        "problem": "Tarefas repetitivas consumindo horas do time toda semana.",
+        "deliver": [
+          "Automação de processos com Python e n8n",
+          "IA aplicada com RAG, agentes e servidores MCP",
+          "Atendimento e triagem com IA integrados aos seus sistemas"
+        ],
+        "tools": [
+          "n8n",
+          "Python",
+          "OpenAI API",
+          "RAG",
+          "MCP"
+        ]
       }
     ]
   },
@@ -504,7 +578,7 @@
     "perPage": 100,
     "excludeForks": false,
     "sectionHead": {
-      "eyebrow": "Repositórios",
+      "eyebrow": "Projetos · GitHub",
       "heading": "Repositórios públicos",
       "subheading": "Puxados do GitHub a cada deploy (de hora em hora). Filtre por linguagem ou busque pelo nome."
     }
@@ -611,8 +685,8 @@
   },
   "contact": {
     "eyebrow": "Contato",
-    "heading": "Vamos conversar",
-    "message": "Estou aberto a oportunidades em engenharia de dados, BI e automação. O jeito mais rápido de falar comigo é por e-mail ou WhatsApp.",
+    "heading": "Tem um desafio com dados? Vamos conversar.",
+    "message": "Estou aberto a oportunidades em engenharia de dados e a projetos de consultoria, por demanda ou por projeto. O jeito mais rápido de falar comigo é por e-mail ou WhatsApp.",
     "email": "stolpe02@gmail.com",
     "phone": "(65) 99248-6638",
     "location": "Cuiabá, MT",
@@ -677,12 +751,12 @@
       "toggleClose": "Fechar dado",
       "clickHint": "Clique no dado para jogar",
       "sectionMessages": {
+        "servicos": "O que eu entrego, do dado bruto à decisão.",
         "sobre": "Este sou eu: um resumo rápido da minha trajetória.",
         "experiencia": "Minha linha do tempo profissional, com as promoções no caminho.",
+        "projetos": "Projetos que fiz por conta própria.",
         "iniciativas": "O hackathon de engenharia de dados que eu fundei na UNIVAG.",
         "skills": "As ferramentas que uso no dia a dia.",
-        "projetos": "Projetos que fiz por conta própria.",
-        "repos": "Código público, puxado direto do GitHub.",
         "formacao": "Formação, cursos e idiomas.",
         "contato": "O destino está pedindo para a gente conversar."
       }
@@ -794,6 +868,12 @@
         "event": "Evento"
       },
       "swipeHint": "Arraste para o lado e toque num marco"
+    },
+    "services": {
+      "label": "Serviço",
+      "problem": "O problema",
+      "deliver": "O que eu entrego",
+      "cta": "Tem um desafio desses? Vamos conversar"
     }
   }
 }

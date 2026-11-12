@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import type { ExperienceItem, SiteContent } from "../../types/content";
 import { DownloadIcon, MilestonesIcon } from "../shared/icons";
+import { gsap, MOTION_OK, SplitText, useGSAP } from "../../lib/gsap";
 
 interface HeroProps {
   hero: SiteContent["hero"];
@@ -15,40 +17,93 @@ function resolvePublicSrc(src: string | undefined) {
   return src.startsWith("/") ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src;
 }
 
-const RISE_IN = "opacity-0 animate-[rise-in_.7s_ease-out_forwards]";
-const delay = (value: string) => ({ animationDelay: value });
-
 export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadResume, onOpenMilestones }: HeroProps) {
   const photoSrc = resolvePublicSrc(hero.photo);
+  const rootRef = useRef<HTMLElement | null>(null);
 
-  const photoClasses =
-    "mx-auto w-full max-w-[300px] object-contain md:max-w-[360px]";
+  // Intro timeline + scroll parallax. Elements marked [data-hero] are the choreography steps.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const q = gsap.utils.selector(rootRef);
+        const name = q("[data-hero=name]")[0] as HTMLElement | undefined;
+        // Hide the name until the display font is in, then split by character and animate.
+        if (name) gsap.set(name, { autoAlpha: 0 });
+        let split: SplitText | null = null;
+
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
+        tl.from(q("[data-hero=eyebrow]"), { y: 16, autoAlpha: 0, duration: 0.6 }, 0)
+          .from(q("[data-hero=arc]"), { scaleY: 0, transformOrigin: "50% 100%", duration: 1.1, ease: "expo.out" }, 0.2)
+          .from(q("[data-hero=photo]"), { clipPath: "inset(100% 0% 0% 0%)", scale: 1.08, duration: 1.2, ease: "expo.out" }, 0.3)
+          .from(q("[data-hero=role]"), { y: 20, autoAlpha: 0, duration: 0.7 }, 0.6)
+          .from(q("[data-hero=desc]"), { y: 20, autoAlpha: 0, duration: 0.7 }, 0.75)
+          .from(q("[data-hero=cta] > *"), { y: 18, autoAlpha: 0, duration: 0.6, stagger: 0.08 }, 0.9)
+          .from(q("[data-hero=status]"), { autoAlpha: 0, duration: 0.6 }, 1.2);
+
+        document.fonts.ready.then(() => {
+          if (!name || !rootRef.current) return;
+          split = SplitText.create(name, { type: "chars", mask: "chars" });
+          gsap.set(name, { autoAlpha: 1 });
+          tl.from(split.chars, { yPercent: 115, rotate: 6, duration: 1, stagger: 0.035 }, 0.15);
+          tl.play(0);
+        });
+
+        // Depth on scroll: the name drifts faster than the photo.
+        gsap.to(q("[data-hero=text]"), {
+          yPercent: -12,
+          ease: "none",
+          scrollTrigger: { trigger: rootRef.current, start: "top top", end: "bottom top", scrub: true },
+        });
+        gsap.to(q("[data-hero=figure]"), {
+          yPercent: 6,
+          ease: "none",
+          scrollTrigger: { trigger: rootRef.current, start: "top top", end: "bottom top", scrub: true },
+        });
+        // Exit: the name opens up and fades, the photo pushes in, as the hero scrolls away.
+        const exit = { trigger: rootRef.current, start: "30% top", end: "bottom top", scrub: true };
+        // Containers only (the intro animates their children), so the two never fight.
+        gsap.to(name ?? [], { letterSpacing: "0.06em", ease: "none", scrollTrigger: exit });
+        gsap.to(q("[data-hero=text]"), { opacity: 0.15, ease: "none", scrollTrigger: exit });
+        gsap.to(q("[data-hero=figure]"), { scale: 1.08, transformOrigin: "50% 100%", ease: "none", scrollTrigger: exit });
+
+        return () => {
+          split?.revert();
+        };
+      });
+      return () => mm.revert();
+    },
+    { scope: rootRef, dependencies: [wordmarkAlt, hero.role], revertOnUpdate: true },
+  );
 
   return (
-    <section className="relative isolate overflow-hidden pt-24 md:pt-36" data-light-area>
+    <section ref={rootRef} className="relative isolate overflow-hidden pt-24 md:pt-36" data-light-area>
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="dot-grid"></div>
         <div className="dot-grid-lit"></div>
       </div>
       <div className="container-shell">
         <div className="grid items-end gap-8 border-b border-border-strong md:grid-cols-[1.25fr_.75fr] md:gap-6">
-          <div className="pb-8 md:pb-20">
-            <div className={`label-mono mb-4 md:mb-6 ${RISE_IN}`} style={delay(".05s")}>{hero.eyebrow}</div>
+          <div className="pb-8 md:pb-20" data-hero="text">
+            <div className="label-mono mb-4 md:mb-6" data-hero="eyebrow">
+              {hero.eyebrow}
+            </div>
             <h1
-              className={`mb-3 [font-family:var(--font-display)] text-[clamp(2.8rem,8.5vw,5.6rem)] font-semibold leading-[0.95] tracking-[-0.01em] text-text-main ${RISE_IN}`} style={delay(".15s")}
+              data-hero="name"
+              className="mb-3 [font-family:var(--font-display)] text-[clamp(2.8rem,8.5vw,5.6rem)] font-semibold leading-[1] tracking-[-0.01em] text-text-main"
             >
               {wordmarkAlt}
             </h1>
-            <p className={`mb-6 text-[clamp(1.1rem,2.2vw,1.4rem)] font-medium text-accent ${RISE_IN}`} style={delay(".25s")}>{hero.role}</p>
-            <p className={`mb-8 max-w-[56ch] text-[1.05rem] leading-relaxed text-text-muted ${RISE_IN}`} style={delay(".35s")}>{hero.description}</p>
+            <p data-hero="role" className="mb-6 text-[clamp(1.1rem,2.2vw,1.4rem)] font-medium text-accent">
+              {hero.role}
+            </p>
+            <p data-hero="desc" className="mb-8 max-w-[56ch] text-[1.05rem] leading-relaxed text-text-muted">
+              {hero.description}
+            </p>
 
-            <div className={`flex flex-wrap items-center gap-3 ${RISE_IN}`} style={delay(".45s")}>
+            <div className="flex flex-wrap items-center gap-3" data-hero="cta">
               {hero.ctas.map((cta) => {
-                const classes = `inline-flex items-center gap-2 whitespace-nowrap rounded-md px-5 py-2.5 text-[.95rem] font-medium transition-colors ${
-                  cta.style === "primary"
-                    ? "bg-accent text-on-accent hover:bg-text-main hover:text-bg"
-                    : "border border-border-strong text-text-main hover:border-text-main"
-                }`;
+                const classes = `btn ${cta.style === "primary" ? "btn-primary" : "btn-ghost"}`;
                 if (cta.action) {
                   const isResume = cta.action === "resume";
                   return (
@@ -72,9 +127,8 @@ export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadR
             </div>
 
             {currentJobs.length ? (
-              <div className={`mt-8 flex flex-wrap items-center gap-x-2 gap-y-1 md:mt-10 text-sm text-text-muted ${RISE_IN}`} style={delay(".55s")}>
-                <span className="h-2 w-2 rounded-full bg-status-live animate-[blink_2.4s_ease-in-out_infinite]"></span>
-                <span className="label-mono !text-status-live">{currentLabel}</span>
+              <div className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-text-muted md:mt-10" data-hero="status">
+                <span className="tag-now">{currentLabel}</span>
                 {currentJobs.map((job, i) => (
                   <span key={`${job.company}-${job.start}`}>
                     {i > 0 ? <span className="mr-2 text-text-faint">·</span> : null}
@@ -86,13 +140,14 @@ export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadR
           </div>
 
           {photoSrc ? (
-            <div className="relative mx-auto w-[200px] self-end sm:w-[240px] md:w-full">
-              <div className="absolute inset-x-[6%] bottom-0 top-[14%] -z-10 rounded-t-full bg-accent-soft"></div>
+            <div className="relative mx-auto w-[200px] self-end sm:w-[240px] md:w-full" data-hero="figure">
+              <div data-hero="arc" className="absolute inset-x-[10%] bottom-0 top-[16%] -z-10 translate-x-3 -translate-y-3 bg-accent" aria-hidden="true"></div>
+              <div className="absolute inset-x-[10%] bottom-0 top-[16%] -z-10 border-[1.5px] border-text-main bg-surface-2" aria-hidden="true"></div>
               <img
+                data-hero="photo"
                 src={photoSrc}
                 alt={hero.photoAlt || ""}
-                className={`relative ${photoClasses} ${RISE_IN}`}
-                style={delay(".2s")}
+                className="relative mx-auto w-full max-w-[300px] object-contain md:max-w-[360px]"
               />
             </div>
           ) : null}

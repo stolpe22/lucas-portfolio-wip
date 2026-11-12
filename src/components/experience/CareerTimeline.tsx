@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import type { ExperienceItem, SiteContent } from "../../types/content";
+import { gsap, MOTION_OK, useGSAP } from "../../lib/gsap";
 import { formatDuration, formatPeriod, monthIndex, workedMonths } from "../../lib/format";
 
 interface CareerTimelineProps {
@@ -23,6 +25,19 @@ const GRID = "grid grid-cols-[7.5rem_1fr] gap-x-3 sm:grid-cols-[11rem_1fr_8.5rem
  * Brand color = highlight (current job); a light tint of it = ordinary data; gray = axis.
  */
 export function CareerTimeline({ items, dates, caption, ariaLabel, onSelect }: CareerTimelineProps) {
+  const figRef = useRef<HTMLElement | null>(null);
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const trigger = { trigger: figRef.current, start: "top 80%", once: true };
+        gsap.from("[data-bar]", { scaleX: 0, transformOrigin: "0% 50%", duration: 1.1, ease: "expo.out", stagger: 0.07, scrollTrigger: trigger });
+        gsap.from("[data-axis]", { scaleX: 0, transformOrigin: "0% 50%", duration: 1.2, ease: "expo.out", scrollTrigger: trigger });
+      });
+      return () => mm.revert();
+    },
+    { scope: figRef, dependencies: [items.length], revertOnUpdate: true },
+  );
   const rows = Object.values(
     items.reduce<Record<string, Row>>((acc, item) => {
       const row = (acc[item.company] ??= { company: item.company, items: [], lastEnd: 0 });
@@ -42,14 +57,14 @@ export function CareerTimeline({ items, dates, caption, ariaLabel, onSelect }: C
   for (let y = firstYear + (firstYear % 2); y <= lastYear; y += 2) ticks.push(y);
 
   return (
-    <figure aria-label={ariaLabel}>
+    <figure ref={figRef} aria-label={ariaLabel}>
       <div className="flex flex-col">
         {rows.map((row) => (
           <button
             key={row.company}
             type="button"
             onClick={() => onSelect(row.company)}
-            className={`group ${GRID} items-center rounded-sm py-2 text-left transition-colors hover:bg-surface-2`}
+            className={`group ${GRID} items-center py-2 text-left transition-colors hover:bg-surface-2`}
           >
             <span className="min-w-0 pl-1">
               <span className="block truncate text-[.85rem] font-medium text-text-main group-hover:text-accent" title={row.company}>
@@ -66,8 +81,9 @@ export function CareerTimeline({ items, dates, caption, ariaLabel, onSelect }: C
                 return (
                   <span
                     key={item.start}
+                    data-bar
                     title={`${item.role} · ${formatPeriod(item.start, item.end, dates)}`}
-                    className={`absolute inset-y-0 rounded-[2px] border-r-2 border-bg ${item.end === null ? "bg-accent" : "bg-accent/35"}`}
+                    className={`absolute inset-y-0 border-r-2 border-bg ${item.end === null ? "bg-accent" : "bg-accent/35"}`}
                     style={{ left: `${pct(start)}%`, width: `max(4px, ${pct(end) - pct(start)}%)` }}
                   />
                 );
@@ -83,7 +99,7 @@ export function CareerTimeline({ items, dates, caption, ariaLabel, onSelect }: C
       {/* Axis: round years, gray, no grid lines. */}
       <div className={GRID} aria-hidden="true">
         <span />
-        <span className="relative mt-1 h-6 border-t border-border-strong">
+        <span className="relative mt-1 h-6 border-t border-border-strong" data-axis>
           {ticks.map((year, index) => (
             <span
               key={year}

@@ -5,6 +5,7 @@ import { useGithubRepos } from "./hooks/useGithubRepos";
 import { useLanguage } from "./hooks/useLanguage";
 import { useTypedKeyword } from "./hooks/useTypedKeyword";
 import { usePointerLight } from "./hooks/usePointerLight";
+import { useScrollProgress } from "./hooks/useFx";
 import { Nav } from "./components/nav/Nav";
 import { Hero } from "./components/hero/Hero";
 import { DiceNavigator } from "./components/dice/DiceNavigator";
@@ -20,6 +21,8 @@ import { Footer } from "./components/footer/Footer";
 import { EasterEggModal } from "./components/shared/EasterEggModal";
 import { Resume } from "./components/resume/Resume";
 import { Milestones } from "./components/milestones/Milestones";
+import { Services } from "./components/services/Services";
+import { SmoothScroller } from "./components/fx/SmoothScroller";
 
 function App() {
   const { language, setLanguage, toggleLanguage } = useLanguage();
@@ -34,6 +37,7 @@ function App() {
 
   useTypedKeyword(content.ui.easterEgg.keyword, () => setShowEasterEgg(true));
   usePointerLight();
+  const progressRef = useScrollProgress<HTMLDivElement>();
 
   useEffect(() => {
     document.documentElement.lang = content.meta.lang;
@@ -108,7 +112,10 @@ function App() {
   return (
     <>
       <div className="print:hidden">
+        {/* Must come first: creates the smoother before the sections' ScrollTriggers. */}
+        <SmoothScroller />
         <div className="page-glow" aria-hidden="true"></div>
+        <div ref={progressRef} className="fixed inset-x-0 top-0 z-[120] h-[2px] origin-left scale-x-0 bg-accent" aria-hidden="true"></div>
         {showEasterEgg ? (
           <EasterEggModal content={content.ui.easterEgg} onClose={() => setShowEasterEgg(false)} />
         ) : null}
@@ -122,6 +129,10 @@ function App() {
           onDownloadResume={downloadResume}
           ui={content.ui.nav}
         />
+        {/* Fixed UI lives outside the smoothed content. */}
+        <DiceNavigator navItems={content.nav} ui={content.ui.dice} />
+        <div id="smooth-wrapper">
+          <div id="smooth-content">
         <main>
           <Hero
             hero={content.hero}
@@ -131,7 +142,7 @@ function App() {
             onDownloadResume={downloadResume}
             onOpenMilestones={openMilestones}
           />
-          <DiceNavigator navItems={content.nav} ui={content.ui.dice} />
+          <Services services={content.services} ui={content.ui.services} />
           <About about={content.about} experience={content.experience.items} helpLabel={content.ui.help.label} lang={content.meta.lang} />
           <Experience
             experience={content.experience}
@@ -139,8 +150,6 @@ function App() {
             dates={content.ui.dates}
             onOpenMilestones={openMilestones}
           />
-          <Initiatives initiatives={content.initiatives} dates={content.ui.dates} />
-          <Skills skills={content.skills} />
           <Projects projects={content.projects} repos={repos} ui={content.ui.projects} />
           <GithubRepos
             github={content.github}
@@ -151,10 +160,14 @@ function App() {
             dates={content.ui.dates}
             locale={content.meta.lang}
           />
+          <Initiatives initiatives={content.initiatives} dates={content.ui.dates} />
+          <Skills skills={content.skills} />
           <Education education={content.education} ui={content.ui.education} />
           <Contact contact={content.contact} ui={content.ui.contact} onDownloadResume={downloadResume} />
         </main>
         <Footer footer={content.footer} ui={content.ui.footer} />
+          </div>
+        </div>
       </div>
 
       {milestonesOpen ? (

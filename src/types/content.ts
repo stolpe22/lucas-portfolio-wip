@@ -92,6 +92,15 @@ export interface SiteContent {
       help: string;
     }>;
   };
+  services: {
+    sectionHead: SectionHeadConfig;
+    items: Array<{
+      title: string;
+      problem: string;
+      deliver: string[];
+      tools: string[];
+    }>;
+  };
   skills: {
     sectionHead: SectionHeadConfig;
     groups: Array<{
@@ -212,6 +221,12 @@ export interface SiteContent {
     };
     help: {
       label: string;
+    };
+    services: {
+      label: string;
+      problem: string;
+      deliver: string;
+      cta: string;
     };
     milestones: {
       eyebrow: string;

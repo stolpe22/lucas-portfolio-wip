@@ -1,7 +1,17 @@
 import type { InitiativeItem, SiteContent } from "../../types/content";
-import { useReveal } from "../../hooks/useReveal";
+import { useCascade } from "../../hooks/useFx";
 import { Section } from "../shared/SectionHead";
 import { formatMonth } from "../../lib/format";
+import { useCountUp } from "../../hooks/useFx";
+
+function CountUp({ text }: { text: string }) {
+  const ref = useCountUp<HTMLElement>(text);
+  return (
+    <dt ref={ref} className="[font-family:var(--font-mono)] text-[1.7rem] font-medium leading-none text-text-main tabular-nums">
+      {text}
+    </dt>
+  );
+}
 
 interface InitiativesProps {
   initiatives: SiteContent["initiatives"];
@@ -9,10 +19,10 @@ interface InitiativesProps {
 }
 
 function InitiativeBlock({ item, dates }: { item: InitiativeItem; dates: SiteContent["ui"]["dates"] }) {
-  const ref = useReveal<HTMLDivElement>(1);
+  const ref = useCascade<HTMLDivElement>("h3, li, dl > div", item.name + item.bullets.length, { stagger: 0.07 });
 
   return (
-    <article className="reveal max-w-[720px]" ref={ref}>
+    <article className="max-w-[720px]" ref={ref}>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-[1.05rem] font-semibold text-text-main">{item.role}</h3>
         <span className="[font-family:var(--font-mono)] text-[.8rem] text-text-faint">
@@ -34,7 +44,7 @@ function InitiativeBlock({ item, dates }: { item: InitiativeItem; dates: SiteCon
       <dl className="mt-8 grid grid-cols-3 border-y border-border-subtle">
         {item.facts.map((fact) => (
           <div key={fact.label} className="border-l border-border-subtle py-4 pl-4 first:border-l-0 first:pl-0">
-            <dt className="[font-family:var(--font-mono)] text-[1.7rem] font-medium leading-none text-text-main">{fact.value}</dt>
+            <CountUp text={fact.value} />
             <dd className="mt-2 text-sm text-text-muted">{fact.label}</dd>
           </div>
         ))}

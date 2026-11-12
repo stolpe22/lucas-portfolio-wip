@@ -271,7 +271,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
           ref={backRef}
           type="button"
           onClick={onClose}
-          className="inline-flex min-h-11 items-center gap-2 rounded-md border border-border-subtle bg-surface/80 px-3 text-[.9rem] text-text-main backdrop-blur transition-colors hover:border-border-strong"
+          className="btn btn-ghost btn-sm min-h-11"
         >
           <span aria-hidden="true">←</span> {ui.back}
         </button>
@@ -325,13 +325,13 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
                 <span className="absolute left-0 top-0 h-10 w-px -translate-y-1/2 bg-accent/70"></span>
                 <span
                   data-text
-                  className="absolute left-0 top-0 -translate-x-1/2 -translate-y-[38px] whitespace-nowrap rounded-full bg-text-main px-2 py-0.5 [font-family:var(--font-mono)] text-[.66rem] text-bg"
+                  className="absolute left-0 top-0 -translate-x-1/2 -translate-y-[38px] whitespace-nowrap bg-text-main px-2 py-0.5 [font-family:var(--font-mono)] text-[.66rem] text-bg"
                 ></span>
               </div>
             ) : null}
             {/* Base line draws in from the left. */}
             <div
-              className="absolute top-1/2 h-[2px] origin-left -translate-y-1/2 rounded-full bg-border-strong"
+              className="absolute top-1/2 h-[2px] origin-left -translate-y-1/2 bg-text-main/50"
               style={{
                 left: xOf(0),
                 width: xOf(items.length - 1) - xOf(0),
@@ -340,7 +340,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
             ></div>
             {/* Accent fill up to the emphasized milestone. */}
             <div
-              className="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-accent transition-[width] duration-700 ease-out"
+              className="absolute top-1/2 h-[3px] -translate-y-1/2 bg-accent transition-[width] duration-700 ease-out"
               style={{ left: xOf(0), width: active !== null ? xOf(active) - xOf(0) : 0 }}
             ></div>
 
@@ -348,7 +348,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
             {items.slice(1).map((m, i) => (
               <span
                 key={`gap-${m.date}-${m.title}`}
-                className="absolute top-1/2 whitespace-nowrap rounded-full bg-bg px-2 [font-family:var(--font-mono)] text-[.66rem] text-text-faint"
+                className="absolute top-1/2 whitespace-nowrap bg-bg px-2 [font-family:var(--font-mono)] text-[.66rem] text-text-faint"
                 style={{
                   left: (xOf(i) + xOf(i + 1)) / 2,
                   transform: "translate(-50%, -50%)",
@@ -448,10 +448,10 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
                       type="button"
                       onClick={() => select(isActive ? null : i)}
                       aria-expanded={isActive}
-                      className={`spotlight w-full rounded-lg border bg-surface p-3.5 text-left transition-[opacity,border-color,box-shadow,transform] duration-300 ${
+                      className={`spotlight w-full border-[1.5px] bg-surface p-3.5 text-left transition-[opacity,border-color,box-shadow,transform] duration-300 ${
                         isActive
-                          ? "border-accent shadow-[0_18px_40px_-20px_rgba(194,65,12,.45)]"
-                          : "border-border-subtle hover:-translate-y-0.5 hover:border-border-strong"
+                          ? "border-text-main shadow-[6px_6px_0_var(--accent)]"
+                          : "border-text-main shadow-[3px_3px_0_var(--text)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--text)]"
                       } ${dimmed ? "opacity-55 hover:opacity-100" : ""}`}
                       style={{
                         animation: reducedMotion ? undefined : "card-in .55s cubic-bezier(.22,.68,.35,1) both",
@@ -510,7 +510,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
             className="container-shell mb-3 max-h-[45vh] overflow-y-auto animate-[card-in_.35s_ease-out]"
             aria-live="polite"
           >
-            <div className="rounded-lg border border-accent bg-surface p-4">
+            <div className="border-[1.5px] border-text-main bg-surface p-4 shadow-[4px_4px_0_var(--accent)]">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-1.5 [font-family:var(--font-mono)] text-[.66rem] uppercase tracking-[0.08em] text-accent">
@@ -523,7 +523,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
                   type="button"
                   onClick={() => select(null)}
                   aria-label={ui.back}
-                  className="-mr-1 -mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-text-faint hover:bg-surface-2 hover:text-text-main"
+                  className="-mr-1 -mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center text-text-faint hover:bg-text-main hover:text-bg"
                 >
                   ×
                 </button>
@@ -555,7 +555,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
               onClick={() => stepBy(-1)}
               disabled={active === 0}
               aria-label={ui.previous}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-strong text-text-main transition-colors hover:border-text-main disabled:opacity-30"
+              className="btn btn-ghost btn-icon disabled:pointer-events-none disabled:opacity-30"
             >
               ←
             </button>
@@ -569,7 +569,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
                 if (active === items.length - 1) setActive(null);
                 setTouring(true);
               }}
-              className="relative inline-flex min-h-11 items-center gap-2 overflow-hidden rounded-full bg-text-main px-5 text-[.9rem] font-medium text-bg transition-colors hover:bg-accent hover:text-on-accent"
+              className="btn btn-ink relative overflow-hidden"
             >
               <span aria-hidden="true">{touring ? "❚❚" : active === items.length - 1 ? "↺" : "▶"}</span>
               {touring ? ui.pause : active === items.length - 1 ? ui.replay : ui.play}
@@ -587,7 +587,7 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
               onClick={() => stepBy(1)}
               disabled={active === items.length - 1}
               aria-label={ui.next}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-strong text-text-main transition-colors hover:border-text-main disabled:opacity-30"
+              className="btn btn-ghost btn-icon disabled:pointer-events-none disabled:opacity-30"
             >
               →
             </button>

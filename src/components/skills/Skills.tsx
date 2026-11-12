@@ -1,5 +1,5 @@
 import type { SiteContent } from "../../types/content";
-import { useReveal } from "../../hooks/useReveal";
+import { useCascade } from "../../hooks/useFx";
 import { Section } from "../shared/SectionHead";
 
 interface SkillsProps {
@@ -7,11 +7,11 @@ interface SkillsProps {
 }
 
 export function Skills({ skills }: SkillsProps) {
-  const listRef = useReveal<HTMLDListElement>(1);
+  const listRef = useCascade<HTMLDListElement>(":scope > div", skills.groups.map((g) => g.category).join("|"), { x: -30, y: 0, stagger: 0.07 });
 
   return (
     <Section id="skills" config={skills.sectionHead}>
-      <dl className="reveal border-t border-border-subtle" ref={listRef}>
+      <dl className="border-t border-border-subtle" ref={listRef}>
         {skills.groups.map((group) => (
           <div
             key={group.category}

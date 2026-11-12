@@ -236,6 +236,112 @@
     opacity: 1;
   }
 
+  /* ---- Editorial / hard-edged UI kit: square corners, ink borders, solid offset shadows ---- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1.15rem;
+    border: 1.5px solid var(--text);
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    box-shadow: 3px 3px 0 var(--text);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--text);
+  }
+
+  .btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--text);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .btn-ghost {
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .btn-ink {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .btn-sm {
+    min-height: 2.25rem;
+    padding: 0 0.8rem;
+    font-size: 0.8rem;
+    box-shadow: 2px 2px 0 var(--text);
+  }
+
+  .btn-sm:hover {
+    box-shadow: 4px 4px 0 var(--text);
+  }
+
+  .btn-icon {
+    width: 2.75rem;
+    padding: 0;
+  }
+
+  .card-hard {
+    background: var(--surface);
+    border: 1.5px solid var(--text);
+    border-radius: 0;
+    box-shadow: 6px 6px 0 var(--text);
+  }
+
+  .card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-hover:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--text);
+  }
+
+  /* Printed-label tags. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid currentColor;
+    border-radius: 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* "Current" marker: inverted ink label instead of a blinking dot. */
+  .tag-now {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.12rem 0.45rem;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
   .nav-solid {
     background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(8px);

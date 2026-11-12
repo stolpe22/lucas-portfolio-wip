@@ -1,5 +1,7 @@
 import type { SiteContent } from "../../types/content";
+import { useRef } from "react";
 import { useReveal } from "../../hooks/useReveal";
+import { gsap, MOTION_OK, SplitText, useGSAP } from "../../lib/gsap";
 import { shortUrl } from "../../lib/format";
 import { DownloadIcon } from "../shared/icons";
 
@@ -11,6 +13,30 @@ interface ContactProps {
 
 export function Contact({ contact, ui, onDownloadResume }: ContactProps) {
   const ref = useReveal<HTMLDivElement>(0);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+
+  useGSAP(
+    () => {
+      const el = titleRef.current;
+      if (!el) return;
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const split = SplitText.create(el, {
+          type: "words",
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.fromTo(
+              self.words,
+              { opacity: 0.12 },
+              { opacity: 1, stagger: 0.12, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "top 40%", scrub: true } },
+            ),
+        });
+        return () => split.revert();
+      });
+      return () => mm.revert();
+    },
+    { dependencies: [contact.heading], revertOnUpdate: true },
+  );
 
   const links = [
     { label: ui.whatsappButton, value: contact.phone, href: contact.whatsapp },
@@ -24,7 +50,7 @@ export function Contact({ contact, ui, onDownloadResume }: ContactProps) {
         <div className="grid gap-6 border-t border-border-strong pt-6 md:grid-cols-[180px_1fr] md:gap-10">
           <div className="label-mono">{contact.eyebrow}</div>
           <div className="reveal min-w-0" ref={ref}>
-            <h2 className="[font-family:var(--font-heading)] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-tight tracking-[-0.02em]">
+            <h2 ref={titleRef} className="[font-family:var(--font-heading)] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-tight tracking-[-0.02em]">
               {contact.heading}
             </h2>
             <p className="mt-3 max-w-[56ch] text-[1.05rem] text-text-muted">{contact.message}</p>
@@ -55,7 +81,7 @@ export function Contact({ contact, ui, onDownloadResume }: ContactProps) {
             <button
               type="button"
               onClick={onDownloadResume}
-              className="mt-10 inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-[.95rem] font-medium text-on-accent transition-colors hover:bg-text-main hover:text-bg"
+              className="btn btn-primary mt-10"
             >
               <DownloadIcon />
               {ui.resumeButton}

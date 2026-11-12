@@ -10,6 +10,10 @@
   },
   "nav": [
     {
+      "label": "Services",
+      "href": "#servicos"
+    },
+    {
       "label": "About",
       "href": "#sobre"
     },
@@ -18,20 +22,16 @@
       "href": "#experiencia"
     },
     {
+      "label": "Projects",
+      "href": "#projetos"
+    },
+    {
       "label": "Initiatives",
       "href": "#iniciativas"
     },
     {
       "label": "Skills",
       "href": "#skills"
-    },
-    {
-      "label": "Projects",
-      "href": "#projetos"
-    },
-    {
-      "label": "Repositories",
-      "href": "#repos"
     },
     {
       "label": "Education",
@@ -93,6 +93,80 @@
         "value": "8",
         "label": "teams at the first DATAHack",
         "help": "Teams that competed at DATAHack Univag in Oct/2026, each building a full pipeline in one day."
+      }
+    ]
+  },
+  "services": {
+    "sectionHead": {
+      "eyebrow": "Services",
+      "heading": "What I deliver",
+      "subheading": "Four fronts, from raw data to decisions. On your team or as a consultant, on demand or per project."
+    },
+    "items": [
+      {
+        "title": "Web dashboards",
+        "problem": "Reports locked in expensive tools, hard to read, and rarely opened.",
+        "deliver": [
+          "Custom web dashboards with your company's look",
+          "Data visualization (Tufte, Few) and usability (Nielsen) best practices",
+          "No license for large tools such as Microsoft Fabric when they aren't needed"
+        ],
+        "tools": [
+          "React",
+          "TypeScript",
+          "SQL",
+          "Python",
+          "Power BI"
+        ]
+      },
+      {
+        "title": "Data pipelines",
+        "problem": "Data scattered across spreadsheets, systems, and APIs, with no source you can trust.",
+        "deliver": [
+          "Extraction from APIs, databases, spreadsheets, and web scraping",
+          "Modeling and transformation with dbt",
+          "Orchestration with Airflow and Docker environments"
+        ],
+        "tools": [
+          "Python",
+          "dbt",
+          "Airflow",
+          "PostgreSQL",
+          "Docker",
+          "AWS",
+          "GCP"
+        ]
+      },
+      {
+        "title": "APIs for data products",
+        "problem": "The data exists, but it doesn't reach the people who need it: systems, partners, and customers.",
+        "deliver": [
+          "APIs that deliver ready-to-use data",
+          "Cloud Functions on AWS Lambda and Google Cloud Run",
+          "System integration through APIs"
+        ],
+        "tools": [
+          "Python",
+          "AWS Lambda",
+          "GCP Cloud Run",
+          "PostgreSQL"
+        ]
+      },
+      {
+        "title": "Automation and AI",
+        "problem": "Repetitive tasks eating hours of your team's week.",
+        "deliver": [
+          "Process automation with Python and n8n",
+          "Applied AI with RAG, agents, and MCP servers",
+          "AI-powered support and triage wired into your systems"
+        ],
+        "tools": [
+          "n8n",
+          "Python",
+          "OpenAI API",
+          "RAG",
+          "MCP"
+        ]
       }
     ]
   },
@@ -504,7 +578,7 @@
     "perPage": 100,
     "excludeForks": false,
     "sectionHead": {
-      "eyebrow": "Repositories",
+      "eyebrow": "Projects · GitHub",
       "heading": "Public repositories",
       "subheading": "Pulled from GitHub on every deploy (hourly). Filter by language or search by name."
     }
@@ -615,8 +689,8 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "heading": "Let's talk",
-    "message": "I'm open to opportunities in data engineering, BI, and automation. Email or WhatsApp is the fastest way to reach me.",
+    "heading": "Got a data challenge? Let's talk.",
+    "message": "I'm open to data engineering roles and to consulting work, on demand or per project. Email or WhatsApp is the fastest way to reach me.",
     "email": "stolpe02@gmail.com",
     "phone": "+55 (65) 99248-6638",
     "location": "Cuiabá, MT, Brazil",
@@ -680,12 +754,12 @@
       "toggleClose": "Close die",
       "clickHint": "Click the die to roll",
       "sectionMessages": {
+        "servicos": "What I deliver, from raw data to decisions.",
         "sobre": "This is me: a quick overview of my path so far.",
         "experiencia": "My work timeline, promotions included.",
+        "projetos": "Things I built on my own.",
         "iniciativas": "The data engineering hackathon I founded at UNIVAG.",
         "skills": "The tools I use day to day.",
-        "projetos": "Things I built on my own.",
-        "repos": "Public code, pulled straight from GitHub.",
         "formacao": "Education, courses, and languages.",
         "contato": "Looks like destiny wants us to talk."
       }
@@ -797,6 +871,12 @@
         "event": "Event"
       },
       "swipeHint": "Swipe sideways and tap a milestone"
+    },
+    "services": {
+      "label": "Service",
+      "problem": "The problem",
+      "deliver": "What I deliver",
+      "cta": "Facing one of these? Let's talk"
     }
   }
 }

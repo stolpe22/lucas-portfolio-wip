@@ -65,7 +65,7 @@ scripts/
 
 ## Seções da página
 
-Nav → Hero → About → Experience → Initiatives (DATAHack) → Skills → Projects → GitHub Repos → Education → Contact → Footer, mais o `DiceNavigator` (widget flutuante) sobreposto ao Hero.
+Nav → Hero → Serviços → Sobre → Experiência → Projetos → Repositórios → Iniciativas (DATAHack) → Skills → Formação → Contato → Footer, mais o dado d8 flutuante e a tela de marcos (`#marcos`).
 
 ## Recursos e detalhes de implementação
 
@@ -94,6 +94,18 @@ A seção `#repos` (`GithubRepos.tsx`) mostra um grid dos repositórios público
 **Como o site consome isso (runtime):** `useGithubRepos` busca `github-repos.json` como um arquivo estático normal (mesma origem, sem limite de taxa nenhum) e guarda uma cópia em `localStorage` (`ls-github-repos-cache`). Nas próximas visitas, os dados do cache aparecem instantaneamente (sem tela de carregamento) enquanto uma atualização em segundo plano acontece só se o cache tiver mais de 1h. Se a busca falhar (site estático fora do ar, sem internet etc.) mas já existir algo em cache — mesmo antigo — o site continua mostrando esses dados em vez de erro. A mensagem de erro (`ui.github.loadingError`, com link direto pro perfil do GitHub) só aparece se não houver cache nenhum **e** a busca falhar — ou seja, praticamente só na primeiríssima visita de alguém, num momento de indisponibilidade.
 
 **Na interface:** busca por nome/descrição/linguagem e ordenação (mais recentes, mais estrelas, nome A-Z) são filtros 100% client-side sobre os dados já carregados (`useMemo` em `GithubRepos.tsx`, sem nenhuma chamada de rede extra). Enquanto carrega, aparecem 6 cards-esqueleto (`animate-pulse`); cada card mostra nome, descrição, linguagem principal (com uma bolinha colorida por linguagem, mapa em `LANG_COLORS`), estrelas e forks.
+
+### Animações (GSAP)
+GSAP com ScrollTrigger, ScrollSmoother e SplitText, registrados em `src/lib/gsap.ts`. Tudo fica dentro de `gsap.matchMedia("(prefers-reduced-motion: no-preference)")`: quem pede menos movimento vê a página estática e completa.
+
+- **Rolagem suave** (`components/fx/SmoothScroller.tsx`): o conteúdo da página fica em `#smooth-wrapper > #smooth-content`. O que é fixo (nav, dado, barra de progresso, modais, tela de marcos) fica do lado de fora. Só liga com mouse/trackpad; em toque a rolagem é nativa. Como links `#secao` nativos não alcançam o conteúdo suavizado, um listener global passa esses links por `scrollToTarget()`; o dado e o Gantt também usam esse helper.
+- **Hero:** o nome entra letra por letra (depois que a fonte carrega), a foto se revela com máscara, há parallax e, ao rolar pra baixo, o nome se abre e o bloco esmaece. Os botões são magnéticos (`useMagnetic`, `[data-magnetic]`).
+- **Serviços:** no desktop a seção trava e os cartões passam na horizontal com a rolagem, chegando com inclinação 3D; no celular eles empilham.
+- **Sobre:** o texto acende palavra por palavra conforme a rolagem, e os números contam do zero.
+- **Experiência:** Gantt com barras crescendo e, embaixo, **cartões empilhados**: cada empresa trava no topo e a próxima desliza por cima, enquanto a anterior encolhe, escurece e some. Cada cartão tem uma mini linha do tempo em escala real com a carreira inteira, mostrando aquela empresa em destaque (*small multiples*).
+- **Projetos:** cada linha é revelada por uma máscara da esquerda pra direita, o número sobe, o título entra letra por letra e as tags aparecem.
+- **DATAHack, Skills, Formação:** entradas em cascata (`useCascade`); os números do DATAHack contam do zero.
+- **Títulos de seção** sobem palavra por palavra (`useSplitReveal`), o **contato** acende ao rolar e há uma **barra de progresso** no topo.
 
 ### Moldura × conteúdo (Tufte, Few e Nielsen)
 O site separa **moldura** (fundo, hero, blocos), onde pode haver efeito visual, de **conteúdo** (números, gráfico, listas), que fica sem enfeite.

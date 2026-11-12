@@ -17,7 +17,7 @@ interface NavProps {
 }
 
 const iconButton =
-  "inline-flex h-11 w-11 items-center justify-center rounded-md border border-border-subtle text-text-muted transition-colors hover:border-border-strong hover:text-text-main md:h-9 md:w-9";
+  "inline-flex h-11 w-11 items-center justify-center border-[1.5px] border-text-main bg-surface text-text-main transition-colors hover:bg-text-main hover:text-bg md:h-9 md:w-9";
 
 export function Nav({
   navItems,
@@ -86,7 +86,7 @@ export function Nav({
           <button
             type="button"
             onClick={onDownloadResume}
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-text-main px-3 text-[.82rem] md:min-h-9 font-medium text-bg transition-colors hover:bg-accent hover:text-on-accent"
+            className="btn btn-ink btn-sm min-h-11 md:min-h-9"
           >
             <DownloadIcon />
             {ui.resumeButton}
@@ -104,7 +104,7 @@ export function Nav({
         </div>
       </div>
       <div
-        className={`absolute inset-x-4 top-full mt-2 flex flex-col overflow-hidden rounded-md border border-border-subtle bg-surface transition-all xl:hidden ${
+        className={`absolute inset-x-4 top-full mt-2 flex flex-col overflow-hidden border-[1.5px] border-text-main bg-surface shadow-[4px_4px_0_var(--text)] transition-all xl:hidden ${
           menuOpen ? "max-h-96 p-2 opacity-100" : "pointer-events-none max-h-0 border-transparent p-0 opacity-0"
         }`}
         id="mobilePanel"
@@ -114,7 +114,7 @@ export function Nav({
             key={item.href}
             href={item.href}
             onClick={() => setMenuOpen(false)}
-            className="flex min-h-11 items-center rounded px-3 text-[.95rem] text-text-muted hover:bg-surface-2 hover:text-text-main"
+            className="flex min-h-11 items-center px-3 text-[.95rem] text-text-muted hover:bg-surface-2 hover:text-text-main"
           >
             {item.label}
           </a>
