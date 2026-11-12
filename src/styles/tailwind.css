@@ -499,5 +499,10 @@
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    /* ScrollSmoother gives <body> the full page height for its scrollbar; in print only the
+       résumé may define the height, otherwise that height becomes blank pages. */
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
   }
 }

@@ -299,7 +299,11 @@
         "location": "Cuiabá, MT",
         "bullets": [
           "Data engineering consulting alongside Grupo OTG: fixed-term contract from April to October 2026, and since then as a freelancer, on demand and per project",
-          "Rolled out dbt and Airflow in the data infrastructure"
+          "Rolled out dbt and Airflow in the data infrastructure",
+          "Data pipeline architecture design for other projects",
+          "Data requirements gathering with business teams",
+          "Exploratory data analysis",
+          "Power BI and web dashboards"
         ]
       },
       {
@@ -453,7 +457,7 @@
         "date": "2026-04",
         "kind": "job",
         "title": "Data Engineering Consultant at OUD",
-        "description": "Alongside Grupo OTG, data engineering consulting for OUD Tecnologia in Cuiabá: rolled out dbt and Airflow. Fixed-term contract until Oct/2026, then on demand and per project."
+        "description": "Alongside Grupo OTG, data engineering consulting for OUD Tecnologia in Cuiabá: requirements gathering, exploratory analysis, dbt and Airflow rollout, pipeline architecture, and Power BI and web dashboards. Fixed-term contract until Oct/2026, then on demand and per project."
       },
       {
         "date": "2026-10",

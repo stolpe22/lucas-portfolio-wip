@@ -299,7 +299,11 @@
         "location": "Cuiabá, MT",
         "bullets": [
           "Consultoria em engenharia de dados em paralelo ao Grupo OTG: contrato fixo de abril a outubro de 2026 e, desde então, como autônomo, por demanda e por projeto",
-          "Implantação de dbt e Airflow na infraestrutura de dados"
+          "Implantação de dbt e Airflow na infraestrutura de dados",
+          "Desenho de arquitetura de pipelines de dados para outros projetos",
+          "Levantamento de requisitos de dados com as áreas de negócio",
+          "Análise exploratória de dados",
+          "Desenvolvimento de dashboards em Power BI e dashboards web"
         ]
       },
       {
@@ -453,7 +457,7 @@
         "date": "2026-04",
         "kind": "job",
         "title": "Consultor de Engenharia de Dados na OUD",
-        "description": "Em paralelo ao Grupo OTG, consultoria em engenharia de dados para a OUD Tecnologia, em Cuiabá: implantação de dbt e Airflow. Contrato fixo até out/2026 e, desde então, por demanda e por projeto."
+        "description": "Em paralelo ao Grupo OTG, consultoria em engenharia de dados para a OUD Tecnologia, em Cuiabá: levantamento de requisitos, análise exploratória, implantação de dbt e Airflow, arquitetura de pipelines e dashboards em Power BI e web. Contrato fixo até out/2026 e, desde então, por demanda e por projeto."
       },
       {
         "date": "2026-10",
