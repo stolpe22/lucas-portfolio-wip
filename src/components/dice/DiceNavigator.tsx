@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SiteContent } from "../../types/content";
-import { scrollToTarget } from "../../lib/gsap";
 
 interface DiceNavigatorProps {
   navItems: SiteContent["nav"];
   ui: SiteContent["ui"]["dice"];
+  /** Opens a screen of the tour by id. */
+  onNavigate: (id: string) => void;
 }
 
 /**
@@ -35,7 +36,7 @@ function D8({ value }: { value: number }) {
   );
 }
 
-export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
+export function DiceNavigator({ navItems, ui, onNavigate }: DiceNavigatorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [face, setFace] = useState(1);
   const [rollState, setRollState] = useState<"idle" | "rolling" | "landed" | "returning">("idle");
@@ -148,6 +149,14 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
       };
     });
 
+  /** Where the die lands: right of center on wide screens, centered higher up on phones. */
+  const landingSpot = () => {
+    const narrow = window.innerWidth < 640;
+    return narrow
+      ? { x: window.innerWidth / 2 - 40, y: window.innerHeight * 0.36, narrow }
+      : { x: window.innerWidth * 0.58, y: window.innerHeight * 0.62, narrow };
+  };
+
   const getTargetOffset = () => {
     const element = diceRef.current;
     if (!element) {
@@ -155,8 +164,7 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
     }
 
     const rect = element.getBoundingClientRect();
-    const targetX = window.innerWidth * 0.58;
-    const targetY = window.innerHeight * 0.62;
+    const { x: targetX, y: targetY } = landingSpot();
 
     return {
       x: targetX - rect.left,
@@ -257,7 +265,9 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
     setLandedSection(targetSection.label);
     const messageKey = targetSection.href.replace("#", "");
     setLandedSectionId(messageKey);
-    setBubblePosition({ x: window.innerWidth * 0.58 + 92, y: window.innerHeight * 0.62 + 6 });
+    const spot = landingSpot();
+    // Phones: the message goes under the die; wide screens: beside it.
+    setBubblePosition(spot.narrow ? { x: 16, y: spot.y + 96 } : { x: spot.x + 92, y: spot.y + 6 });
 
     await wait(900);
     if (runIdRef.current !== runId) {
@@ -287,11 +297,7 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
 
     setBubblePosition(getDockBubblePosition());
 
-    const elementId = targetSection.href.replace("#", "");
-    const targetElement = document.getElementById(elementId);
-    if (targetElement) {
-      scrollToTarget(targetElement);
-    }
+    onNavigate(targetSection.href.replace("#", ""));
 
     setRollState("idle");
 
@@ -306,11 +312,11 @@ export function DiceNavigator({ navItems, ui }: DiceNavigatorProps) {
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-4 left-3 z-[90] hidden md:block print:hidden" aria-label={ui.ariaLabel}>
+    <div className="pointer-events-none fixed bottom-3 left-3 z-[90] md:bottom-4 print:hidden" aria-label={ui.ariaLabel}>
       {isOpen && landedSectionId && bubblePosition ? (
         <div
-          className="fixed max-w-[320px] border-[1.5px] border-text-main bg-surface px-3 py-2 text-xs text-text-main shadow-[4px_4px_0_var(--text)]"
-          style={{ left: `${bubblePosition.x}px`, top: `${bubblePosition.y}px` }}
+          className="fixed max-w-[min(320px,calc(100vw-32px))] border-[1.5px] border-text-main bg-surface px-3 py-2 text-xs text-text-main shadow-[4px_4px_0_var(--text)]"
+          style={{ left: `${Math.max(16, Math.min(bubblePosition.x, window.innerWidth - 336))}px`, top: `${bubblePosition.y}px` }}
         >
           <span className="block [font-family:var(--font-mono)] text-[10px] uppercase tracking-wide text-accent">{landedSection}</span>
           <span>{ui.sectionMessages[landedSectionId] ?? ""}</span>

@@ -46,6 +46,33 @@ export interface InitiativeItem {
   facts: Array<{ value: string; label: string }>;
 }
 
+/** Rich presentation of the DataHack screen (logo, photo, podium, LinkedIn posts). */
+export interface InitiativeShowcase {
+  logo: string;
+  logoAlt: string;
+  tagline: string;
+  edition: string;
+  challenge: string;
+  link: { label: string; href: string };
+  highlightsHeading: string;
+  photo: { src: string; alt: string; caption: string };
+  podium: {
+    heading: string;
+    note: string;
+    places: Array<{ place: string; team: string }>;
+    winnerLabel: string;
+    winnerStack: string[];
+  };
+  posts: {
+    heading: string;
+    open: string;
+    /** Button that swaps the text card for the LinkedIn embed (embeds only render for signed-in viewers). */
+    embedLabel: string;
+    /** `embed` = LinkedIn iframe URL; posts that can't be embedded show `quote` paragraphs instead. */
+    items: Array<{ author: string; role: string; url: string; embed?: string; height?: number; quote?: string[] }>;
+  };
+}
+
 export interface HeroCta {
   label: string;
   href?: string;
@@ -84,13 +111,25 @@ export interface SiteContent {
     heading: string;
     paragraphs: string[];
     stats: Array<{
-      /** Fixed value, or computed from experience: total worked time / time in leadership roles. */
+      /**
+       * Fixed `value`, or computed from the experience timeline: total worked time, time in leadership,
+       * intern-to-coordinator climb at `company` (with `steps` labels), number of companies, current roles.
+       */
       value?: string;
-      compute?: "experience" | "leadership";
+      compute?: "experience" | "leadership" | "ladder" | "companies" | "parallel";
+      company?: string;
+      steps?: string[];
+      /** Short line under the label (for fixed values). */
+      note?: string;
       label: string;
       /** What the number means and how it is counted (shown behind a "?"). */
       help: string;
     }>;
+  };
+  /** Home menu: one entry per screen (ids match the nav hrefs); "{n}" in a hint is filled from the data. */
+  tour: {
+    eyebrow: string;
+    hints: Record<string, string>;
   };
   services: {
     sectionHead: SectionHeadConfig;
@@ -122,6 +161,7 @@ export interface SiteContent {
   initiatives: {
     sectionHead: SectionHeadConfig;
     items: InitiativeItem[];
+    showcase?: InitiativeShowcase;
   };
   projects: {
     sectionHead: SectionHeadConfig;
@@ -221,6 +261,15 @@ export interface SiteContent {
     };
     help: {
       label: string;
+    };
+    tour: {
+      home: string;
+      next: string;
+      of: string;
+      /** Tape label across the logo band, plus the small "how to play" line (mouse / touch). */
+      stackHint: string;
+      stackMouse: string;
+      stackTouch: string;
     };
     services: {
       label: string;

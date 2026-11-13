@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { SupportedLanguage } from "../../config/content";
 import type { SiteContent } from "../../types/content";
 import { useNavScrolled } from "../../hooks/useNavScrolled";
-import { useScrollSpy } from "../../hooks/useScrollSpy";
 import { DownloadIcon } from "../shared/icons";
 
 interface NavProps {
@@ -13,6 +12,7 @@ interface NavProps {
   onChangeLanguage: (language: SupportedLanguage) => void;
   onToggleLanguage: () => void;
   onDownloadResume: () => void;
+  activeHref: string;
   ui: SiteContent["ui"]["nav"];
 }
 
@@ -27,10 +27,10 @@ export function Nav({
   onChangeLanguage,
   onToggleLanguage,
   onDownloadResume,
+  activeHref,
   ui,
 }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const activeHref = useScrollSpy(navItems.map((item) => item.href));
   const isScrolled = useNavScrolled();
 
   return (

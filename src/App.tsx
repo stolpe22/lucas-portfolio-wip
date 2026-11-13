@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { localizedContent } from "./config/content";
 import { useTheme } from "./hooks/useTheme";
 import { useGithubRepos } from "./hooks/useGithubRepos";
@@ -10,7 +10,6 @@ import { Nav } from "./components/nav/Nav";
 import { Hero } from "./components/hero/Hero";
 import { DiceNavigator } from "./components/dice/DiceNavigator";
 import { About } from "./components/about/About";
-import { Skills } from "./components/skills/Skills";
 import { Experience } from "./components/experience/Experience";
 import { Initiatives } from "./components/initiatives/Initiatives";
 import { Projects } from "./components/projects/Projects";
@@ -23,6 +22,14 @@ import { Resume } from "./components/resume/Resume";
 import { Milestones } from "./components/milestones/Milestones";
 import { Services } from "./components/services/Services";
 import { SmoothScroller } from "./components/fx/SmoothScroller";
+import { StackRoom } from "./components/stack/StackRoom";
+import { TECHS } from "./components/stack/techs";
+import { TourMenu } from "./components/tour/TourMenu";
+import { RoomFrame } from "./components/tour/RoomFrame";
+import { useTourRouter } from "./hooks/useTourRouter";
+import { compactDuration, workedMonths } from "./lib/format";
+
+const CURTAIN_STRIPS = [0, 1, 2, 3, 4, 5];
 
 function App() {
   const { language, setLanguage, toggleLanguage } = useLanguage();
@@ -109,6 +116,80 @@ function App() {
     requestAnimationFrame(() => openerRef.current?.focus());
   }, []);
 
+  // ---- Tour: one screen at a time (ids = nav hrefs), home = hero + typographic menu.
+  const screens = content.nav.map((n) => ({ id: n.href.slice(1), label: n.label }));
+  const screenIds = screens.map((s) => s.id).join("|");
+  const ids = useMemo(() => screenIds.split("|"), [screenIds]);
+  const labelFor = useCallback(
+    (id: string | null) => (id ? (screens.find((s) => s.id === id)?.label ?? "") : content.brand.wordmarkAlt),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [screenIds, content.brand.wordmarkAlt],
+  );
+  const onOverlay = useCallback((id: string) => id === "marcos" && openMilestones(), [openMilestones]);
+  const { view, navigate, curtainRef, labelRef, indexRef } = useTourRouter({ ids, labelFor, onOverlay });
+
+  // Milestones is an overlay but sits in the tour order: its "next" closes it and opens the following screen.
+  const afterMilestones = screens[ids.indexOf("marcos") + 1];
+  const milestonesNext = afterMilestones
+    ? {
+        eyebrow: content.ui.tour.next,
+        label: afterMilestones.label,
+        onGo: () => {
+          // The #marcos entry becomes the screen it was opened from, so "back" from the next screen returns there.
+          window.history.replaceState(view ? { room: view } : null, "", view ? `#${view}` : window.location.pathname + window.location.search);
+          setMilestonesOpen(false);
+          navigate(afterMilestones.id);
+        },
+      }
+    : undefined;
+
+  // Hints on the home menu, filled from the data ("{n}").
+  const hintN: Record<string, string | number> = {
+    servicos: content.services.items.length,
+    experiencia: compactDuration(workedMonths(content.experience.items), content.meta.lang),
+    stack: TECHS.length,
+    projetos: content.projects.items.length,
+    marcos: content.milestones.items.length,
+  };
+  const tourItems = screens.map((s) => ({
+    id: s.id,
+    label: s.label,
+    hint: (content.tour.hints[s.id] ?? "").replace("{n}", String(hintN[s.id] ?? "")),
+  }));
+
+  const renderScreen = (id: string) => {
+    switch (id) {
+      case "servicos":
+        return <Services services={content.services} ui={content.ui.services} />;
+      case "experiencia":
+        return (
+          <>
+            <About about={content.about} experience={content.experience.items} helpLabel={content.ui.help.label} lang={content.meta.lang} />
+            <Experience experience={content.experience} ui={content.ui.experience} dates={content.ui.dates} onOpenMilestones={openMilestones} />
+          </>
+        );
+      case "stack":
+        return <StackRoom skills={content.skills} ui={content.ui.tour} />;
+      case "projetos":
+        return (
+          <>
+            <Projects projects={content.projects} repos={repos} ui={content.ui.projects} />
+            <GithubRepos github={content.github} repos={repos} status={status} syncedAt={syncedAt} ui={content.ui.github} dates={content.ui.dates} locale={content.meta.lang} />
+          </>
+        );
+      case "iniciativas":
+        return <Initiatives initiatives={content.initiatives} dates={content.ui.dates} />;
+      case "formacao":
+        return <Education education={content.education} ui={content.ui.education} />;
+      case "contato":
+        return <Contact contact={content.contact} ui={content.ui.contact} onDownloadResume={downloadResume} />;
+      default:
+        return null;
+    }
+  };
+  const viewIndex = view ? screens.findIndex((s) => s.id === view) : -1;
+  const nextScreen = viewIndex >= 0 && viewIndex < screens.length - 1 ? screens[viewIndex + 1] : null;
+
   return (
     <>
       <div className="print:hidden">
@@ -127,46 +208,68 @@ function App() {
           onChangeLanguage={setLanguage}
           onToggleLanguage={toggleLanguage}
           onDownloadResume={downloadResume}
+          activeHref={view ? `#${view}` : ""}
           ui={content.ui.nav}
         />
         {/* Fixed UI lives outside the smoothed content. */}
-        <DiceNavigator navItems={content.nav} ui={content.ui.dice} />
+        <DiceNavigator navItems={content.nav} ui={content.ui.dice} onNavigate={navigate} />
         <div id="smooth-wrapper">
           <div id="smooth-content">
         <main>
-          <Hero
-            hero={content.hero}
-            wordmarkAlt={content.brand.wordmarkAlt}
-            currentJobs={currentJobs}
-            currentLabel={content.ui.experience.liveStatus}
-            onDownloadResume={downloadResume}
-            onOpenMilestones={openMilestones}
-          />
-          <Services services={content.services} ui={content.ui.services} />
-          <About about={content.about} experience={content.experience.items} helpLabel={content.ui.help.label} lang={content.meta.lang} />
-          <Experience
-            experience={content.experience}
-            ui={content.ui.experience}
-            dates={content.ui.dates}
-            onOpenMilestones={openMilestones}
-          />
-          <Projects projects={content.projects} repos={repos} ui={content.ui.projects} />
-          <GithubRepos
-            github={content.github}
-            repos={repos}
-            status={status}
-            syncedAt={syncedAt}
-            ui={content.ui.github}
-            dates={content.ui.dates}
-            locale={content.meta.lang}
-          />
-          <Initiatives initiatives={content.initiatives} dates={content.ui.dates} />
-          <Skills skills={content.skills} />
-          <Education education={content.education} ui={content.ui.education} />
-          <Contact contact={content.contact} ui={content.ui.contact} onDownloadResume={downloadResume} />
+          {view === null ? (
+            <>
+              <Hero
+                hero={content.hero}
+                wordmarkAlt={content.brand.wordmarkAlt}
+                currentJobs={currentJobs}
+                currentLabel={content.ui.experience.liveStatus}
+                onDownloadResume={downloadResume}
+                onOpenMilestones={openMilestones}
+              />
+              <TourMenu eyebrow={content.tour.eyebrow} items={tourItems} content={content} />
+            </>
+          ) : (
+            <RoomFrame
+              key={view}
+              index={viewIndex}
+              total={screens.length}
+              label={screens[viewIndex]?.label ?? ""}
+              ui={content.ui.tour}
+              next={nextScreen ? { label: nextScreen.label, href: `#${nextScreen.id}` } : null}
+            >
+              {renderScreen(view)}
+            </RoomFrame>
+          )}
         </main>
         <Footer footer={content.footer} ui={content.ui.footer} />
           </div>
+        </div>
+      </div>
+
+      {/* Screen-change curtain. */}
+      <div
+        ref={curtainRef}
+        className="pointer-events-none fixed inset-0 z-[190] overflow-hidden opacity-0 print:hidden"
+        style={{ visibility: "hidden" }}
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 flex">
+          {CURTAIN_STRIPS.map((i) => (
+            <div key={i} data-strip="a" className="-mr-px h-full flex-1 bg-accent" />
+          ))}
+        </div>
+        <div className="absolute inset-0 flex">
+          {CURTAIN_STRIPS.map((i) => (
+            <div key={i} data-strip="b" className="-mr-px h-full flex-1 bg-[#101012]" />
+          ))}
+        </div>
+        <div className="relative flex h-full flex-col items-center justify-center px-4 text-center">
+          <span ref={indexRef} className="mb-5 [font-family:var(--font-mono)] text-[.8rem] tracking-[0.2em] text-[#f5f2eb]/60"></span>
+          <span
+            ref={labelRef}
+            className="block [font-family:var(--font-display)] text-[clamp(3rem,11vw,9.5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.03em] text-[#f5f2eb]"
+          ></span>
+          <span data-bar className="mt-6 block h-[5px] w-[min(240px,40vw)] bg-accent-bright" />
         </div>
       </div>
 
@@ -177,6 +280,7 @@ function App() {
           ui={content.ui.milestones}
           dates={content.ui.dates}
           onClose={closeMilestones}
+          next={milestonesNext}
         />
       ) : null}
 

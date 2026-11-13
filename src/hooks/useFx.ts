@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { gsap, MOTION_OK, SplitText, useGSAP } from "../lib/gsap";
+import { gsap, MOTION_OK, SplitText, unclipMasks, useGSAP } from "../lib/gsap";
 
 /**
  * Heading that rises word by word (masked) when it scrolls into view.
@@ -17,14 +17,16 @@ export function useSplitReveal<T extends HTMLElement>(key: string) {
           type: "words",
           mask: "words",
           autoSplit: true,
-          onSplit: (self) =>
-            gsap.from(self.words, {
+          onSplit: (self) => {
+            unclipMasks(self);
+            return gsap.from(self.words, {
               yPercent: 110,
               duration: 0.9,
               ease: "power4.out",
               stagger: 0.05,
               scrollTrigger: { trigger: el, start: "top 88%", once: true },
-            }),
+            });
+          },
         });
         return () => split.revert();
       });

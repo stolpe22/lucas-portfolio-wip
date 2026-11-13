@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import type { ExperienceItem, SiteContent } from "../../types/content";
 import { DownloadIcon, MilestonesIcon } from "../shared/icons";
-import { gsap, MOTION_OK, SplitText, useGSAP } from "../../lib/gsap";
+import { gsap, MOTION_OK, SplitText, unclipMasks, useGSAP } from "../../lib/gsap";
+import { DataCube3D } from "./DataCube3D";
 
 interface HeroProps {
   hero: SiteContent["hero"];
@@ -16,6 +17,9 @@ function resolvePublicSrc(src: string | undefined) {
   if (!src) return src;
   return src.startsWith("/") ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src;
 }
+
+// Compare mode: /?hero=3d shows the experimental 3D data cube instead of the framed photo backdrop.
+const hero3d = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("hero") === "3d";
 
 export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadResume, onOpenMilestones }: HeroProps) {
   const photoSrc = resolvePublicSrc(hero.photo);
@@ -33,9 +37,10 @@ export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadR
         let split: SplitText | null = null;
 
         const tl = gsap.timeline({ defaults: { ease: "power4.out" }, paused: true });
-        tl.from(q("[data-hero=eyebrow]"), { y: 16, autoAlpha: 0, duration: 0.6 }, 0)
-          .from(q("[data-hero=arc]"), { scaleY: 0, transformOrigin: "50% 100%", duration: 1.1, ease: "expo.out" }, 0.2)
-          .from(q("[data-hero=photo]"), { clipPath: "inset(100% 0% 0% 0%)", scale: 1.08, duration: 1.2, ease: "expo.out" }, 0.3)
+        tl.from(q("[data-hero=eyebrow]"), { y: 16, autoAlpha: 0, duration: 0.6 }, 0);
+        // The framed backdrop doesn't exist in ?hero=3d mode.
+        if (q("[data-hero=arc]").length) tl.from(q("[data-hero=arc]"), { scaleY: 0, transformOrigin: "50% 100%", duration: 1.1, ease: "expo.out" }, 0.2);
+        tl.from(q("[data-hero=photo]"), { clipPath: "inset(100% 0% 0% 0%)", scale: 1.08, duration: 1.2, ease: "expo.out" }, 0.3)
           .from(q("[data-hero=role]"), { y: 20, autoAlpha: 0, duration: 0.7 }, 0.6)
           .from(q("[data-hero=desc]"), { y: 20, autoAlpha: 0, duration: 0.7 }, 0.75)
           .from(q("[data-hero=cta] > *"), { y: 18, autoAlpha: 0, duration: 0.6, stagger: 0.08 }, 0.9)
@@ -43,7 +48,7 @@ export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadR
 
         document.fonts.ready.then(() => {
           if (!name || !rootRef.current) return;
-          split = SplitText.create(name, { type: "chars", mask: "chars" });
+          split = unclipMasks(SplitText.create(name, { type: "chars", mask: "chars" }));
           gsap.set(name, { autoAlpha: 1 });
           tl.from(split.chars, { yPercent: 115, rotate: 6, duration: 1, stagger: 0.035 }, 0.15);
           tl.play(0);
@@ -141,8 +146,17 @@ export function Hero({ hero, wordmarkAlt, currentJobs, currentLabel, onDownloadR
 
           {photoSrc ? (
             <div className="relative mx-auto w-[200px] self-end sm:w-[240px] md:w-full" data-hero="figure">
-              <div data-hero="arc" className="absolute inset-x-[10%] bottom-0 top-[16%] -z-10 translate-x-3 -translate-y-3 bg-accent" aria-hidden="true"></div>
-              <div className="absolute inset-x-[10%] bottom-0 top-[16%] -z-10 border-[1.5px] border-text-main bg-surface-2" aria-hidden="true"></div>
+              {hero3d ? (
+                // Experimental: 3D data cube behind the portrait (?hero=3d).
+                <div className="absolute -inset-x-[45%] -top-[25%] bottom-0 -z-10">
+                  <DataCube3D />
+                </div>
+              ) : (
+                <>
+                  <div data-hero="arc" className="absolute inset-x-[10%] bottom-0 top-[16%] -z-10 translate-x-3 -translate-y-3 bg-accent" aria-hidden="true"></div>
+                  <div className="absolute inset-x-[10%] bottom-0 top-[16%] -z-10 border-[1.5px] border-text-main bg-surface-2" aria-hidden="true"></div>
+                </>
+              )}
               <img
                 data-hero="photo"
                 src={photoSrc}

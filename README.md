@@ -65,7 +65,7 @@ scripts/
 
 ## Seções da página
 
-Nav → Hero → Serviços → Sobre → Experiência → Projetos → Repositórios → Iniciativas (DATAHack) → Skills → Formação → Contato → Footer, mais o dado d8 flutuante e a tela de marcos (`#marcos`).
+Nav → Hero → Serviços → Sobre → Experiência → Projetos → Repositórios → Iniciativas (DataHack) → Skills → Formação → Contato → Footer, mais o dado d8 flutuante e a tela de marcos (`#marcos`).
 
 ## Recursos e detalhes de implementação
 
@@ -104,7 +104,7 @@ GSAP com ScrollTrigger, ScrollSmoother e SplitText, registrados em `src/lib/gsap
 - **Sobre:** o texto acende palavra por palavra conforme a rolagem, e os números contam do zero.
 - **Experiência:** Gantt com barras crescendo e, embaixo, **cartões empilhados**: cada empresa trava no topo e a próxima desliza por cima, enquanto a anterior encolhe, escurece e some. Cada cartão tem uma mini linha do tempo em escala real com a carreira inteira, mostrando aquela empresa em destaque (*small multiples*).
 - **Projetos:** cada linha é revelada por uma máscara da esquerda pra direita, o número sobe, o título entra letra por letra e as tags aparecem.
-- **DATAHack, Skills, Formação:** entradas em cascata (`useCascade`); os números do DATAHack contam do zero.
+- **DataHack, Skills, Formação:** entradas em cascata (`useCascade`); os números do DataHack contam do zero.
 - **Títulos de seção** sobem palavra por palavra (`useSplitReveal`), o **contato** acende ao rolar e há uma **barra de progresso** no topo.
 
 ### Moldura × conteúdo (Tufte, Few e Nielsen)
@@ -130,7 +130,7 @@ O componente `components/resume/Resume.tsx` monta um currículo A4 em duas colun
 
 - **No build**, `scripts/build-resume.mjs` sobe o `dist/` num preview do Vite, abre a página no Chrome headless (`?lang=pt` e `?lang=en`) e salva `dist/Lucas_Henrique_Stolpe_Curriculo.pdf` e `dist/Lucas_Henrique_Stolpe_Resume.pdf`, sem cabeçalho nem rodapé do navegador. O script já roda dentro do `npm run build`; pra gerar só os PDFs, use `npm run build:resume`. Ele precisa de Chrome ou Chromium (`CHROME_PATH` ou o local padrão de instalação). O runner `ubuntu-latest` do GitHub Actions já vem com o Chrome, então os PDFs são regerados a cada deploy.
 - **O botão "Baixar currículo"** baixa o PDF do idioma atual direto. No `npm run dev` o PDF ainda não existe, então o botão abre a janela de impressão.
-- O que aparece só no PDF (nome completo, resumo, data de nascimento) fica no bloco `resume` do JSON. Experiências, skills, formação, projetos e DATAHack são reaproveitados das seções do site.
+- O que aparece só no PDF (nome completo, resumo, data de nascimento) fica no bloco `resume` do JSON. Experiências, skills, formação, projetos e DataHack são reaproveitados das seções do site.
 - As experiências usam `start`/`end` (`YYYY-MM`, com `end: null` para o emprego atual). Período e duração são calculados em `src/lib/format.ts`.
 - As duas colunas usam `float` em vez de grid, porque float quebra entre páginas de forma confiável em qualquer navegador.
 

@@ -1,7 +1,19 @@
 @import "tailwindcss";
 
+/* Services: the pinned horizontal row needs room for a whole card; shorter desktop screens
+   (and reduced motion) get a 2-column grid instead. The two variants never overlap. */
+@custom-variant pinrow (@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference));
+@custom-variant deskgrid {
+  @media (min-width: 1024px) and (max-height: 759.98px) {
+    @slot;
+  }
+  @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+    @slot;
+  }
+}
+
 :root {
-  --font-display: "Fredoka", sans-serif;
+  --font-display: "Archivo", "IBM Plex Sans", system-ui, sans-serif;
   --font-heading: "IBM Plex Sans", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -20,10 +32,10 @@
   --text: #1f1b16;
   --text-muted: #57514a;
   --text-faint: #8a8379;
-  --accent: #c2410c;
-  --accent-soft: rgba(194, 65, 12, 0.1);
-  --on-accent: #fffaf5;
-  --glow: rgba(194, 65, 12, 0.1);
+  --accent: #2438d4;
+  --accent-soft: rgba(36, 56, 212, 0.1);
+  --on-accent: #f7f8ff;
+  --glow: rgba(36, 56, 212, 0.1);
   --dot: rgba(31, 27, 22, 0.13);
 }
 
@@ -37,10 +49,10 @@
   --text: #ede8df;
   --text-muted: #aba497;
   --text-faint: #7b766c;
-  --accent: #f0743a;
-  --accent-soft: rgba(240, 116, 58, 0.14);
-  --on-accent: #1a0d05;
-  --glow: rgba(240, 116, 58, 0.09);
+  --accent: #8794ff;
+  --accent-soft: rgba(135, 148, 255, 0.14);
+  --on-accent: #0b0d24;
+  --glow: rgba(135, 148, 255, 0.09);
   --dot: rgba(237, 232, 223, 0.1);
 }
 
@@ -56,6 +68,7 @@
   --color-text-faint: var(--text-faint);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-bright: #7d8bff;
   --color-on-accent: var(--on-accent);
   --color-status-live: var(--status-live);
 }

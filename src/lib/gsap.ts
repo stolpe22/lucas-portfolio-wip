@@ -2,9 +2,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { SplitText } from "gsap/SplitText";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, useGSAP);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin, MotionPathPlugin, useGSAP);
 
 /** Every animation is added under this media query, so "reduce motion" users get the static page. */
 export const MOTION_OK = "(prefers-reduced-motion: no-preference)";
@@ -49,4 +51,16 @@ export function flowTop(el: HTMLElement): number {
   return y;
 }
 
-export { gsap, ScrollTrigger, ScrollSmoother, SplitText, useGSAP };
+/**
+ * SplitText masks clip at the line box, which cuts descenders (g, p, ç) under tight leading.
+ * Give each mask some room below (and pull the layout back) so letters stay whole.
+ */
+export function unclipMasks(split: SplitText) {
+  split.masks.forEach((m) => {
+    (m as HTMLElement).style.paddingBottom = "0.18em";
+    (m as HTMLElement).style.marginBottom = "-0.18em";
+  });
+  return split;
+}
+
+export { gsap, ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin, MotionPathPlugin, useGSAP };

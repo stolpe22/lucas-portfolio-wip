@@ -2,7 +2,7 @@
   "meta": {
     "lang": "pt-BR",
     "title": "Lucas Stolpe - Engenheiro de Dados & Analista de BI",
-    "description": "Portfólio de Lucas Henrique Stolpe, engenheiro de dados em Cuiabá: pipelines com Airflow e dbt, Power BI, automação e o DATAHack Univag.",
+    "description": "Portfólio de Lucas Henrique Stolpe, engenheiro de dados em Cuiabá: pipelines com Airflow e dbt, Power BI, automação e o DataHack Univag.",
     "favicon": "/favicon.svg"
   },
   "theme": {
@@ -14,28 +14,28 @@
       "href": "#servicos"
     },
     {
-      "label": "Sobre",
-      "href": "#sobre"
-    },
-    {
       "label": "Experiência",
       "href": "#experiencia"
+    },
+    {
+      "label": "Stack",
+      "href": "#stack"
     },
     {
       "label": "Projetos",
       "href": "#projetos"
     },
     {
-      "label": "Iniciativas",
+      "label": "DataHack",
       "href": "#iniciativas"
-    },
-    {
-      "label": "Skills",
-      "href": "#skills"
     },
     {
       "label": "Formação",
       "href": "#formacao"
+    },
+    {
+      "label": "Marcos",
+      "href": "#marcos"
     },
     {
       "label": "Contato",
@@ -49,7 +49,7 @@
   "hero": {
     "eyebrow": "Cuiabá, Mato Grosso",
     "role": "Engenheiro de Dados & Analista de BI",
-    "description": "Hoje sou Engenheiro de Dados no Grupo OTG, onde desenvolvo dashboards web, pipelines de dados e APIs para produtos de dados, e em paralelo presto consultoria em engenharia de dados para a OUD Tecnologia. Antes disso, coordenei uma equipe de desenvolvimento por dois anos e meio e construí muito dashboard em Power BI. Em 2026 fundei o DATAHack Univag.",
+    "description": "Hoje sou Engenheiro de Dados no Grupo OTG, onde desenvolvo dashboards web, pipelines de dados e APIs para produtos de dados, e em paralelo presto consultoria em engenharia de dados para a OUD Tecnologia. Antes disso, coordenei uma equipe de desenvolvimento por dois anos e meio e construí muito dashboard em Power BI. Em 2026 fundei o DataHack Univag.",
     "photo": "/lucas_stolpe_photo.png",
     "photoAlt": "Retrato de Lucas Stolpe",
     "ctas": [
@@ -70,6 +70,19 @@
       }
     ]
   },
+  "tour": {
+    "eyebrow": "Escolha por onde começar",
+    "hints": {
+      "servicos": "{n} frentes, do dado à decisão",
+      "experiencia": "{n} de trajetória",
+      "stack": "{n} ferramentas — mexa o mouse",
+      "projetos": "{n} projetos e o GitHub",
+      "iniciativas": "o hackathon que eu fundei",
+      "formacao": "pós-graduado · PUC Minas",
+      "marcos": "{n} marcos da carreira",
+      "contato": "vamos conversar"
+    }
+  },
   "about": {
     "eyebrow": "Sobre",
     "heading": "Comecei no suporte técnico. Hoje construo a infraestrutura de dados.",
@@ -82,17 +95,39 @@
       {
         "compute": "experience",
         "label": "de experiência somada",
-        "help": "Soma de todos os períodos de trabalho, de menor aprendiz (2014) até hoje, sem contar os intervalos entre empregos. Calculado a partir das datas da linha do tempo."
+        "help": "Soma de todos os períodos de trabalho, de menor aprendiz (2014) até hoje, sem contar os intervalos entre empregos. A faixa mostra cada período na linha do tempo."
+      },
+      {
+        "value": "16",
+        "label": "anos de idade no meu primeiro trabalho com código",
+        "note": "Menor aprendiz, mantendo um sistema interno em PHP (2014).",
+        "help": "Itamarati Norte, out/2014: auxiliar administrativo e programador como menor aprendiz."
+      },
+      {
+        "compute": "ladder",
+        "company": "WCOGEO",
+        "steps": [
+          "Estagiário",
+          "Desenvolvedor",
+          "Coordenador"
+        ],
+        "label": "de estagiário a coordenador na WCOGEO",
+        "help": "Do estágio em C# (fev/2021) à coordenação da equipe de projetos (out/2022). Calculado a partir das datas da linha do tempo."
       },
       {
         "compute": "leadership",
         "label": "coordenando equipe técnica",
-        "help": "Tempo como Coordenador de Desenvolvimento de Projetos na WCOGEO (out/2022 a fev/2025)."
+        "help": "Tempo como Coordenador de Desenvolvimento de Projetos na WCOGEO (out/2022 a fev/2025). A faixa destaca esse período na trajetória."
       },
       {
-        "value": "8",
-        "label": "equipes na 1ª edição do DATAHack",
-        "help": "Equipes que competiram no DATAHack Univag em out/2026, cada uma construindo uma pipeline completa em um dia."
+        "compute": "companies",
+        "label": "empresas na trajetória",
+        "help": "Empresas em que trabalhei, contadas a partir da linha do tempo, da mais antiga para a atual."
+      },
+      {
+        "compute": "parallel",
+        "label": "frentes ao mesmo tempo hoje",
+        "help": "Engenheiro de Dados no Grupo OTG e, em paralelo, consultoria em engenharia de dados para a OUD Tecnologia."
       }
     ]
   },
@@ -181,8 +216,8 @@
         "category": "Dados & BI",
         "items": [
           "Power BI",
-          "APIs para produtos de dados",
           "Dashboards web",
+          "APIs para produtos de dados",
           "Python (Pandas, Asyncio)",
           "SQL",
           "ETL/ELT",
@@ -206,6 +241,7 @@
         "category": "Bancos de Dados",
         "items": [
           "PostgreSQL (PostGIS)",
+          "BigQuery",
           "SQL Server",
           "MySQL"
         ]
@@ -213,8 +249,10 @@
       {
         "category": "Cloud & Integração",
         "items": [
+          "GCP (Cloud Run Jobs, Cloud Run Services, BigQuery, Storage)",
           "AWS (Lambda, S3)",
-          "GCP (Cloud Run, Storage)",
+          "MinIO",
+          "APIs REST",
           "Google Drive API"
         ]
       },
@@ -248,9 +286,10 @@
       {
         "category": "Front-end/Back-end",
         "items": [
-          "Vue",
-          "React",
+          "JavaScript",
           "TypeScript",
+          "React",
+          "Vue",
           "C# (.NET)"
         ]
       },
@@ -462,7 +501,7 @@
       {
         "date": "2026-10",
         "kind": "event",
-        "title": "1ª edição do DATAHack Univag",
+        "title": "1ª edição do DataHack Univag",
         "description": "O hackathon de engenharia de dados que fundei com Alessandra Paz e Germano Manente Netto: 8 equipes construindo uma pipeline completa em um dia."
       },
       {
@@ -476,13 +515,13 @@
   "initiatives": {
     "sectionHead": {
       "eyebrow": "Iniciativas",
-      "heading": "DATAHack Univag",
+      "heading": "DataHack Univag",
       "subheading": "Um hackathon de engenharia de dados que eu tirei do papel."
     },
     "items": [
       {
         "role": "Fundador e Coordenador",
-        "name": "DATAHack Univag",
+        "name": "DataHack Univag",
         "org": "UNIVAG",
         "start": "2026-10",
         "end": "2026-10",
@@ -497,20 +536,104 @@
         ],
         "facts": [
           {
+            "value": "41",
+            "label": "participantes"
+          },
+          {
             "value": "8",
             "label": "equipes"
           },
           {
-            "value": "12h",
-            "label": "de mão na massa"
+            "value": "13",
+            "label": "na banca e na organização"
           },
           {
-            "value": "5",
-            "label": "critérios de avaliação"
+            "value": "12h",
+            "label": "de mão na massa"
           }
         ]
       }
-    ]
+    ],
+    "showcase": {
+      "logo": "datahack/logo.png",
+      "logoAlt": "DataHack Univag",
+      "tagline": "Fundei um hackathon de dados na universidade onde me formei.",
+      "edition": "1ª edição · 9 e 10 de outubro de 2026 · Univag, Várzea Grande (MT)",
+      "challenge": "Desafio \"Rota do Diploma\": de cada 100 pessoas que entram numa graduação em Mato Grosso, quantas chegam ao diploma? E em que ponto do caminho elas se perdem? Cada equipe tinha um dia para responder com uma pipeline completa sobre dados públicos do INEP e do IBGE.",
+      "link": {
+        "label": "Ver o mural do evento",
+        "href": "https://datahack.com.br/mural"
+      },
+      "highlightsHeading": "O que eu fiz",
+      "photo": {
+        "src": "datahack/encerramento.jpeg",
+        "alt": "Participantes, mentores e organização reunidos no encerramento do DataHack Univag 2026",
+        "caption": "Encerramento, com o pódio no telão em modo revelação."
+      },
+      "podium": {
+        "heading": "Pódio",
+        "note": "A Equipe 05 venceu por 0,04 ponto, numa nota de 0 a 100.",
+        "places": [
+          {
+            "place": "1º",
+            "team": "Equipe 05"
+          },
+          {
+            "place": "2º",
+            "team": "Equipe Sentinela"
+          },
+          {
+            "place": "3º",
+            "team": "Pandas em Pânico"
+          }
+        ],
+        "winnerLabel": "O que a equipe campeã entregou em um dia",
+        "winnerStack": [
+          "Arquitetura medalhão em PostgreSQL",
+          "dbt com 87 testes de qualidade",
+          "Airflow e Docker",
+          "Dashboards no Superset"
+        ]
+      },
+      "posts": {
+        "heading": "Quem participou, postou",
+        "open": "Abrir no LinkedIn",
+        "items": [
+          {
+            "author": "Lucas Stolpe",
+            "role": "Fundador do DataHack",
+            "url": "https://www.linkedin.com/posts/lucas-henrique-s-a498b3a1_datahack-engenhariadedados-dataengineering-share-7517037536268046336-rGnA/",
+            "quote": [
+              "“Foi um projeto que idealizei numa noite qualquer e resolvi tirar do papel.”",
+              "Ver os participantes envolvidos por interesse genuíno em engenharia e análise de dados, postando e já pedindo a próxima edição, não tem preço. Foi um sonho realizado."
+            ]
+          },
+          {
+            "author": "Fellype Lima",
+            "role": "1º lugar, Equipe 05",
+            "url": "https://www.linkedin.com/posts/fellypelima_datahack-engenhariadedados-dataengineering-ugcPost-7514872329802457089-n-hr/",
+            "embed": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7514872329802457089?collapsed=1",
+            "height": 627,
+            "quote": [
+              "“Num projeto de dados, a confiança no número vale tanto quanto o número.”",
+              "Em um dia, a equipe fez o ciclo completo sobre dados do INEP e do IBGE: arquitetura medalhão em PostgreSQL, dbt com 87 testes, Airflow em Docker, publicação só com todos os testes passando e dashboards no Superset respondendo cada pergunta do desafio."
+            ]
+          },
+          {
+            "author": "Adriely Abdala",
+            "role": "Voluntária na mentoria",
+            "url": "https://www.linkedin.com/posts/adriely-de-paula-cardoso-abdala-59b0b3185_datahack-voluntariado-engenhariadesoftware-share-7514850193704448001-UwdX/",
+            "embed": "https://www.linkedin.com/embed/feed/update/urn:li:share:7514850193704448001?collapsed=1",
+            "height": 570,
+            "quote": [
+              "“Participei do DataHack como voluntária, colaborando com colegas da área de TI e trocando conhecimentos e experiências.”",
+              "Para ela, foi uma oportunidade de desenvolver comunicação e trabalho em equipe e de continuar crescendo pessoal e profissionalmente."
+            ]
+          }
+        ],
+        "embedLabel": "Ver o post aqui"
+      }
+    }
   },
   "projects": {
     "sectionHead": {
@@ -668,7 +791,7 @@
     ],
     "highlights": [
       {
-        "title": "DATAHack Univag",
+        "title": "DataHack Univag",
         "detail": "Fundador e coordenador (out/2026)"
       },
       {
@@ -703,7 +826,7 @@
     "fullName": "Lucas Henrique Stolpe",
     "headline": "Engenheiro de Dados & Analista de BI",
     "birthDate": "Data de nascimento: 22/02/1998",
-    "summary": "Engenheiro de Dados e Analista de BI, pós-graduado em Engenharia de Dados (PUC Minas), que une profundidade técnica à experiência em gestão: mais de 2 anos coordenando equipes e projetos de tecnologia, somados à expertise em arquitetura de pipelines ETL/ELT, modelagem de dados, automação e governança da informação. Fundador do DATAHack Univag, hackathon de engenharia de dados. Especialista em transformar dados brutos em insights estratégicos, atuando de ponta a ponta, da extração à visualização, com Power BI, dbt, Airflow, Python, SQL, Docker, n8n, Streamlit e integrações cloud (AWS, GCP). Uso eficiente de IA no desenvolvimento, com RAG, servidores MCP e Spec-Driven Development."
+    "summary": "Engenheiro de Dados e Analista de BI, pós-graduado em Engenharia de Dados (PUC Minas), que une profundidade técnica à experiência em gestão: mais de 2 anos coordenando equipes e projetos de tecnologia, somados à expertise em arquitetura de pipelines ETL/ELT, modelagem de dados, automação e governança da informação. Fundador do DataHack Univag, hackathon de engenharia de dados. Especialista em transformar dados brutos em insights estratégicos, atuando de ponta a ponta, da extração à visualização, com Power BI, dbt, Airflow, Python, SQL, Docker, n8n, Streamlit e integrações cloud (AWS, GCP). Uso eficiente de IA no desenvolvimento, com RAG, servidores MCP e Spec-Driven Development."
   },
   "footer": {
     "copyrightHolder": "Lucas Stolpe",
@@ -746,7 +869,7 @@
     "dice": {
       "eyebrow": "Dado dos dados",
       "heading": "Rola o dado e deixa o destino escolher",
-      "subheading": "Um dado de 8 lados: cada número leva a um item do menu, de Sobre a Contato.",
+      "subheading": "Um dado de 8 lados: cada número abre uma tela, de Serviços a Contato.",
       "buttonIdle": "Rolar dado",
       "buttonRolling": "Rolando...",
       "resultPrefix": "Caiu em",
@@ -756,12 +879,12 @@
       "clickHint": "Clique no dado para jogar",
       "sectionMessages": {
         "servicos": "O que eu entrego, do dado bruto à decisão.",
-        "sobre": "Este sou eu: um resumo rápido da minha trajetória.",
-        "experiencia": "Minha linha do tempo profissional, com as promoções no caminho.",
+        "experiencia": "Minha trajetória, empresa por empresa.",
+        "stack": "As ferramentas que uso, com os logos caindo na tela.",
         "projetos": "Projetos que fiz por conta própria.",
-        "iniciativas": "O hackathon de engenharia de dados que eu fundei na UNIVAG.",
-        "skills": "As ferramentas que uso no dia a dia.",
+        "iniciativas": "O hackathon de engenharia de dados que fundei.",
         "formacao": "Formação, cursos e idiomas.",
+        "marcos": "Os marcos da minha carreira.",
         "contato": "O destino está pedindo para a gente conversar."
       }
     },
@@ -878,6 +1001,14 @@
       "problem": "O problema",
       "deliver": "O que eu entrego",
       "cta": "Tem um desafio desses? Vamos conversar"
+    },
+    "tour": {
+      "home": "Início",
+      "next": "Próximo",
+      "of": "de",
+      "stackHint": "algumas das minhas habilidades…",
+      "stackMouse": "(passe o mouse)",
+      "stackTouch": "(arraste o dedo)"
     }
   }
 }

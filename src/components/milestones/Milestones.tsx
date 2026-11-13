@@ -8,6 +8,8 @@ interface MilestonesProps {
   ui: SiteContent["ui"]["milestones"];
   dates: SiteContent["ui"]["dates"];
   onClose: () => void;
+  /** The next tour screen (the overlay sits between two screens, so it also moves the tour forward). */
+  next?: { eyebrow: string; label: string; onGo: () => void };
 }
 
 const TOUR_MS = 3800;
@@ -54,7 +56,7 @@ function useViewportWidth() {
   return width;
 }
 
-export function Milestones({ data, experience, ui, dates, onClose }: MilestonesProps) {
+export function Milestones({ data, experience, ui, dates, onClose, next }: MilestonesProps) {
   const items = data.items;
   const reducedMotion = useMemo(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches, []);
   const [active, setActive] = useState<number | null>(null);
@@ -569,10 +571,11 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
                 if (active === items.length - 1) setActive(null);
                 setTouring(true);
               }}
+              aria-label={touring ? ui.pause : active === items.length - 1 ? ui.replay : ui.play}
               className="btn btn-ink relative overflow-hidden"
             >
               <span aria-hidden="true">{touring ? "❚❚" : active === items.length - 1 ? "↺" : "▶"}</span>
-              {touring ? ui.pause : active === items.length - 1 ? ui.replay : ui.play}
+              <span className={next ? "hidden sm:inline" : ""}>{touring ? ui.pause : active === items.length - 1 ? ui.replay : ui.play}</span>
               {touring && active !== null ? (
                 <span
                   key={`p-${active}`}
@@ -592,7 +595,25 @@ export function Milestones({ data, experience, ui, dates, onClose }: MilestonesP
               →
             </button>
           </div>
-          <span className="hidden text-right [font-family:var(--font-mono)] text-[.75rem] text-text-faint md:inline">{ui.hint}</span>
+          <span className="hidden flex-1 text-center [font-family:var(--font-mono)] text-[.75rem] text-text-faint xl:inline">{ui.hint}</span>
+          {next ? (
+            <button type="button" onClick={next.onGo} aria-label={`${next.eyebrow}: ${next.label}`} className="group flex shrink-0 items-center gap-3 text-left">
+              <span className="hidden flex-col sm:flex">
+                <span className="label-mono !text-[.62rem]">{next.eyebrow}</span>
+                <span className="[font-family:var(--font-display)] text-[clamp(1.25rem,2.6vw,1.9rem)] font-extrabold leading-none tracking-[-0.02em] transition-colors group-hover:text-accent">
+                  {next.label}
+                </span>
+              </span>
+              <span
+                className="flex h-11 items-center justify-center gap-2 border-[1.5px] border-text-main bg-accent px-3 text-[1.2rem] text-on-accent shadow-[3px_3px_0_var(--text)] transition-transform group-hover:translate-x-1 sm:w-11 sm:px-0"
+                aria-hidden="true"
+              >
+                <span className="text-[.9rem] font-semibold sm:hidden">{next.label}</span>→
+              </span>
+            </button>
+          ) : (
+            <span className="hidden text-right [font-family:var(--font-mono)] text-[.75rem] text-text-faint md:inline">{ui.hint}</span>
+          )}
         </div>
       </div>
     </div>

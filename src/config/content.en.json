@@ -2,7 +2,7 @@
   "meta": {
     "lang": "en-US",
     "title": "Lucas Stolpe - Data Engineer & BI Analyst",
-    "description": "Portfolio of Lucas Henrique Stolpe, a data engineer in Cuiabá, Brazil: Airflow and dbt pipelines, Power BI, automation, and the DATAHack Univag hackathon.",
+    "description": "Portfolio of Lucas Henrique Stolpe, a data engineer in Cuiabá, Brazil: Airflow and dbt pipelines, Power BI, automation, and the DataHack Univag hackathon.",
     "favicon": "/favicon.svg"
   },
   "theme": {
@@ -14,28 +14,28 @@
       "href": "#servicos"
     },
     {
-      "label": "About",
-      "href": "#sobre"
-    },
-    {
       "label": "Experience",
       "href": "#experiencia"
+    },
+    {
+      "label": "Stack",
+      "href": "#stack"
     },
     {
       "label": "Projects",
       "href": "#projetos"
     },
     {
-      "label": "Initiatives",
+      "label": "DataHack",
       "href": "#iniciativas"
-    },
-    {
-      "label": "Skills",
-      "href": "#skills"
     },
     {
       "label": "Education",
       "href": "#formacao"
+    },
+    {
+      "label": "Milestones",
+      "href": "#marcos"
     },
     {
       "label": "Contact",
@@ -49,7 +49,7 @@
   "hero": {
     "eyebrow": "Cuiabá, Brazil",
     "role": "Data Engineer & BI Analyst",
-    "description": "Today I'm a Data Engineer at Grupo OTG, where I build web dashboards, data pipelines, and APIs for data products, and in parallel I consult on data engineering for OUD Tecnologia. Before that I coordinated a software team for two and a half years and built a lot of Power BI dashboards. In 2026 I founded DATAHack Univag.",
+    "description": "Today I'm a Data Engineer at Grupo OTG, where I build web dashboards, data pipelines, and APIs for data products, and in parallel I consult on data engineering for OUD Tecnologia. Before that I coordinated a software team for two and a half years and built a lot of Power BI dashboards. In 2026 I founded DataHack Univag.",
     "photo": "/lucas_stolpe_photo.png",
     "photoAlt": "Portrait of Lucas Stolpe",
     "ctas": [
@@ -70,6 +70,19 @@
       }
     ]
   },
+  "tour": {
+    "eyebrow": "Pick where to start",
+    "hints": {
+      "servicos": "{n} fronts, from data to decisions",
+      "experiencia": "{n} of experience",
+      "stack": "{n} tools — move your mouse",
+      "projetos": "{n} projects and GitHub",
+      "iniciativas": "the hackathon I founded",
+      "formacao": "postgraduate · PUC Minas",
+      "marcos": "{n} career milestones",
+      "contato": "let's talk"
+    }
+  },
   "about": {
     "eyebrow": "About",
     "heading": "I started in tech support. Now I build data infrastructure.",
@@ -82,17 +95,39 @@
       {
         "compute": "experience",
         "label": "of combined experience",
-        "help": "Sum of every work period, from my apprenticeship (2014) until today, not counting gaps between jobs. Computed from the timeline dates."
+        "help": "Sum of every work period, from my apprenticeship (2014) until today, not counting gaps between jobs. The strip shows each period on the timeline."
+      },
+      {
+        "value": "16",
+        "label": "years old at my first job writing code",
+        "note": "Apprentice, maintaining an internal PHP system (2014).",
+        "help": "Itamarati Norte, Oct/2014: administrative assistant and programmer as an apprentice."
+      },
+      {
+        "compute": "ladder",
+        "company": "WCOGEO",
+        "steps": [
+          "Intern",
+          "Developer",
+          "Coordinator"
+        ],
+        "label": "from intern to coordinator at WCOGEO",
+        "help": "From the C# internship (Feb/2021) to coordinating the projects team (Oct/2022). Computed from the timeline dates."
       },
       {
         "compute": "leadership",
         "label": "leading a technical team",
-        "help": "Time as Development Project Coordinator at WCOGEO (Oct/2022 to Feb/2025)."
+        "help": "Time as Development Project Coordinator at WCOGEO (Oct/2022 to Feb/2025). The strip highlights that period."
       },
       {
-        "value": "8",
-        "label": "teams at the first DATAHack",
-        "help": "Teams that competed at DATAHack Univag in Oct/2026, each building a full pipeline in one day."
+        "compute": "companies",
+        "label": "companies along the way",
+        "help": "Companies I've worked at, counted from the timeline, oldest to current."
+      },
+      {
+        "compute": "parallel",
+        "label": "roles at the same time today",
+        "help": "Data Engineer at Grupo OTG and, in parallel, data engineering consulting for OUD Tecnologia."
       }
     ]
   },
@@ -181,8 +216,8 @@
         "category": "Data & BI",
         "items": [
           "Power BI",
-          "Data product APIs",
           "Web dashboards",
+          "Data product APIs",
           "Python (Pandas, Asyncio)",
           "SQL",
           "ETL/ELT",
@@ -206,6 +241,7 @@
         "category": "Databases",
         "items": [
           "PostgreSQL (PostGIS)",
+          "BigQuery",
           "SQL Server",
           "MySQL"
         ]
@@ -213,8 +249,10 @@
       {
         "category": "Cloud & Integration",
         "items": [
+          "GCP (Cloud Run Jobs, Cloud Run Services, BigQuery, Storage)",
           "AWS (Lambda, S3)",
-          "GCP (Cloud Run, Storage)",
+          "MinIO",
+          "REST APIs",
           "Google Drive API"
         ]
       },
@@ -248,9 +286,10 @@
       {
         "category": "Front-end/Back-end",
         "items": [
-          "Vue",
-          "React",
+          "JavaScript",
           "TypeScript",
+          "React",
+          "Vue",
           "C# (.NET)"
         ]
       },
@@ -462,7 +501,7 @@
       {
         "date": "2026-10",
         "kind": "event",
-        "title": "First DATAHack Univag",
+        "title": "First DataHack Univag",
         "description": "The data engineering hackathon I founded with Alessandra Paz and Germano Manente Netto: 8 teams building a full pipeline in one day."
       },
       {
@@ -476,13 +515,13 @@
   "initiatives": {
     "sectionHead": {
       "eyebrow": "Initiatives",
-      "heading": "DATAHack Univag",
+      "heading": "DataHack Univag",
       "subheading": "A data engineering hackathon I took from idea to reality."
     },
     "items": [
       {
         "role": "Founder and Coordinator",
-        "name": "DATAHack Univag",
+        "name": "DataHack Univag",
         "org": "UNIVAG",
         "start": "2026-10",
         "end": "2026-10",
@@ -497,20 +536,104 @@
         ],
         "facts": [
           {
+            "value": "41",
+            "label": "participants"
+          },
+          {
             "value": "8",
             "label": "teams"
           },
           {
-            "value": "12h",
-            "label": "of hands-on work"
+            "value": "13",
+            "label": "judges and organizers"
           },
           {
-            "value": "5",
-            "label": "judging criteria"
+            "value": "12h",
+            "label": "of hands-on work"
           }
         ]
       }
-    ]
+    ],
+    "showcase": {
+      "logo": "datahack/logo.png",
+      "logoAlt": "DataHack Univag",
+      "tagline": "I founded a data hackathon at the university I graduated from.",
+      "edition": "1st edition · October 9–10, 2026 · Univag, Várzea Grande (MT, Brazil)",
+      "challenge": "The \"Rota do Diploma\" challenge: out of every 100 people who start a degree in Mato Grosso, how many graduate? And where along the way do they drop out? Each team had one day to answer with a full pipeline over public INEP and IBGE data.",
+      "link": {
+        "label": "See the event wall",
+        "href": "https://datahack.com.br/mural"
+      },
+      "highlightsHeading": "What I did",
+      "photo": {
+        "src": "datahack/encerramento.jpeg",
+        "alt": "Participants, mentors and organizers together at the closing of DataHack Univag 2026",
+        "caption": "Closing ceremony, with the podium on screen in reveal mode."
+      },
+      "podium": {
+        "heading": "Podium",
+        "note": "Team 05 won by 0.04 points, on a 0–100 score.",
+        "places": [
+          {
+            "place": "1st",
+            "team": "Equipe 05"
+          },
+          {
+            "place": "2nd",
+            "team": "Equipe Sentinela"
+          },
+          {
+            "place": "3rd",
+            "team": "Pandas em Pânico"
+          }
+        ],
+        "winnerLabel": "What the winning team shipped in one day",
+        "winnerStack": [
+          "Medallion architecture on PostgreSQL",
+          "dbt with 87 data tests",
+          "Airflow and Docker",
+          "Superset dashboards"
+        ]
+      },
+      "posts": {
+        "heading": "People who took part posted about it",
+        "open": "Open on LinkedIn",
+        "items": [
+          {
+            "author": "Lucas Stolpe",
+            "role": "DataHack founder",
+            "url": "https://www.linkedin.com/posts/lucas-henrique-s-a498b3a1_datahack-engenhariadedados-dataengineering-share-7517037536268046336-rGnA/",
+            "quote": [
+              "“A project I came up with on an ordinary night and decided to make real.”",
+              "Seeing participants genuinely into data engineering and analytics, posting about it and already asking for the next edition, was priceless. A dream come true."
+            ]
+          },
+          {
+            "author": "Fellype Lima",
+            "role": "1st place, Team 05",
+            "url": "https://www.linkedin.com/posts/fellypelima_datahack-engenhariadedados-dataengineering-ugcPost-7514872329802457089-n-hr/",
+            "embed": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7514872329802457089?collapsed=1",
+            "height": 627,
+            "quote": [
+              "“In a data project, trust in the number is worth as much as the number.”",
+              "In one day the team ran the full cycle over INEP and IBGE data: medallion architecture on PostgreSQL, dbt with 87 tests, Airflow on Docker, publishing only when every test passes, and Superset dashboards answering each question of the challenge."
+            ]
+          },
+          {
+            "author": "Adriely Abdala",
+            "role": "Volunteer mentor",
+            "url": "https://www.linkedin.com/posts/adriely-de-paula-cardoso-abdala-59b0b3185_datahack-voluntariado-engenhariadesoftware-share-7514850193704448001-UwdX/",
+            "embed": "https://www.linkedin.com/embed/feed/update/urn:li:share:7514850193704448001?collapsed=1",
+            "height": 570,
+            "quote": [
+              "“I took part in DataHack as a volunteer, working with IT colleagues and trading knowledge and experience.”",
+              "For her it was a chance to build communication and teamwork skills and keep growing personally and professionally."
+            ]
+          }
+        ],
+        "embedLabel": "Show the post here"
+      }
+    }
   },
   "projects": {
     "sectionHead": {
@@ -668,7 +791,7 @@
     ],
     "highlights": [
       {
-        "title": "DATAHack Univag",
+        "title": "DataHack Univag",
         "detail": "Founder and coordinator (Oct/2026)"
       },
       {
@@ -706,7 +829,7 @@
     "fileName": "Lucas_Henrique_Stolpe_Resume",
     "fullName": "Lucas Henrique Stolpe",
     "headline": "Data Engineer & BI Analyst",
-    "summary": "Data Engineer and BI Analyst with a postgraduate degree in Data Engineering (PUC Minas), combining technical depth with management experience: more than 2 years coordinating technology teams and projects, plus hands-on work in ETL/ELT pipeline architecture, data modeling, automation, and information governance. Founder of DATAHack Univag, a data engineering hackathon. Works end to end, from extraction to visualization, with Power BI, dbt, Airflow, Python, SQL, Docker, n8n, Streamlit, and cloud integrations (AWS, GCP). Efficient use of AI in development, with RAG, MCP servers, and Spec-Driven Development."
+    "summary": "Data Engineer and BI Analyst with a postgraduate degree in Data Engineering (PUC Minas), combining technical depth with management experience: more than 2 years coordinating technology teams and projects, plus hands-on work in ETL/ELT pipeline architecture, data modeling, automation, and information governance. Founder of DataHack Univag, a data engineering hackathon. Works end to end, from extraction to visualization, with Power BI, dbt, Airflow, Python, SQL, Docker, n8n, Streamlit, and cloud integrations (AWS, GCP). Efficient use of AI in development, with RAG, MCP servers, and Spec-Driven Development."
   },
   "footer": {
     "copyrightHolder": "Lucas Stolpe",
@@ -749,7 +872,7 @@
     "dice": {
       "eyebrow": "Data die",
       "heading": "Roll the die and let it choose your path",
-      "subheading": "An eight-sided die: each number takes you to a menu item, from About to Contact.",
+      "subheading": "An eight-sided die: each number opens a screen, from Services to Contact.",
       "buttonIdle": "Roll die",
       "buttonRolling": "Rolling...",
       "resultPrefix": "Landed on",
@@ -759,12 +882,12 @@
       "clickHint": "Click the die to roll",
       "sectionMessages": {
         "servicos": "What I deliver, from raw data to decisions.",
-        "sobre": "This is me: a quick overview of my path so far.",
-        "experiencia": "My work timeline, promotions included.",
+        "experiencia": "My career, company by company.",
+        "stack": "The tools I use, with their logos falling down the screen.",
         "projetos": "Things I built on my own.",
-        "iniciativas": "The data engineering hackathon I founded at UNIVAG.",
-        "skills": "The tools I use day to day.",
+        "iniciativas": "The data engineering hackathon I founded.",
         "formacao": "Education, courses, and languages.",
+        "marcos": "The milestones of my career.",
         "contato": "Looks like destiny wants us to talk."
       }
     },
@@ -881,6 +1004,14 @@
       "problem": "The problem",
       "deliver": "What I deliver",
       "cta": "Facing one of these? Let's talk"
+    },
+    "tour": {
+      "home": "Home",
+      "next": "Next",
+      "of": "of",
+      "stackHint": "a few of my skills…",
+      "stackMouse": "(move your mouse)",
+      "stackTouch": "(drag your finger)"
     }
   }
 }

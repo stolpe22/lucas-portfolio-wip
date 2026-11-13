@@ -3,7 +3,7 @@ import type { SiteContent } from "../../types/content";
 import type { GithubRepo } from "../../types/github";
 import { Section } from "../shared/SectionHead";
 import { ArrowUpRightIcon } from "../shared/icons";
-import { gsap, MOTION_OK, ScrollTrigger, SplitText, useGSAP } from "../../lib/gsap";
+import { gsap, MOTION_OK, ScrollTrigger, SplitText, unclipMasks, useGSAP } from "../../lib/gsap";
 
 interface ProjectsProps {
   projects: SiteContent["projects"];
@@ -99,7 +99,7 @@ export function Projects({ projects, repos, ui }: ProjectsProps) {
         });
         const build = () => gsap.utils.toArray<HTMLElement>("[data-project]", listRef.current).forEach((row) => {
           const title = row.querySelector<HTMLElement>("[data-project-title]");
-          const split = title ? SplitText.create(title, { type: "chars", mask: "chars" }) : null;
+          const split = title ? unclipMasks(SplitText.create(title, { type: "chars", mask: "chars" })) : null;
           if (split) splits.push(split);
           const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 82%", once: true } });
           tl.from(row.querySelector("[data-project-body]"), { clipPath: "inset(0% 100% 0% 0%)", duration: 1.1, ease: "expo.inOut" })
